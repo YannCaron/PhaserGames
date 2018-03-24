@@ -2,6 +2,7 @@
 
 Some Javascript's Phaser game POCs
 
+Planetcute [source code](planetcute.html)
+
 ![planetcute](img/planetcute.png)
 
-see [planetcute.html](planetcute.html)
