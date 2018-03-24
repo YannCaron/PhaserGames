@@ -11,7 +11,7 @@
 		var scoreText;
 		var liveText;
 		var player;
-		var groundGroup, gemGroup, ennemyGroup, bulletGroup;
+		var groundGroup, gemGroup, enemyGroup, bulletGroup;
 		var score = 0;
 		var life = 5;
 
@@ -20,6 +20,8 @@
 		}
 
 		function preload() {
+			console.log("preload");
+
 			game.load.image('sky', 'assets/img/PlanetCute/Sky.png');
 			game.load.image('floor1', 'assets/img/PlanetCute/Grass Block.png');
 			game.load.image('floor2', 'assets/img/PlanetCute/Dirt Block.png');
@@ -32,7 +34,7 @@
 			game.load.image('gem2', 'assets/img/PlanetCute/Gem Green.png');
 			game.load.image('gem3', 'assets/img/PlanetCute/Gem Orange.png');
 			game.load.image('star', 'assets/img/PlanetCute/Star.png');
-			game.load.image('ennemy', 'assets/img/PlanetCute/Enemy Bug.png');
+			game.load.image('enemy', 'assets/img/PlanetCute/Enemy Bug.png');
 
 			game.time.advancedTiming = true;
 		}
@@ -88,13 +90,13 @@
 			}
 
 			// enemy
-			ennemyGroup = game.add.group();
-			ennemyGroup.enableBody = true;
+			enemyGroup = game.add.group();
+			enemyGroup.enableBody = true;
 			for (var i = 0; i < 20; i++) {
-				var ennemy = ennemyGroup.create(rnd (game.world.width) + 1000, rnd (game.world.height - 150), 'ennemy');
-				ennemy.anchor.setTo(0.5, 0.5);
-				ennemy.scale.x *= -1;
-				ennemy.body.velocity.x = -150
+				var enemy = enemyGroup.create(rnd (game.world.width) + 1000, rnd (game.world.height - 150), 'enemy');
+				enemy.anchor.setTo(0.5, 0.5);
+				enemy.scale.x *= -1;
+				enemy.body.velocity.x = -150
 			}
 
 			// event
@@ -118,15 +120,21 @@
 
     		game.physics.arcade.collide(player, groundGroup);
     		game.physics.arcade.overlap(player, gemGroup, function (player, gem) {
+				console.log("gem overlapped [" + gem + "]");
+
 			    gem.destroy();
 			    score += 10;
     		}, null, this);
-    		game.physics.arcade.overlap(player, ennemyGroup, function (player, ennemy) {
-    			ennemy.destroy();
+    		game.physics.arcade.overlap(player, enemyGroup, function (player, enemy) {
+				console.log("enemy overlapped [" + enemy + "]");
+
+    			enemy.destroy();
     			life -= 1;
     		})
-    		game.physics.arcade.overlap(bulletGroup, ennemyGroup, function (bullet, ennemy) {
-    			ennemy.destroy();
+    		game.physics.arcade.overlap(bulletGroup, enemyGroup, function (bullet, enemy) {
+				console.log("bullet overlap enemy [" + bullet + ", " + enemy + "]");
+
+    			enemy.destroy();
     		})
 
 		    player.body.velocity.x = 500;
