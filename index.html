@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1">
+<head>
+    <script src="http://cdn.jsdelivr.net/npm/phaser@3.0.0/dist/phaser.min.js"></script>
+</head>
+<body>
 
     <title>Hello World</title>
 
@@ -22,5 +23,26 @@
     <!-- This code is in the public domain. Enjoy! -->
     <h1>Hello World</h1>
   </body>
+
+      var particles = this.add.particles('red');
+
+      var emitter = particles.createEmitter({
+          speed: 100,
+          scale: { start: 1, end: 0 },
+          blendMode: 'ADD'
+      });
+
+      var logo = this.physics.add.image(400, 100, 'logo');
+
+      logo.setVelocity(100, 200);
+      logo.setBounce(1, 1);
+      logo.setCollideWorldBounds(true);
+
+      emitter.startFollow(logo);
+
+    }
+    </script>
+
+</body>
 
 </html>
