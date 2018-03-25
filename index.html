@@ -5,43 +5,12 @@
 </head>
 <body>
 
-    <title>Hello World</title>
-
-    <style>
-      body {
-        border: 1px solid black;
-      }
-    </style>
-
-    <!-- Inline scripts are forbidden in Firefox OS apps (CSP restrictions),
-         so we use a script file. -->
-    <script src="app.js" defer></script>
-
-  </head>
-
-  <body>
-    <!-- This code is in the public domain. Enjoy! -->
-    <h1>Hello World</h1>
-  </body>
-
-      var particles = this.add.particles('red');
-
-      var emitter = particles.createEmitter({
-          speed: 100,
-          scale: { start: 1, end: 0 },
-          blendMode: 'ADD'
-      });
-
-      var logo = this.physics.add.image(400, 100, 'logo');
-
-      logo.setVelocity(100, 200);
-      logo.setBounce(1, 1);
-      logo.setCollideWorldBounds(true);
-
-      emitter.startFollow(logo);
-
-    }
-    </script>
+<p>
+<h1>Javascript POCs</h1>
+<a href="planetcute.html">Planet cute</a><br><br>
+<a href="breakout.html">Breakout</a><br><br>
+<a href="code4kids.html">Code 4 Kids</a><br><br>
+</p>
 
 </body>
 
