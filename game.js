@@ -1,0 +1,141 @@
+var game = new Phaser.Game(1024, 768, Phaser.AUTO, 'content_game', { preload: preload, create: create, update: update, render: render });
+
+var scoreText;
+var liveText;
+var player;
+var groundGroup, gemGroup, enemyGroup, bulletGroup;
+var score = 0;
+var life = 5;
+
+function rnd(max) {
+    return 1 + Math.floor(Math.random() * Math.floor(max));
+}
+
+function preload() {
+    console.log("preload");
+
+    game.load.image('sky', 'assets/img/PlanetCute/Sky.png');
+    game.load.image('floor1', 'assets/img/PlanetCute/Grass Block.png');
+    game.load.image('floor2', 'assets/img/PlanetCute/Dirt Block.png');
+    game.load.image('floor3', 'assets/img/PlanetCute/Brown Block.png');
+    game.load.image('beetle', 'assets/img/PlanetCute/beetleship.png');
+    game.load.image('tree1', 'assets/img/PlanetCute/Tree Short.png');
+    game.load.image('tree2', 'assets/img/PlanetCute/Tree Tall.png');
+    game.load.image('tree3', 'assets/img/PlanetCute/Tree Ugly.png');
+    game.load.image('gem1', 'assets/img/PlanetCute/Gem Blue.png');
+    game.load.image('gem2', 'assets/img/PlanetCute/Gem Green.png');
+    game.load.image('gem3', 'assets/img/PlanetCute/Gem Orange.png');
+    game.load.image('star', 'assets/img/PlanetCute/Star.png');
+    game.load.image('enemy', 'assets/img/PlanetCute/Enemy Bug.png');
+
+    game.time.advancedTiming = true;
+}
+
+function create() {
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+
+    // background
+    game.add.tileSprite(0, 0, 5920, 768, 'sky');
+    game.world.setBounds(0, 0, 5920, 768);
+
+    // info
+    var style = { font: "24px Arial", fill: "#ffffff", align: "center" };
+    scoreText = game.add.text(32, 32, 'scoreText', style);
+    scoreText.fixedToCamera = true;
+    liveText = game.add.text(182, 32, 'liveText', style);
+    liveText.fixedToCamera = true;
+
+    // player
+    player = game.add.sprite(150, 150, 'beetle');
+    game.physics.arcade.enable(player);
+    game.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 1, 0.1);
+
+    //  Player physics properties. Give the little guy a slight bounce.
+    player.body.bounce.y = 0.2;
+    player.body.gravity.y = 1000;
+    player.body.collideWorldBounds = true;
+
+    // ground
+    groundGroup = game.add.group();
+    groundGroup.enableBody = true;
+    var v = rnd(3);
+    for (var i = 0; i < 70; i++) {
+        if (rnd(5) % 5 == 0) v = rnd(3);
+        var floor = groundGroup.create(i * 100, game.world.height - 150, 'floor' + v)
+        floor.body.immovable = true;
+        floor.body.setSize(100, 100, 0, 100); // w, h, x, y
+    }
+
+    // ground:tree
+    for (var i = 0; i < 20; i++) {
+        var tree = groundGroup.create(rnd(game.world.width), game.world.height - 125 - rnd(50), 'tree' + rnd(3));
+        tree.body.immovable = true;
+    }
+
+    // gem
+    gemGroup = game.add.group();
+    gemGroup.enableBody = true;
+    for (var i = 0; i < 20; i++) {
+        var gem = gemGroup.create(rnd(game.world.width), rnd(game.world.height - 150), 'gem' + rnd(3));
+        gem.scale.setTo(0.5, 0.5);
+        gem.body.immovable = true;
+    }
+
+    // enemy
+    enemyGroup = game.add.group();
+    enemyGroup.enableBody = true;
+    for (var i = 0; i < 20; i++) {
+        var enemy = enemyGroup.create(rnd(game.world.width) + 1000, rnd(game.world.height - 150), 'enemy');
+        enemy.anchor.setTo(0.5, 0.5);
+        enemy.scale.x *= -1;
+        enemy.body.velocity.x = -150
+    }
+
+    // event
+    game.input.mouse.capture = true;
+
+    bulletGroup = game.add.group();
+    bulletGroup.enableBody = true;
+    game.input.keyboard.addCallbacks(this, function () {
+        var star = bulletGroup.create(player.x + 150, player.y + 80, 'star');
+        star.scale.setTo(0.5, 0.5);
+        game.physics.arcade.enable(star);
+        star.body.velocity.x = 1000;
+    });
+
+}
+
+function update() {
+    // info
+    scoreText.text = "Score: " + score;
+    liveText.text = "Live: " + life;
+
+    game.physics.arcade.collide(player, groundGroup);
+    game.physics.arcade.overlap(player, gemGroup, function (player, gem) {
+        console.log("gem overlapped [" + gem + "]");
+
+        gem.destroy();
+        score += 10;
+    }, null, this);
+    game.physics.arcade.overlap(player, enemyGroup, function (player, enemy) {
+        console.log("enemy overlapped [" + enemy + "]");
+
+        enemy.destroy();
+        life -= 1;
+    })
+    game.physics.arcade.overlap(bulletGroup, enemyGroup, function (bullet, enemy) {
+        console.log("bullet overlap enemy [" + bullet + ", " + enemy + "]");
+
+        enemy.destroy();
+    })
+
+    player.body.velocity.x = 500;
+
+    if (game.input.activePointer.leftButton.isDown) {
+        player.body.velocity.y = -300;
+    }
+}
+
+function render() {
+    game.debug.text(game.time.fps || '--', 2, 14, "#cccccc");
+}

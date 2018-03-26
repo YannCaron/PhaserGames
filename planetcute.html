@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="//cdn.jsdelivr.net/phaser/2.6.2/phaser.min.js"></script>
-    <!--<script src="js/phaser/2.6.2/phaser.min.js"></script>-->
+    <!--<script src="//cdn.jsdelivr.net/phaser/2.6.2/phaser.min.js"></script>-->
+    <script src="js/phaser/2.6.2/phaser.min.js"></script>
 </head>
 <body>
 
+	<div id='content'></div>
+
     <script>
-		var game = new Phaser.Game(1024, 768, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
+		var game = new Phaser.Game(1024, 768, Phaser.AUTO, 'content', { preload: preload, create: create, update: update, render: render });
 
 		var scoreText;
 		var liveText;
