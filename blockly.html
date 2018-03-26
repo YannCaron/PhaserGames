@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <script src="js/blockly/blockly_compressed.js"></script>
+    <script src="js/blockly/blocks_compressed.js"></script>
+    <script src="js/blockly/javascript_compressed.js"></script>
+    <script src="js/blockly/msg/js/fr.js"></script>
+    <script src="blocks/create_actor.js"></script>
+    <script src="generators/javascript/create_actor.js"></script>
+</head>
+<body>
+	<div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
+	<textarea id="textarea" style="height: 480px; width: 600px;"></textarea>
+
+
+	<xml id="toolbox" style="display: none">
+		<block type="create_actor"></block>
+	  <block type="controls_if"></block>
+	  <block type="controls_repeat_ext"></block>
+	  <block type="logic_compare"></block>
+	  <block type="math_number"></block>
+	  <block type="math_arithmetic"></block>
+	  <block type="text"></block>
+	  <block type="text_print"></block>
+	</xml>
+
+    <script>
+    	// to create actor drop down, see : https://developers.google.com/blockly/guides/create-custom-blocks/dropdown-menus
+
+    	var workspace = Blockly.inject('blocklyDiv',
+      		{toolbox: document.getElementById('toolbox')});
+
+		function myUpdateFunction(event) {
+		  var code = Blockly.JavaScript.workspaceToCode(workspace);
+		  document.getElementById('textarea').value = code;
+		}
+		workspace.addChangeListener(myUpdateFunction);
+
+
+    </script>
+
+</body>
+</html>

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="http://cdn.jsdelivr.net/phaser/2.6.2/phaser.min.js"></script>
+    <script src="//cdn.jsdelivr.net/phaser/2.6.2/phaser.min.js"></script>
+    <!--<script src="js/phaser/2.6.2/phaser.min.js"></script>-->
 </head>
 <body>
 
@@ -42,11 +43,9 @@
 		function create() {
 			game.physics.startSystem(Phaser.Physics.ARCADE);
 
+			// background
 			game.add.tileSprite(0, 0, 5920, 768, 'sky');
 			game.world.setBounds(0, 0, 5920, 768);
-
-			groundGroup = game.add.group();
-			groundGroup.enableBody = true;
 
 			// info
 			var style = { font: "24px Arial", fill: "#ffffff", align: "center" };
@@ -66,6 +65,8 @@
 		    player.body.collideWorldBounds = true;
 
 			// ground
+			groundGroup = game.add.group();
+			groundGroup.enableBody = true;
 			var v = rnd(3);
 			for (var i = 0; i < 70; i++) {
 				if (rnd(5) % 5 == 0) v = rnd(3);
@@ -74,7 +75,7 @@
 				floor.body.setSize(100, 100, 0, 100); // w, h, x, y
 			}
 
-			// tree
+			// ground:tree
 			for (var i = 0; i < 20; i++) {
 				var tree = groundGroup.create(rnd (game.world.width), game.world.height - 125 - rnd(50), 'tree' + rnd(3));
 				tree.body.immovable = true;
