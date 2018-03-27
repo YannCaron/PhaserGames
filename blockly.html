@@ -12,8 +12,12 @@
 	<script src="js/blockly/blocks_compressed.js"></script>
 	<script src="js/blockly/javascript_compressed.js"></script>
 	<script src="code.js"></script>
+	<!-- custom -->
+	<script src="msg/global.js"></script>
+	<script src="blocks/game.js"></script>
+	<script src="generators/javascript/game.js"></script>	
 	<!-- phaser -->
-	<script src="http://cdn.jsdelivr.net/phaser/2.6.2/phaser.min.js"></script>
+	<!--<script src="http://cdn.jsdelivr.net/phaser/2.6.2/phaser.min.js"></script>-->
 	<!--<script src="game.js"></script>-->
 </head>
 
@@ -63,6 +67,7 @@
 	<div id="content_game" class="content"></div>
 
 	<xml id="toolbox" style="display: none">
+		<!--
 		<category name="%{BKY_CATLOGIC}" colour="%{BKY_LOGIC_HUE}">
 			<block type="controls_if"></block>
 			<block type="logic_compare"></block>
@@ -356,7 +361,10 @@
 		</category>
 		<sep></sep>
 		<category name="%{BKY_CATVARIABLES}" colour="%{BKY_VARIABLES_HUE}" custom="VARIABLE"></category>
-		<category name="%{BKY_CATFUNCTIONS}" colour="%{BKY_PROCEDURES_HUE}" custom="PROCEDURE"></category>
+		<category name="%{BKY_CATFUNCTIONS}" colour="%{BKY_PROCEDURES_HUE}" custom="PROCEDURE"></category>-->
+		<category name="%{BKY_CATACTOR}" colour="%{BKY_ACTOR_HUE}">
+			<block type="create_actor"></block>
+		</category>
 	</xml>
 
 </body>

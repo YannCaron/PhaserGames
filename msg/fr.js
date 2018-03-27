@@ -20,5 +20,8 @@ var MSG = {
   linkAlert: "Partagez vos blocs grâce à ce lien:\n\n%1",
   hashError: "Désolé, '%1' ne correspond à aucun programme sauvegardé.",
   xmlError: "Impossible de charger le fichier de sauvegarde.  Peut être a t-il été créé avec une autre version de Blockly?",
-  badXml: "Erreur d’analyse du XML :\n%1\n\nSélectionner 'OK' pour abandonner vos modifications ou 'Annuler' pour continuer à modifier le XML."
+  badXml: "Erreur d’analyse du XML :\n%1\n\nSélectionner 'OK' pour abandonner vos modifications ou 'Annuler' pour continuer à modifier le XML.",
+
+  // CyaNn Code
+  catActor: "Acteur",
 };

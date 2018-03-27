@@ -401,6 +401,12 @@ Code.init = function() {
 
   // Lazy-load the syntax-highlighting.
   window.setTimeout(Code.importPrettify, 1);
+
+  // CyaNn Code
+  /*Code.workspace.registerToolboxCategoryCallback(
+    'ACTOR', Code.actorCallback);
+    */
+
 };
 
 /**
@@ -489,3 +495,25 @@ document.write('<script src="msg/' + Code.LANG + '.js"></script>\n');
 document.write('<script src="js/blockly/msg/js/' + Code.LANG + '.js"></script>\n');
 
 window.addEventListener('load', Code.init);
+
+// CyaNn Code
+/*
+Code.actors = [];
+
+Code.actorCallback = function (workspace) {
+  // Returns an array of hex colours, e.g. ['#4286f4', '#ef0447']
+  var colourList = ['blue', 'red'];
+  var xmlList = [];
+  if (Blockly.Blocks['colour_picker']) {
+    for (var i = 0; i < colourList.length; i++) {
+      var blockText = '<xml>' +
+        '<block type="colour_picker">' +
+        '<field name="COLOUR">' + colourList[i] + '</field>' +
+        '</block>' +
+        '</xml>';
+      var block = Blockly.Xml.textToDom(blockText).firstChild;
+      xmlList.push(block);
+    }
+  }
+  return xmlList;
+};*/
