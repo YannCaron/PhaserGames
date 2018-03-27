@@ -14,6 +14,7 @@
 	<script src="code.js"></script>
 	<!-- custom -->
 	<script src="msg/global.js"></script>
+	<script src="resources.js"></script>
 	<script src="blocks/game.js"></script>
 	<script src="generators/javascript/game.js"></script>	
 	<!-- phaser -->
@@ -67,7 +68,6 @@
 	<div id="content_game" class="content"></div>
 
 	<xml id="toolbox" style="display: none">
-		<!--
 		<category name="%{BKY_CATLOGIC}" colour="%{BKY_LOGIC_HUE}">
 			<block type="controls_if"></block>
 			<block type="logic_compare"></block>
@@ -361,9 +361,41 @@
 		</category>
 		<sep></sep>
 		<category name="%{BKY_CATVARIABLES}" colour="%{BKY_VARIABLES_HUE}" custom="VARIABLE"></category>
-		<category name="%{BKY_CATFUNCTIONS}" colour="%{BKY_PROCEDURES_HUE}" custom="PROCEDURE"></category>-->
+		<category name="%{BKY_CATFUNCTIONS}" colour="%{BKY_PROCEDURES_HUE}" custom="PROCEDURE"></category>
 		<category name="%{BKY_CATACTOR}" colour="%{BKY_ACTOR_HUE}">
-			<block type="create_actor"></block>
+			<block type="game_image"></block>
+			<block type="create_actor">
+				<value name="IMG">
+					<shadow type="game_image">
+						<field name="IMG"></field>
+					</shadow>
+				</value>
+				<value name="X">
+					<shadow type="math_number">
+						<field name="NUM">50</field>
+					</shadow>
+				</value>
+				<value name="Y">
+					<shadow type="math_number">
+						<field name="NUM">50</field>
+					</shadow>
+				</value>
+			</block>
+			<block type="camera_follow"></block>
+			<block type="actor_setNumber">
+				<value name="VALUE">
+					<shadow type="math_number">
+						<field name="NUM">0</field>
+					</shadow>
+				</value>
+			</block>
+			<block type="actor_setBool">
+				<value name="VALUE">
+					<shadow type="logic_boolean">
+						<field name="NUM">true</field>
+					</shadow>
+				</value>
+			</block>
 		</category>
 	</xml>
 

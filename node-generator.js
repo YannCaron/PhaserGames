@@ -1,37 +1,34 @@
 var http = require('http');
 var fs = require('fs');
 
-const imgFolder = 'assets/img';
+const imgFolder = 'assets/img/PlanetCute';
 
-var ressourceContent;
+function appendFileRecursive(content, path) {
 
-function appendFileRecursive(path) {
+    fs.readdirSync(path).forEach(function (file) {
+        var f = path + '/' + file;
+        var stats = fs.statSync(f);
+        if (stats.isDirectory()) {
+            appendFileRecursive(content, f);
+        } else {
+            var name = f.replace(/\//g, '-')
+                .replace(/ /g, '-')
+                .replace(/_/g, '-')
+                .replace(/\.[^/.]+$/, '');
+            content.push('gameImgs[\'' + name + '\'] = \'' + f + '\';');
+        }
 
-    fs.readdir(path, (err, files) => {
-        if (err) throw err;
-        files.forEach(file => {
-            var f = path + '/' + file;
-            
-            fs.stat(f, function (err, stats) {
-                if (stats.isDirectory()) {
-                    appendFileRecursive(f);
-                } else {
-                    var name = f.replace(/\//g, '-').replace(/\.[^/.]+$/, '');
-                    ressourceContent += 'gameImgs[\'' + name + '\'] = \'' + f + '\';\n';
-                }
-            });
-        });
-    })
+    });
 
 }
 
 function createGameImages(res) {
-    ressourceContent = 'var gameImgs = {};';
-    appendFileRecursive(imgFolder);
+    var content = ['var gameImgs = {};'];
+    appendFileRecursive(content, imgFolder);
 
-    fs.writeFile('ressources.js', ressourceContent, function (err) {
+    fs.writeFile('resources.js', content.join('\n'), function (err) {
         if (err) throw err;
-        console.log('Ressources created.');
+        console.log('Resources created [' + content.length + ']\n');
     }); 
 
 }
