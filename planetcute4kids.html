@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <!--<script src="http://cdn.jsdelivr.net/phaser/2.6.2/phaser.min.js"></script>-->
+    <script src="js/phaser/2.6.2/phaser.min.js"></script>
+    <!--<script src="phaser4kids.js"></script>-->
+</head>
+<body>
+
+	<div id='content_game'></div>
+
+    <script>
+        var MODULE = (function () {
+            var my = {};
+
+            my.obj = {
+                doThis: function () {
+
+                }
+            };
+
+            return my;
+        }());
+
+        var myObj = new MODULE.obj();
+        myObj.doThis();
+        //var game = new p4k.Game(1024, 768, 'content_game');
+
+    </script>
+
+</body>
+</html>

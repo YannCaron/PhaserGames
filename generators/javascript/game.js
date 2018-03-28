@@ -29,6 +29,12 @@ Blockly.JavaScript['camera_follow'] = function (block) {
   return code;
 };
 
+Blockly.JavaScript['actor_physic'] = function (block) {
+  var name = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('NAME'), Blockly.Variables.NAME_TYPE);
+  var code = 'game.physics.arcade.enable(' + name + ');\n';
+  return code;
+};
+
 Blockly.JavaScript['actor_setNumber'] = function (block) {
   var name = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('NAME'), Blockly.Variables.NAME_TYPE);
   var accessor = block.getFieldValue('ACCESSOR');
@@ -42,5 +48,18 @@ Blockly.JavaScript['actor_setBool'] = function (block) {
   var accessor = block.getFieldValue('ACCESSOR');
   var value = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_ATOMIC);
   var code = name + '.' + accessor + ' = ' + value + ';\n';
+  return code;
+};
+
+Blockly.JavaScript['actor_collide'] = function (block) {
+  var obj1 = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('OBJ1'), Blockly.Variables.NAME_TYPE);
+  var event = block.getFieldValue('EVENT');
+  var obj2 = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('OBJ2'), Blockly.Variables.NAME_TYPE);
+  var stmt = Blockly.JavaScript.statementToCode(block, 'STMT');
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'game.physics.arcade.' + event + '(' + obj1 + ', ' + obj2 + ', function (' + obj1 + ', ' + obj2 + ') {\n';
+  code += 'console.log(\'collide\');\n';
+  code += stmt;
+  code += '}, null, this);\n';
   return code;
 };

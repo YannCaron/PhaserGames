@@ -6,19 +6,21 @@
 	<meta name="google" value="notranslate">
 	<title>Blockly Demo:</title>
 	<link rel="stylesheet" href="style.css">
+	<!-- phaser -->
+	<script src="http://cdn.jsdelivr.net/phaser/2.6.2/phaser.min.js"></script>
 	<!-- blocky -->
 	<script src="js/blockly/appengine/storage.js"></script>
 	<script src="js/blockly/blockly_compressed.js"></script>
 	<script src="js/blockly/blocks_compressed.js"></script>
 	<script src="js/blockly/javascript_compressed.js"></script>
-	<script src="code.js"></script>
 	<!-- custom -->
 	<script src="msg/global.js"></script>
 	<script src="resources.js"></script>
 	<script src="blocks/game.js"></script>
 	<script src="generators/javascript/game.js"></script>	
-	<!-- phaser -->
-	<!--<script src="http://cdn.jsdelivr.net/phaser/2.6.2/phaser.min.js"></script>-->
+	<!-- page -->
+	<script src="blockly.js"></script>
+
 	<!--<script src="game.js"></script>-->
 </head>
 
@@ -381,7 +383,7 @@
 					</shadow>
 				</value>
 			</block>
-			<block type="camera_follow"></block>
+			<block type="actor_physic"></block>
 			<block type="actor_setNumber">
 				<value name="VALUE">
 					<shadow type="math_number">
@@ -396,6 +398,8 @@
 					</shadow>
 				</value>
 			</block>
+			<block type="actor_collide"></block>
+			<block type="camera_follow"></block>
 		</category>
 	</xml>
 

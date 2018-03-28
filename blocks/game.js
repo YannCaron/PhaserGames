@@ -10,37 +10,13 @@ Blockly.Blocks['game_image'] = {
     this.setColour(195);
     this.setTooltip("");
     this.setHelpUrl("");
+  },
+
+  getImage: function () {
+    var key = this.getFieldValue('IMG');
+    return {'key': key, 'url': gameImgs[key]};
   }
 };
-
-/*
-Blockly.Blocks['create_actor'] = {
-
-  init: function() {
-    this.appendDummyInput()
-      .appendField("create actor")
-      .appendField(new Blockly.FieldVariable("actor"), "NAME")
-    this.appendValueInput("IMG")
-      .setCheck("Image")
-    this.appendValueInput("X")
-      .setCheck("Number")
-      .appendField("x to");
-    this.appendValueInput("Y")
-      .setCheck("Number")
-      .appendField("y to");
-    this.setInputsInline(true);
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(210);
-    this.setTooltip("Create a new actor in the game.");
-    this.setHelpUrl("");
-
-    this.setOnChange(function (changeEvent) {
-      this.setWarningText(this.getInput('NAME'));
-    });
-
-  }
-};*/
 
 Blockly.Blocks['create_actor'] = {
   init: function () {
@@ -74,11 +50,25 @@ Blockly.Blocks['camera_follow'] = {
   }
 };
 
+Blockly.Blocks['actor_physic'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("enable physic for")
+      .appendField(new Blockly.FieldVariable("actor"), "NAME");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(195);
+    this.setTooltip("");
+    this.setHelpUrl("");
+  }
+};
+
 Blockly.Blocks['actor_setNumber'] = {
   init: function () {
     var options = [
+      ["velocity x", "body.velocity.x"], ["velocity y", "body.velocity.y"],
       ["bounce x", "body.bounce.x"], ["bounce y", "body.bounce.y"], 
-      ["gravity x", "body.gravity.x"], ["gravity y", "body.gravity.y"]
+      ["gravity x", "body.gravity.x"], ["gravity y", "body.gravity.y"],
     ];
     this.appendDummyInput()
       .appendField("with")
@@ -119,4 +109,23 @@ Blockly.Blocks['actor_setBool'] = {
     this.setTooltip("");
     this.setHelpUrl("");
   }
+};
+
+Blockly.Blocks['actor_collide'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("when")
+      .appendField(new Blockly.FieldVariable("actor"), "OBJ1")
+      .appendField(new Blockly.FieldDropdown([["collide", "collide"], ["intersects", "intersects"], ["overlap", "overlap"]]), "EVENT")
+      .appendField("with")
+      .appendField(new Blockly.FieldVariable("actor"), "OBJ2");
+    this.appendStatementInput("STMT")
+      .setCheck(null);
+    this.setInputsInline(false);
+    this.setColour(65);
+    this.setTooltip("");
+    this.setHelpUrl("");
+  },
+
+  isEvent:true
 };
