@@ -547,6 +547,8 @@ Blockly.Generator.generateGame = function (workspace, generator, code, ind) {
   Blockly.Generator.generateCreate(workspace, generator, code, ind);
   code.push('');
   Blockly.Generator.generateUpdate(workspace, generator, code, ind);
+  code.push('');
+  Blockly.Generator.generateRender(workspace, generator, code, ind);
 };
 
 Blockly.Generator.generatePreload = function (workspace, generator, code, ind) {
@@ -572,7 +574,8 @@ Blockly.Generator.generateCreate = function (workspace, generator, code, ind) {
 
   var blocks = workspace.getTopBlocks(true);
   for (var x = 0, block; block = blocks[x]; x++) {
-    if (!block.isEvent) {
+    console.log(block.runIn);
+    if (!block.runIn || block.runIn == 'create') {
       var line = Blockly.Generator.blockToCode(generator, block);
       code.push(line.replace(/^/gm, Code.indent(ind + 1)));
     }
@@ -587,7 +590,22 @@ Blockly.Generator.generateUpdate = function (workspace, generator, code, ind) {
 
   var blocks = workspace.getTopBlocks(true);
   for (var x = 0, block; block = blocks[x]; x++) {
-    if (block.isEvent) {
+    if (block.runIn && block.runIn == 'update') {
+      var line = Blockly.Generator.blockToCode(generator, block);
+      code.push(line);
+    }
+  }
+
+  code.push(Code.indent(ind) + '}\n');
+}
+
+Blockly.Generator.generateRender = function (workspace, generator, code, ind) {
+  code.push(Code.indent(ind) + 'function render() {');
+  code.push(Code.indent(ind + 1) + '// game render called each frame');
+
+  var blocks = workspace.getTopBlocks(true);
+  for (var x = 0, block; block = blocks[x]; x++) {
+    if (block.runIn && block.runIn == 'render') {
       var line = Blockly.Generator.blockToCode(generator, block);
       code.push(line);
     }
