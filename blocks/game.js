@@ -1,4 +1,57 @@
+// Global
+Blockly.Block.DEFAULT_VAR = 'actor';
+
+Blockly.Block.prototype.findParentVariable = function () {
+  var parent = this.getParent();
+
+  while (parent != undefined) {
+    if (parent.type === 'variables_set') {
+      parentVariable = parent.getField('VAR').getVariable();
+      return parentVariable;
+    }
+
+    parent = parent.getParent();
+  }
+
+  return null;
+}
+
+Blockly.Block.prototype.selectNearestVar = function (change) {
+  this.findParentVariable();
+  var variable = this.getField('VAR').getVariable();
+  if (change.newParentId != undefined && variable.name == Blockly.Block.DEFAULT_VAR) {
+    var parentVariable = this.findParentVariable();
+
+    if (parentVariable != null) {
+      this.getField('VAR').setValue(parentVariable.getId());
+    }
+  }
+}
+
 // Game
+Blockly.Blocks['create_game'] = {
+  init: function () {
+    this.appendValueInput("IMG")
+      .setCheck("Image")
+      .appendField("create game");
+    this.appendValueInput("W")
+      .setCheck("Number")
+      .appendField("width to");
+    this.appendValueInput("H")
+      .setCheck("Number")
+      .appendField("height to");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(195);
+    this.setTooltip("");
+    this.setHelpUrl("");
+  },
+
+  runIn: 'create'
+};
+
+
 Blockly.Blocks['game_debug'] = {
   init: function () {
     this.appendDummyInput()
@@ -17,15 +70,71 @@ Blockly.Blocks['camera_follow'] = {
   init: function () {
     this.appendDummyInput()
       .appendField("camera follow")
-      .appendField(new Blockly.FieldVariable("actor"), "NAME");
+      .appendField(new Blockly.FieldVariable("actor"), "VAR");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(195);
     this.setTooltip("");
     this.setHelpUrl("");
+
+    this.setOnChange(this.selectNearestVar);
   },
 
   runIn: 'create'
+};
+
+// Game::event
+Blockly.Blocks['key_down'] = {
+  init: function () {
+    var options = [
+      ["← left", "LEFT"], // ↺ ↻ found on https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Caract%C3%A8res_sp%C3%A9ciaux/Fl%C3%A8ches
+      ["→ right", "RIGHT"],
+      ["↑ up", "UP"],
+      ["↓ down", "DOWN"],
+      ["↲ enter", "ENTER"],
+      ["  space", "SPACE"]
+    ];
+
+    this.appendDummyInput()
+      .appendField("when key")
+      .appendField(new Blockly.FieldDropdown(options), "EVENT")
+      .appendField("down")
+      .appendField("once")
+      .appendField(new Blockly.FieldCheckbox("FALSE"), "ONCE");
+    this.appendStatementInput("STMT")
+      .setCheck(null)
+    this.setInputsInline(false);
+    this.setColour(65);
+    this.setTooltip("");
+    this.setHelpUrl("");
+  },
+
+  runIn: 'update'
+};
+
+Blockly.Blocks['mouse_down'] = {
+  init: function () {
+    var options = [
+      ["left", "onMouseLeftDowm"],
+      ["middle", "onMouseMiddleDowm"],
+      ["right", "onMouseRightDowm"],
+    ];
+
+    this.appendDummyInput()
+      .appendField("when mouse")
+      .appendField(new Blockly.FieldDropdown(options), "EVENT")
+      .appendField("down")
+      .appendField("once")
+      .appendField(new Blockly.FieldCheckbox("FALSE"), "ONCE");
+    this.appendStatementInput("STMT")
+      .setCheck(null)
+    this.setInputsInline(false);
+    this.setColour(65);
+    this.setTooltip("");
+    this.setHelpUrl("");
+  },
+
+  runIn: 'update'
 };
 
 // Actor
@@ -33,7 +142,6 @@ Blockly.images = [];
 for (var key in gameImgs) {
   Blockly.images.push([{ 'src': gameImgs[key], 'width': 50, 'height': 50 }, key]);
 }
-
 
 Blockly.Blocks['game_image'] = {
   init: function () {
@@ -74,45 +182,52 @@ Blockly.Blocks['create_actor'] = {
   runIn: 'create'
 };
 
-/*
-Blockly.Blocks['actor_setNumber'] = {
+Blockly.Blocks['actor_get'] = {
   init: function () {
     var options = [
-      ["velocity x", "body.velocity.x"], ["velocity y", "body.velocity.y"],
-      ["bounce x", "body.bounce.x"], ["bounce y", "body.bounce.y"], 
-      ["gravity x", "body.gravity.x"], ["gravity y", "body.gravity.y"],
-      ["friction x", "body.friction.x"], ["friction y", "body.friction.y"],
+      ["x", "x"],
+      ["y", "y"],
     ];
+    var units = {
+      "x": "px",
+      "y": "px",
+    }
     this.appendDummyInput()
       .appendField("with")
-      .appendField(new Blockly.FieldVariable("actor"), "NAME");
-    this.appendValueInput("VALUE")
-      .setCheck("Number")
-      .appendField("set")
-      .appendField(new Blockly.FieldDropdown(options), "ACCESSOR")
-      .appendField("to");
+      .appendField(new Blockly.FieldVariable(Blockly.Block.DEFAULT_VAR), "VAR")
+      .appendField("get")
+      .appendField(new Blockly.FieldDropdown(options, function (value) {
+        this.sourceBlock_.getInput('UNIT').fieldRow[1].setText(units[value]);
+      }), "METHOD");
+    this.appendDummyInput('UNIT')
+      .appendField("( in")
+      .appendField(Object.values(units)[0])
+      .appendField(")");
     this.setInputsInline(true);
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
+    this.setOutput(true, "Number");
     this.setColour(195);
     this.setTooltip("");
     this.setHelpUrl("");
+
+    this.setOnChange(this.selectNearestVar);
+
   },
 
   runIn: 'create'
-};*/
+
+};
 
 Blockly.Blocks['actor_setXY'] = {
   init: function () {
     var options = [
-      ["scale", "scale"],
+      ["scale", "scaleTo"],
       ["velocity", "setVelocity"],
       ["gravity", "setGravity"],
       ["bounce", "setBounce"],
       ["friction", "setFriction"],
     ];
     var units = {
-      "scale": "%",
+      "scaleTo": "%",
       "setVelocity": "px",
       "setGravity": "px",
       "setBounce": "%",
@@ -120,7 +235,7 @@ Blockly.Blocks['actor_setXY'] = {
     }
     this.appendDummyInput()
       .appendField("with")
-      .appendField(new Blockly.FieldVariable("actor"), "NAME")
+      .appendField(new Blockly.FieldVariable(Blockly.Block.DEFAULT_VAR), "VAR")
       .appendField("set")
       .appendField(new Blockly.FieldDropdown(options, function (value) {
         this.sourceBlock_.getInput('UNIT').fieldRow[1].setText(units[value]);
@@ -140,10 +255,12 @@ Blockly.Blocks['actor_setXY'] = {
     this.setColour(195);
     this.setTooltip("");
     this.setHelpUrl("");
+
+    this.setOnChange(this.selectNearestVar);
+    
   },
 
   runIn: 'create'
-
 
 };
 
@@ -156,7 +273,7 @@ Blockly.Blocks['actor_action'] = {
     ];
     this.appendDummyInput()
       .appendField("with")
-      .appendField(new Blockly.FieldVariable("actor"), "NAME")
+      .appendField(new Blockly.FieldVariable("actor"), "VAR")
       .appendField("do")
       .appendField(new Blockly.FieldDropdown(options), "ACTION")
     this.setInputsInline(true);
@@ -165,6 +282,8 @@ Blockly.Blocks['actor_action'] = {
     this.setColour(195);
     this.setTooltip("");
     this.setHelpUrl("");
+
+    this.setOnChange(this.selectNearestVar);
   },
 
   runIn: 'create'

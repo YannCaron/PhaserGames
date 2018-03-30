@@ -569,12 +569,11 @@ Blockly.Generator.generatePreload = function (workspace, generator, code, ind) {
 Blockly.Generator.generateCreate = function (workspace, generator, code, ind) {
   code.push(Code.indent(ind) + 'function create() {');
   code.push(Code.indent(ind + 1) + '// declare game');
-  code.push(Code.indent(ind + 1) + 'game.physics.startSystem(Phaser.Physics.ARCADE);')
+  code.push(Code.indent(ind + 1) + 'game.initGameSystem();');
   code.push('');
 
   var blocks = workspace.getTopBlocks(true);
   for (var x = 0, block; block = blocks[x]; x++) {
-    console.log(block.runIn);
     if (!block.runIn || block.runIn == 'create') {
       var line = Blockly.Generator.blockToCode(generator, block);
       code.push(line.replace(/^/gm, Code.indent(ind + 1)));

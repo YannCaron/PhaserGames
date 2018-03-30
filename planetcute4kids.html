@@ -4,6 +4,7 @@
 	<meta charset="utf-8">
     <!--<script src="http://cdn.jsdelivr.net/phaser/2.6.2/phaser.min.js"></script>-->
     <script src="js/phaser/2.6.2/phaser.min.js"></script>
+    <script src="js/phaser-plugins/phaser-plugin-debug-arcade-physics.js"></script>
     <script src="phaser4kids.js"></script>
 </head>
 <body>
@@ -44,11 +45,13 @@
 
             function create() {
 
+                game.initGameSystem();
                 game.initGame(1024, 768, 'sky');
                 game.debugGame();
 
                 player1 = game.createActor('beetle');
                 player1.anchor.setTo(0.5, 0.5);
+                player1.scaleTo(50, 50);
                 player1.body.bounce.x = 1;
                 player1.body.bounce.y = 1;
                 player1.body.gravity.y = 1000;
@@ -61,23 +64,40 @@
                 player2 = game.createActor('beetle');
                 player2.anchor.setTo(0.5, 0.5);
                 player2.x = 500;
-                player2.body.bounce.x = 1;
-                player2.body.bounce.y = 1;
                 player2.body.gravity.y = 1000;
                 player2.body.collideWorldBounds = true;
-                player2.body.velocity.x = -(250 + rnd(250));
+                player2.body.bounce.x = .3;
+                player2.body.bounce.y = .3;
+                /*player2.body.collideWorldBounds = true;
+                player2.body.velocity.x = -(250 + rnd(250));*/
                 //player2.body.setCircle(16);
 
                 player1.rotateOnCollide();
                 player2.rotateOnCollide();
 
+                /*game.input.keyboard.addCallbacks(null, function () {
+                    player2.body.velocity.y = -1500;
+                });*/
+        
+
             }
+
+            var previousEventDown = {};
 
             function update() {
                 //player1.body.angularVelocity = 200;
                 game.onCollide('beetle', 'beetle', function(obj1, obj2) {
                     //console.log(obj1);
                 });
+
+                game.onKeyDown(Phaser.Keyboard.LEFT, true, function() {
+                    player2.body.velocity.y = -500;
+                });
+
+                game.onMouseLeftDowm(true, function () {
+                    player2.body.velocity.y = -500;
+                });
+                
             }
 
             function render() {

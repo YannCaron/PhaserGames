@@ -1,12 +1,43 @@
 // Game
+Blockly.JavaScript['create_game'] = function (block) {
+  var img = Blockly.JavaScript.valueToCode(block, 'IMG', Blockly.JavaScript.ORDER_ATOMIC);
+  var w = Blockly.JavaScript.valueToCode(block, 'W', Blockly.JavaScript.ORDER_ATOMIC);
+  var h = Blockly.JavaScript.valueToCode(block, 'H', Blockly.JavaScript.ORDER_ATOMIC);
+
+  var code = 'game.initGame(' + w + ', ' + h + ', ' + img + ');\n';
+  return code;
+};
+
 Blockly.JavaScript['game_debug'] = function (block) {
   var code = 'game.debugGame();\n';
   return code;
 };
 
 Blockly.JavaScript['camera_follow'] = function (block) {
-  var name = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('NAME'), Blockly.Variables.NAME_TYPE);
-  var code = 'game.camera.follow(' + name + ', Phaser.Camera.FOLLOW_LOCKON, 1, 0.1);\n';
+  var varName = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+  var code = 'game.camera.follow(' + varName + ', Phaser.Camera.FOLLOW_LOCKON, 1, 0.1);\n';
+  return code;
+};
+
+Blockly.JavaScript['key_down'] = function (block) {
+  var event = block.getFieldValue('EVENT');
+  var stmt = Blockly.JavaScript.statementToCode(block, 'STMT');
+  var once = block.getFieldValue('ONCE') == 'TRUE';
+
+  var code = 'game.onKeyDown(Phaser.Keyboard.' + event + ', ' + once + ', function () {\n';
+  code += stmt;
+  code += '});\n';
+  return code;
+};
+
+Blockly.JavaScript['mouse_down'] = function (block) {
+  var event = block.getFieldValue('EVENT');
+  var stmt = Blockly.JavaScript.statementToCode(block, 'STMT');
+  var once = block.getFieldValue('ONCE') == 'TRUE';
+
+  var code = 'game.' + event + '(' + once + ', function () {\n';
+  code += stmt;
+  code += '});\n';
   return code;
 };
 
@@ -22,34 +53,30 @@ Blockly.JavaScript['create_actor'] = function (block) {
   var x = Blockly.JavaScript.valueToCode(block, 'X', Blockly.JavaScript.ORDER_ATOMIC);
   var y = Blockly.JavaScript.valueToCode(block, 'Y', Blockly.JavaScript.ORDER_ATOMIC);
 
-  console.log(block);
-  //console.log(block.getParent());
-
   var code = 'game.createActor(' + img + ', ' + x + ', ' + y + ')';
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
-/*
-Blockly.JavaScript['actor_setNumber'] = function (block) {
-  var name = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('NAME'), Blockly.Variables.NAME_TYPE);
-  var accessor = block.getFieldValue('ACCESSOR');
-  var value = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_ATOMIC);
-  var code = name + '.' + accessor + ' = ' + value + ';\n';
-  return code;
-};*/
+Blockly.JavaScript['actor_get'] = function (block) {
+  var varName = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+  var method = block.getFieldValue('METHOD');
+
+  var code = varName + '.' + method;
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
 
 Blockly.JavaScript['actor_setXY'] = function (block) {
-  var name = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('NAME'), Blockly.Variables.NAME_TYPE);
+  var varName = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
   var method = block.getFieldValue('METHOD');
   var x = Blockly.JavaScript.valueToCode(block, 'X', Blockly.JavaScript.ORDER_ATOMIC);
   var y = Blockly.JavaScript.valueToCode(block, 'Y', Blockly.JavaScript.ORDER_ATOMIC);
-  var code = name + '.' + method + ' (' + x + ', ' + y + ');\n';
+  var code = varName + '.' + method + ' (' + x + ', ' + y + ');\n';
   return code;
 };
 Blockly.JavaScript['actor_action'] = function (block) {
-  var name = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('NAME'), Blockly.Variables.NAME_TYPE);
+  var varName = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
   var action = block.getFieldValue('ACTION');
-  var code = name + '.' + action + ';\n';
+  var code = varName + '.' + action + ';\n';
   return code;
 };
 

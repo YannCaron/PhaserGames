@@ -1,12 +1,7 @@
 // -- game --
 // global
 Phaser.Game.prototype.groups = null;
-
-Phaser.Game.prototype.initGroups = function () {
-    if (this.groups == null) {
-        this.groups = {};
-    }
-}
+Phaser.Game.prototype.previousEventStates = null;
 
 Phaser.Game.prototype.findGroup = function (actor) {
     if (typeof actor === 'string') {
@@ -15,17 +10,31 @@ Phaser.Game.prototype.findGroup = function (actor) {
     return actor;
 };
 
-// game.method
-Phaser.Game.prototype.initGame = function(w, h, bg) {
-    this.physics.startSystem(Phaser.Physics.ARCADE);
+Phaser.Game.prototype.findOrCreateGroup = function (name) {
+    if (typeof this.groups[name] === 'undefined') {
+        this.groups[name] = this.add.group();
+    }
+    return this.groups[name];
+};
 
+// game.method
+Phaser.Game.prototype.initGameSystem = function () {
+    this.groups = {};
+    this.previousEventStates = {};
+
+    this.physics.startSystem(Phaser.Physics.ARCADE);
+    //this.input.keyboard.addKeyCapture([Phaser.Keyboard.LEFT, Phaser.Keyboard.RIGHT, Phaser.Keyboard.SPACEBAR]);
+    this.input.mouse.capture = true;
+}
+
+Phaser.Game.prototype.initGame = function(w, h, bg) {
     this.add.tileSprite(0, 0, w, h, bg);
     this.world.setBounds(0, 0, w, h);
 };
 
 Phaser.Game.prototype.debugGame = function () {
     this.plugins.add(Phaser.Plugin.DebugArcadePhysics);
-    /*this.debug.arcade.on()
+    this.debug.arcade.on()
     this.debug.arcade.configSet({ // default values:
         bodyFilled: false,
         filter: null,
@@ -41,7 +50,7 @@ Phaser.Game.prototype.debugGame = function () {
         renderCenter: true,
         renderConfig: false,
         renderDrag: true,
-        renderFriction: true,
+        renderFriction: false,
         renderLegend: true,
         renderMaxVelocity: true,
         renderOffset: true,
@@ -49,19 +58,13 @@ Phaser.Game.prototype.debugGame = function () {
         renderSpeed: true,
         renderTouching: true,
         renderVelocity: true,
-    });*/
+    });
 };
 
 // game.factory
 Phaser.Game.prototype.createActor = function (name, x = 0, y = 0) {
 
-    // create groupe if not exists
-    this.initGroups();
-    if (typeof this.groups[name] === 'undefined') {
-        this.groups[name] = this.add.group();
-    }
-
-    var actor = this.groups[name].create(x, y, name);
+    var actor = this.findOrCreateGroup(name).create(x, y, name);
     actor.anchor.setTo(0.5, 0.5);
     
     this.physics.arcade.enable(actor);
@@ -74,8 +77,6 @@ Phaser.Game.prototype.onCollide = function(actor1, actor2, callback) {
     var group1 = this.findGroup(actor1);
     var group2 = this.findGroup(actor2);
 
-    this.initGroups();
-
     if (!(typeof group1 === 'undefined' || typeof group2 === 'undefined')) {
         this.physics.arcade.collide(group1, group2, callback);
     }
@@ -84,8 +85,6 @@ Phaser.Game.prototype.onCollide = function(actor1, actor2, callback) {
 Phaser.Game.prototype.onIntersects = function (actor1, actor2, callback) {
     var group1 = this.findGroup(actor1);
     var group2 = this.findGroup(actor2);
-
-    this.initGroups();
 
     if (!(typeof group1 === 'undefined' || typeof group2 === 'undefined')) {
         this.physics.arcade.intersects(group1, group2, callback);
@@ -96,14 +95,40 @@ Phaser.Game.prototype.onOverlap = function (actor1, actor2, callback) {
     var group1 = this.findGroup(actor1);
     var group2 = this.findGroup(actor2);
 
-    this.initGroups();
-
     if (!(typeof group1 === 'undefined' || typeof group2 === 'undefined')) {
         this.physics.arcade.overlap(group1, group2, callback);
     }
 }
 
-// -- actor --
+Phaser.Game.prototype.genericEvent = function (exec, key, once, callback) {
+    if (exec) {
+        if (!once || !this.previousEventStates[key]) {
+            callback();
+        }
+
+        this.previousEventStates[key] = true;
+    } else {
+        this.previousEventStates[key] = false;
+    }
+}
+
+Phaser.Game.prototype.onKeyDown = function (key, once, callback) {
+    this.genericEvent(this.input.keyboard.isDown(key), key, once, callback);
+}
+
+Phaser.Game.prototype.onMouseLeftDowm = function (once, callback) {
+    this.genericEvent(this.input.activePointer.leftButton.isDown, 'mouseLeft', once, callback);
+}
+
+Phaser.Game.prototype.onMouseMiddleDowm = function (once, callback) {
+    this.genericEvent(this.input.activePointer.middleButton.isDown, 'mouseMiddle', once, callback);
+}
+
+Phaser.Game.prototype.onMouseRightDowm = function (once, callback) {
+    this.genericEvent(this.input.activePointer.rightButton.isDown, 'mouseRight', once, callback);
+}
+
+// -- actor --onMouseLeftDowm
 Phaser.Sprite.prototype.friction = 0.5;
 
 Phaser.Sprite.prototype.rotateOnCollide = function() {
@@ -157,7 +182,6 @@ Phaser.Sprite.prototype.setFriction = function (x, y) {
     this.body.friction.y = Phaser.Game.percentToReal(y);
 }
 
-Phaser.Sprite.prototype.scale = function (x, y) {
-    sprite.scale.setTo(x / 100, y / 100);
-    sprite.body.scale
+Phaser.Sprite.prototype.scaleTo = function (x, y) {
+    this.scale.setTo(x / 100, y / 100);
 }
