@@ -368,6 +368,7 @@
 		<category name="%{BKY_CATVARIABLES}" colour="%{BKY_VARIABLES_HUE}" custom="VARIABLE"></category>
 		<category name="%{BKY_CATFUNCTIONS}" colour="%{BKY_PROCEDURES_HUE}" custom="PROCEDURE"></category>
 		<category name="Game" colour="%{BKY_ACTOR_HUE}">
+			<label text="Constructor"></label>
 			<block type="create_game">
 				<value name="IMG">
 					<shadow type="game_image">
@@ -384,7 +385,11 @@
 						<field name="NUM">768</field>
 					</shadow>
 				</value>
-			</block>			<block type="game_debug"></block>
+			</block>
+			<label text="Properties"></label>
+			<block type="game_get"></block>
+			<label text="Methods"></label>
+			<block type="game_debug"></block>
 			<block type="camera_follow"></block>
 			<label text="Events"></label>
 			<block type="key_down"></block>
@@ -401,26 +406,33 @@
 				</value>
 				<value name="X">
 					<shadow type="math_number">
-						<field name="NUM">50</field>
+						<field name="NUM">100</field>
 					</shadow>
 				</value>
 				<value name="Y">
 					<shadow type="math_number">
-						<field name="NUM">50</field>
+						<field name="NUM">100</field>
 					</shadow>
 				</value>
 			</block>
 			<label text="Properties"></label>
 			<block type="actor_get"></block>
+			<block type="actor_set">
+				<value name="VALUE">
+					<shadow type="math_number">
+						<field name="NUM">100</field>
+					</shadow>
+				</value>
+			</block>
 			<block type="actor_setXY">
 				<value name="X">
 					<shadow type="math_number">
-						<field name="NUM">0</field>
+						<field name="NUM">100</field>
 					</shadow>
 				</value>
 				<value name="Y">
 					<shadow type="math_number">
-						<field name="NUM">0</field>
+						<field name="NUM">100</field>
 					</shadow>
 				</value>
 			</block>

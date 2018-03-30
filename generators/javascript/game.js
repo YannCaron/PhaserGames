@@ -8,6 +8,13 @@ Blockly.JavaScript['create_game'] = function (block) {
   return code;
 };
 
+Blockly.JavaScript['game_get'] = function (block) {
+  var method = block.getFieldValue('PROPERTY');
+
+  var code = 'game.' + method;
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
 Blockly.JavaScript['game_debug'] = function (block) {
   var code = 'game.debugGame();\n';
   return code;
@@ -59,10 +66,19 @@ Blockly.JavaScript['create_actor'] = function (block) {
 
 Blockly.JavaScript['actor_get'] = function (block) {
   var varName = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
-  var method = block.getFieldValue('METHOD');
+  var method = block.getFieldValue('PROPERTY');
 
   var code = varName + '.' + method;
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+Blockly.JavaScript['actor_set'] = function (block) {
+  var varName = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+  var method = block.getFieldValue('PROPERTY');
+  var value = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_ATOMIC);
+
+  var code = varName + '.' + method + ' = ' + value + ";\n";
+  return code;
 };
 
 Blockly.JavaScript['actor_setXY'] = function (block) {
@@ -73,6 +89,7 @@ Blockly.JavaScript['actor_setXY'] = function (block) {
   var code = varName + '.' + method + ' (' + x + ', ' + y + ');\n';
   return code;
 };
+
 Blockly.JavaScript['actor_action'] = function (block) {
   var varName = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
   var action = block.getFieldValue('ACTION');

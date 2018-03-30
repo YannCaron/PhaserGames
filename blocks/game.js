@@ -51,6 +51,27 @@ Blockly.Blocks['create_game'] = {
   runIn: 'create'
 };
 
+Blockly.Blocks['game_get'] = {
+
+  init: function () {
+    var options = [
+      ["width", "world.width"],
+      ["height", "world.height"],
+    ];
+
+    this.appendDummyInput()
+      .appendField("with game get")
+      .appendField(new Blockly.FieldDropdown(options), "PROPERTY");
+    this.setInputsInline(true);
+    this.setOutput(true, "Number");
+    this.setColour(195);
+    this.setTooltip("");
+    this.setHelpUrl("");
+  },
+
+  runIn: 'create'
+
+};
 
 Blockly.Blocks['game_debug'] = {
   init: function () {
@@ -182,29 +203,47 @@ Blockly.Blocks['create_actor'] = {
   runIn: 'create'
 };
 
+Blockly.Block.actorProperties = [
+  ["x", "x"],
+  ["y", "y"],
+  ["velocity x", "body.velocity.x"],
+  ["velocity y", "body.velocity.y"],
+];
+
 Blockly.Blocks['actor_get'] = {
   init: function () {
-    var options = [
-      ["x", "x"],
-      ["y", "y"],
-    ];
-    var units = {
-      "x": "px",
-      "y": "px",
-    }
     this.appendDummyInput()
       .appendField("with")
       .appendField(new Blockly.FieldVariable(Blockly.Block.DEFAULT_VAR), "VAR")
       .appendField("get")
-      .appendField(new Blockly.FieldDropdown(options, function (value) {
-        this.sourceBlock_.getInput('UNIT').fieldRow[1].setText(units[value]);
-      }), "METHOD");
-    this.appendDummyInput('UNIT')
-      .appendField("( in")
-      .appendField(Object.values(units)[0])
-      .appendField(")");
+      .appendField(new Blockly.FieldDropdown(Blockly.Block.actorProperties), "PROPERTY");
     this.setInputsInline(true);
     this.setOutput(true, "Number");
+    this.setColour(195);
+    this.setTooltip("");
+    this.setHelpUrl("");
+
+    this.setOnChange(this.selectNearestVar);
+
+  },
+
+  runIn: 'create'
+
+};
+
+Blockly.Blocks['actor_set'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("with")
+      .appendField(new Blockly.FieldVariable(Blockly.Block.DEFAULT_VAR), "VAR")
+      .appendField("set")
+      .appendField(new Blockly.FieldDropdown(Blockly.Block.actorProperties), "PROPERTY");
+    this.appendValueInput("VALUE")
+      .appendField("to")
+      .setCheck("Number")
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
     this.setColour(195);
     this.setTooltip("");
     this.setHelpUrl("");
@@ -221,14 +260,12 @@ Blockly.Blocks['actor_setXY'] = {
   init: function () {
     var options = [
       ["scale", "scaleTo"],
-      ["velocity", "setVelocity"],
       ["gravity", "setGravity"],
       ["bounce", "setBounce"],
       ["friction", "setFriction"],
     ];
     var units = {
       "scaleTo": "%",
-      "setVelocity": "px",
       "setGravity": "px",
       "setBounce": "%",
       "setFriction": "%",
@@ -270,6 +307,7 @@ Blockly.Blocks['actor_action'] = {
       ["collide bounds", "body.collideWorldBounds = true"],
       ["immovable", "body.immovable = true"],
       ["rotate when collide", "rotateOnCollide()"],
+      ["destroy", "destroy()"],
     ];
     this.appendDummyInput()
       .appendField("with")
