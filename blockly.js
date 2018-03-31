@@ -554,6 +554,7 @@ Blockly.Generator.generateGame = function (workspace, generator, code, ind) {
 Blockly.Generator.generatePreload = function (workspace, generator, code, ind) {
   code.push(Code.indent(ind) + 'function preload() {');
   code.push(Code.indent(ind + 1) + '// preload all ressources');
+  code.push(Code.indent(ind + 1) + 'game.preloadSystem();');
 
   var blocks = Code.workspace.getAllBlocks();
   for (var i = 0; i < blocks.length; i++) {
@@ -569,7 +570,7 @@ Blockly.Generator.generatePreload = function (workspace, generator, code, ind) {
 Blockly.Generator.generateCreate = function (workspace, generator, code, ind) {
   code.push(Code.indent(ind) + 'function create() {');
   code.push(Code.indent(ind + 1) + '// declare game');
-  code.push(Code.indent(ind + 1) + 'game.initGameSystem();');
+  code.push(Code.indent(ind + 1) + 'game.createSystem();');
   code.push('');
 
   var blocks = workspace.getTopBlocks(true);
@@ -586,6 +587,7 @@ Blockly.Generator.generateCreate = function (workspace, generator, code, ind) {
 Blockly.Generator.generateUpdate = function (workspace, generator, code, ind) {
   code.push(Code.indent(ind) + 'function update() {');
   code.push(Code.indent(ind + 1) + '// game events, call for each frame');
+  code.push(Code.indent(ind + 1) + 'game.updateSystem();');
 
   var blocks = workspace.getTopBlocks(true);
   for (var x = 0, block; block = blocks[x]; x++) {
@@ -601,6 +603,7 @@ Blockly.Generator.generateUpdate = function (workspace, generator, code, ind) {
 Blockly.Generator.generateRender = function (workspace, generator, code, ind) {
   code.push(Code.indent(ind) + 'function render() {');
   code.push(Code.indent(ind + 1) + '// game render called each frame');
+  code.push(Code.indent(ind + 1) + 'game.renderSystem();');
 
   var blocks = workspace.getTopBlocks(true);
   for (var x = 0, block; block = blocks[x]; x++) {

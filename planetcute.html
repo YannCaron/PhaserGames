@@ -24,8 +24,6 @@
         }
 
         function preload() {
-            console.log("preload");
-
             game.load.image('sky', 'assets/img/PlanetCute/Sky.png');
             game.load.image('floor1', 'assets/img/PlanetCute/Grass Block.png');
             game.load.image('floor2', 'assets/img/PlanetCute/Dirt Block.png');
@@ -40,6 +38,8 @@
             game.load.image('star', 'assets/img/PlanetCute/Star.png');
             game.load.image('enemy', 'assets/img/PlanetCute/Enemy Bug.png');
 
+            game.load.bitmapFont('font', 'assets/bitmapfont/emulogic.png', 'assets/bitmapfont/emulogic.fnt');
+
             game.time.advancedTiming = true;
         }
 
@@ -51,10 +51,9 @@
             game.world.setBounds(0, 0, 5920, 768);
 
             // info
-            var style = { font: "24px Arial", fill: "#ffffff", align: "center" };
-            scoreText = game.add.text(32, 32, 'scoreText', style);
+            scoreText = game.add.bitmapText(32, 32, 'font', '', 15);
             scoreText.fixedToCamera = true;
-            liveText = game.add.text(182, 32, 'liveText', style);
+            liveText = game.add.bitmapText(200, 32, 'font', '', 15);
             liveText.fixedToCamera = true;
 
             // player

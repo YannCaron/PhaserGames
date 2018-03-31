@@ -26,6 +26,8 @@
             }
 
             function preload() {
+                game.preloadSystem();
+
                 game.load.image('sky', 'assets/img/PlanetCute/Sky.png');
                 game.load.image('floor1', 'assets/img/PlanetCute/Grass Block.png');
                 game.load.image('floor2', 'assets/img/PlanetCute/Dirt Block.png');
@@ -45,7 +47,7 @@
 
             function create() {
 
-                game.initGameSystem();
+                game.createSystem();
                 game.initGame(1024, 768, 'sky');
                 game.debugGame();
 
@@ -78,6 +80,11 @@
                 /*game.input.keyboard.addCallbacks(null, function () {
                     player2.body.velocity.y = -1500;
                 });*/
+
+                game.addText(50, 50, function () {
+                    return 'score: ' + 10;
+                });
+
         
 
             }
@@ -85,6 +92,7 @@
             var previousEventDown = {};
 
             function update() {
+                game.updateSystem();
                 //player1.body.angularVelocity = 200;
                 game.onCollide('beetle', 'beetle', function(obj1, obj2) {
                     //console.log(obj1);
@@ -101,6 +109,7 @@
             }
 
             function render() {
+                game.renderSystem();
                 game.debug.text(game.time.fps || '--', 2, 14, "#cccccc");
             }
 

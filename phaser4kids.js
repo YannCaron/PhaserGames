@@ -5,6 +5,7 @@ Phaser.Game.prototype.previousEventStates = null;
 Phaser.Game.prototype.keyCaptures = [Phaser.Keyboard.LEFT, Phaser.Keyboard.RIGHT, 
     Phaser.Keyboard.SPACEBAR, Phaser.Keyboard.BACKSPACE, Phaser.Keyboard.DELETE, Phaser.Keyboard.ENTER,
     Phaser.Keyboard.PAGE_UP, Phaser.Keyboard.PAGE_DOWN, Phaser.Keyboard.HOME, Phaser.Keyboard.END];
+Phaser.Game.prototype.texts = null;
 
 Phaser.Game.prototype.findGroup = function (actor) {
     if (typeof actor === 'string') {
@@ -35,16 +36,31 @@ Phaser.Game.prototype.resume = function () {
     this.input.keyboard.addKeyCapture(this.keyCaptures);
 }
 
-// game.method
-Phaser.Game.prototype.initGameSystem = function () {
+// game.overrided method
+Phaser.Game.prototype.preloadSystem = function () {
+    this.load.bitmapFont('font', 'assets/bitmapfont/emulogic.png', 'assets/bitmapfont/emulogic.fnt');
+}
+
+Phaser.Game.prototype.createSystem = function () {
     this.groups = {};
     this.previousEventStates = {};
+    this.texts = [];
 
     this.physics.startSystem(Phaser.Physics.ARCADE);
     this.input.keyboard.addKeyCapture(this.keyCaptures);
     this.input.mouse.capture = true;
 }
 
+Phaser.Game.prototype.updateSystem = function () {
+    for (var i in this.texts) {
+        this.texts[i].textObject.text = this.texts[i].valueCallBack();
+    }
+}
+
+Phaser.Game.prototype.renderSystem = function () {
+}
+
+// game.method
 Phaser.Game.prototype.initGame = function(w, h, bg) {
     this.add.tileSprite(0, 0, w, h, bg);
     this.world.setBounds(0, 0, w, h);
@@ -79,6 +95,12 @@ Phaser.Game.prototype.debugGame = function () {
     });
 };
 
+Phaser.Game.prototype.addText = function (x, y, callBack) {
+    var text = this.add.bitmapText(x, y, 'font', '', 15);
+    text.fixedToCamera = true;
+    this.texts.push({ textObject: text, valueCallBack: callBack });
+}
+
 // game.factory
 Phaser.Game.prototype.createActor = function (name, x = 0, y = 0) {
 
@@ -97,15 +119,6 @@ Phaser.Game.prototype.onCollide = function(actor1, actor2, callback) {
 
     if (!(typeof group1 === 'undefined' || typeof group2 === 'undefined')) {
         this.physics.arcade.collide(group1, group2, callback);
-    }
-}
-
-Phaser.Game.prototype.onIntersects = function (actor1, actor2, callback) {
-    var group1 = this.findGroup(actor1);
-    var group2 = this.findGroup(actor2);
-
-    if (!(typeof group1 === 'undefined' || typeof group2 === 'undefined')) {
-        this.physics.arcade.intersects(group1, group2, callback);
     }
 }
 

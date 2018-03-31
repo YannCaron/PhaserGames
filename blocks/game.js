@@ -105,7 +105,44 @@ Blockly.Blocks['camera_follow'] = {
   runIn: 'create'
 };
 
+Blockly.Blocks['game_print'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("print at");
+    this.appendValueInput("X")
+      .setCheck("Number")
+      .appendField("x");
+    this.appendValueInput("Y")
+      .setCheck("Number")
+      .appendField("y");
+    this.appendValueInput("TEXT")
+      .setCheck("String")
+      .appendField("the text");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("");
+    this.setHelpUrl("");
+  }
+};
+
 // Game::event
+Blockly.Blocks['game_always'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("always")
+    this.appendStatementInput("STMT")
+      .setCheck(null)
+    this.setInputsInline(false);
+    this.setColour(65);
+    this.setTooltip("");
+    this.setHelpUrl("");
+  },
+
+  runIn: 'update'
+};
+
 Blockly.Blocks['key_down'] = {
   init: function () {
     var options = [
@@ -116,6 +153,11 @@ Blockly.Blocks['key_down'] = {
       ["↲ enter", "ENTER"],
       ["  space", "SPACEBAR"]
     ];
+
+    var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    for (var i = 0; i < chars.length; i++) {
+      options.push([chars.charAt(i), chars.charAt(i)]);
+    }
 
     this.appendDummyInput()
       .appendField("when key")

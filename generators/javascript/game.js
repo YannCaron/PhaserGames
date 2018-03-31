@@ -31,6 +31,23 @@ Blockly.JavaScript['camera_follow'] = function (block) {
   return code;
 };
 
+Blockly.JavaScript['game_print'] = function (block) {
+  var x = Blockly.JavaScript.valueToCode(block, 'X', Blockly.JavaScript.ORDER_ATOMIC);
+  var y = Blockly.JavaScript.valueToCode(block, 'Y', Blockly.JavaScript.ORDER_ATOMIC);
+  var text = Blockly.JavaScript.valueToCode(block, 'TEXT', Blockly.JavaScript.ORDER_ATOMIC);
+
+  var code = 'game.addText(' + x + ', ' + y + ', function () {\n';
+  code += 'return ' + text + ';\n';
+  code += '});\n';
+  return code;
+};
+
+Blockly.JavaScript['game_always'] = function (block) {
+  var stmt = Blockly.JavaScript.statementToCode(block, 'STMT');
+  var code = stmt;
+  return code;
+};
+
 Blockly.JavaScript['key_down'] = function (block) {
   var event = block.getFieldValue('EVENT');
   var stmt = Blockly.JavaScript.statementToCode(block, 'STMT');
