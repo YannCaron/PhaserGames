@@ -639,7 +639,8 @@ Code.renderContent = function () {
   }
 
   if (Phaser.GAMES.length > 0) {
-    Phaser.GAMES[0].paused = pause;
+    if (pause) Phaser.GAMES[0].pause();
+    else Phaser.GAMES[0].resume();
   }
 
 };

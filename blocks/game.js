@@ -77,6 +77,7 @@ Blockly.Blocks['game_debug'] = {
   init: function () {
     this.appendDummyInput()
       .appendField("debug")
+      .appendField(new Blockly.FieldCheckbox("TRUE"), "APPLY");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(195);
@@ -113,7 +114,7 @@ Blockly.Blocks['key_down'] = {
       ["↑ up", "UP"],
       ["↓ down", "DOWN"],
       ["↲ enter", "ENTER"],
-      ["  space", "SPACE"]
+      ["  space", "SPACEBAR"]
     ];
 
     this.appendDummyInput()
@@ -307,7 +308,7 @@ Blockly.Blocks['actor_action'] = {
       ["collide bounds", "body.collideWorldBounds = true"],
       ["immovable", "body.immovable = true"],
       ["rotate when collide", "rotateOnCollide()"],
-      ["destroy", "destroy()"],
+      ["destroy", "kill()"],
     ];
     this.appendDummyInput()
       .appendField("with")
@@ -331,7 +332,6 @@ Blockly.Blocks['actor_collide'] = {
   init: function () {
     var options = [
       ["collide", "onCollide"], 
-      ["intersects", "onIntersects"], 
       ["overlap", "onOverlap"]    
     ];
     this.appendDummyInput()

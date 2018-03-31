@@ -73,9 +73,9 @@
             var v = rnd(3);
             for (var i = 0; i < 70; i++) {
                 if (rnd(5) % 5 == 0) v = rnd(3);
-                var floor = groundGroup.create(i * 100, game.world.height - 150, 'floor' + v)
+                var floor = groundGroup.create(i * 100, game.world.height - 75, 'floor' + v)
                 floor.body.immovable = true;
-                floor.body.setSize(100, 100, 0, 100); // w, h, x, y
+                floor.body.setSize(100, 100, 0, 50); // w, h, x, y
             }
 
             // ground:tree
@@ -123,22 +123,25 @@
             liveText.text = "Live: " + life;
 
             game.physics.arcade.collide(player, groundGroup);
+            
             game.physics.arcade.overlap(player, gemGroup, function (player, gem) {
                 console.log("gem overlapped [" + gem + "]");
 
                 gem.destroy();
                 score += 10;
             }, null, this);
+
             game.physics.arcade.overlap(player, enemyGroup, function (player, enemy) {
                 console.log("enemy overlapped [" + enemy + "]");
 
-                enemy.destroy();
+                enemy.kill();
                 life -= 1;
             })
             game.physics.arcade.overlap(bulletGroup, enemyGroup, function (bullet, enemy) {
                 console.log("bullet overlap enemy [" + bullet + ", " + enemy + "]");
 
-                enemy.destroy();
+                bullet.kill();
+                enemy.kill();
             })
 
             player.body.velocity.x = 500;

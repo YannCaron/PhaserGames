@@ -2,6 +2,9 @@
 // global
 Phaser.Game.prototype.groups = null;
 Phaser.Game.prototype.previousEventStates = null;
+Phaser.Game.prototype.keyCaptures = [Phaser.Keyboard.LEFT, Phaser.Keyboard.RIGHT, 
+    Phaser.Keyboard.SPACEBAR, Phaser.Keyboard.BACKSPACE, Phaser.Keyboard.DELETE, Phaser.Keyboard.ENTER,
+    Phaser.Keyboard.PAGE_UP, Phaser.Keyboard.PAGE_DOWN, Phaser.Keyboard.HOME, Phaser.Keyboard.END];
 
 Phaser.Game.prototype.findGroup = function (actor) {
     if (typeof actor === 'string') {
@@ -12,10 +15,25 @@ Phaser.Game.prototype.findGroup = function (actor) {
 
 Phaser.Game.prototype.findOrCreateGroup = function (name) {
     if (typeof this.groups[name] === 'undefined') {
-        this.groups[name] = this.add.group();
+        var group = this.add.group();
+        group.enableBody = true;
+        this.groups[name] = group;
     }
     return this.groups[name];
 };
+
+Phaser.Game.prototype.pause = function () {
+    this.paused = true;
+
+    for (var i in this.keyCaptures) {
+        this.input.keyboard.removeKeyCapture(this.keyCaptures[i]);
+    }
+}
+
+Phaser.Game.prototype.resume = function () {
+    this.paused = false;
+    this.input.keyboard.addKeyCapture(this.keyCaptures);
+}
 
 // game.method
 Phaser.Game.prototype.initGameSystem = function () {
@@ -23,7 +41,7 @@ Phaser.Game.prototype.initGameSystem = function () {
     this.previousEventStates = {};
 
     this.physics.startSystem(Phaser.Physics.ARCADE);
-    //this.input.keyboard.addKeyCapture([Phaser.Keyboard.LEFT, Phaser.Keyboard.RIGHT, Phaser.Keyboard.SPACEBAR]);
+    this.input.keyboard.addKeyCapture(this.keyCaptures);
     this.input.mouse.capture = true;
 }
 

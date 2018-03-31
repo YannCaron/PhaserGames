@@ -16,7 +16,12 @@ Blockly.JavaScript['game_get'] = function (block) {
 };
 
 Blockly.JavaScript['game_debug'] = function (block) {
-  var code = 'game.debugGame();\n';
+  var apply = block.getFieldValue('APPLY') == 'TRUE';
+
+  var code = '';
+  if (apply) {
+    code += 'game.debugGame();\n';
+  }
   return code;
 };
 
