@@ -340,6 +340,7 @@ Code.init = function() {
       function(m, p1, p2) {return p1 + MSG[p2];});
   var toolboxXml = Blockly.Xml.textToDom(toolboxText);
 
+/*
   Code.workspace = Blockly.inject('content_blocks',
       {grid:
           {spacing: 25,
@@ -353,6 +354,39 @@ Code.init = function() {
            {controls: true,
             wheel: true}
       });
+*/
+
+// TODO : modify here 
+  Code.workspace = Blockly.inject('content_blocks', {
+    collapse: true,
+    comments: true,
+    disable: true,
+    maxBlocks: Infinity,
+    trashcan: true,
+    horizontalLayout: false,
+    toolboxPosition: 'begin',
+    css: true,
+    media: 'js/blockly/media/',
+    rtl: rtl,
+    toolbox: toolboxXml,
+    scrollbars: true,
+    sounds: true,
+    oneBasedIndex: true,
+    grid: {
+      spacing: 40,
+      length: 5,
+      colour: '#777',
+      snap: true
+    },
+    zoom: {
+      controls: true,
+      wheel: true,
+      startScale: 1,
+      maxScale: 3,
+      minScale: 0.3,
+      scaleSpeed: 1.5
+    }
+  });
 
   // Add to reserved word list: Local variables in execution environment (runJS)
   // and the infinite loop detection function.
@@ -512,6 +546,8 @@ Code.actorCallback = function (workspace) {
 
 // configuration
 Blockly.BlockSvg.START_HAT = true;
+Blockly.HSV_SATURATION = 0.75;
+Blockly.HSV_VALUE = 0.75;
 
 // @Override
 Blockly.Generator.prototype.workspaceToCode = function (workspace) {
@@ -672,3 +708,8 @@ Code.runJS = function () {
     alert(MSG['badCode'].replace('%1', e));
   }
 };
+
+Blockly.Block.prototype.setAndShowWarning = function (block, text) {
+  block.setWarningText(text);
+  block.warning.setVisible(true);
+}

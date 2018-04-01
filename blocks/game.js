@@ -1,4 +1,5 @@
 // Global
+Blockly.Block.ACTOR_TYPE = 'Actor';
 Blockly.Block.DEFAULT_VAR = 'actor';
 
 Blockly.Block.prototype.findParentVariable = function () {
@@ -93,6 +94,8 @@ Blockly.Blocks['camera_follow'] = {
     this.appendDummyInput()
       .appendField("camera follow")
       .appendField(new Blockly.FieldVariable("actor"), "VAR");
+      // TODO check types and create variables
+      //.appendField(new Blockly.FieldVariable("actor", null, [Blockly.Block.ACTOR_TYPE], Blockly.Block.ACTOR_TYPE), "VAR");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(195);
@@ -346,6 +349,7 @@ Blockly.Blocks['actor_setXY'] = {
 
 Blockly.Blocks['actor_action'] = {
   init: function () {
+    var self = this;
     var options = [
       ["collide bounds", "body.collideWorldBounds = true"],
       ["immovable", "body.immovable = true"],

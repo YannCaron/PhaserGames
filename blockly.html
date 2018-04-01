@@ -5,7 +5,6 @@
 	<meta charset="utf-8">
 	<meta name="google" value="notranslate">
 	<title>Blockly Demo:</title>
-	<link rel="stylesheet" href="style.css">
 	<!-- phaser -->
 	<script src="http://cdn.jsdelivr.net/phaser/2.6.2/phaser.min.js"></script>
 	<script src="js/phaser-plugins/phaser-plugin-debug-arcade-physics.js"></script>
@@ -25,6 +24,8 @@
 	<script src="blockly.js"></script>
 
 	<!--<script src="game.js"></script>-->
+
+	<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -68,7 +69,11 @@
 			</td>
 		</tr>
 	</table>
-	<div id="content_blocks" class="content"></div>
+	<div id="content_blocks" class="content">
+		<xml xmlns="http://www.w3.org/1999/xhtml" id="workspaceBlocks" style="display:none">
+			<variables></variables>
+		</xml>
+	</div>
 	<pre id="content_javascript" class="content"></pre>
 	<div id="content_game" class="content"></div>
 
