@@ -20,6 +20,8 @@
 	<script src="resources.js"></script>
 	<script src="blocks/game.js"></script>
 	<script src="generators/javascript/game.js"></script>	
+	<script src="blocks/lists.js"></script>
+	<script src="generators/javascript/lists.js"></script>
 	<!-- page -->
 	<script src="blockly.js"></script>
 
@@ -293,7 +295,14 @@
 				</value>
 			</block>
 			<block type="lists_length"></block>
-			<block type="lists_isEmpty"></block>
+			<!-- todo : modified here -->
+			<block type="lists_isEmpty">
+				<value name="VALUE">
+					<block type="variables_get">
+						<field name="VAR">{listVariable}</field>
+					</block>
+				</value>
+			</block>
 			<block type="lists_indexOf">
 				<value name="VALUE">
 					<block type="variables_get">
@@ -415,10 +424,12 @@
 			</block>
 			<label text="Events"></label>
 			<block type="game_always"></block>
+			<block type="game_every"></block>
 			<block type="key_down"></block>
 			<block type="mouse_down"></block>
 		</category>
 		<category name="%{BKY_CATACTOR}" colour="%{BKY_ACTOR_HUE}">
+			<button text="Create actor..." callbackKey="createActorButtonPressed"></button>
 			<label text="Constructor"></label>
 			<block type="game_image"></block>
 			<block type="create_actor">
@@ -442,6 +453,13 @@
 			<block type="actor_get"></block>
 			<block type="actor_set">
 				<value name="VALUE">
+					<shadow type="math_number">
+						<field name="NUM">100</field>
+					</shadow>
+				</value>
+			</block>
+			<block type="actor_set1">
+				<value name="ARG1">
 					<shadow type="math_number">
 						<field name="NUM">100</field>
 					</shadow>

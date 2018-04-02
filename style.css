@@ -197,3 +197,6 @@ button {
 .blocklyPathLight, .blocklyPathDark {
   stroke-width: 2px;
 }
+.blocklyFlyoutLabelText {
+  fill: #ccc;
+}

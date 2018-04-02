@@ -2,6 +2,16 @@
 Blockly.Block.ACTOR_TYPE = 'Actor';
 Blockly.Block.DEFAULT_VAR = 'actor';
 
+Blockly.Blocks.game = {};
+Blockly.Blocks.game.HUE = Blockly.Msg.ACTOR_HUE;
+Blockly.Blocks.event = {};
+Blockly.Blocks.event.HUE = Blockly.Msg.EVENT_HUE;
+
+Blockly.gameImages = [];
+for (var key in gameImages) {
+  Blockly.gameImages.push([{ 'src': gameImages[key], 'width': 50, 'height': 50 }, key]);
+}
+
 Blockly.Block.prototype.findParentVariable = function () {
   var parent = this.getParent();
 
@@ -32,9 +42,14 @@ Blockly.Block.prototype.selectNearestVar = function (change) {
 // Game
 Blockly.Blocks['create_game'] = {
   init: function () {
-    this.appendValueInput("IMG")
-      .setCheck("Image")
-      .appendField("create game");
+    var options = [];
+    for (var key in gameBackgrounds) {
+      options.push([{ 'src': gameBackgrounds[key], 'width': 50, 'height': 50 }, key]);
+    }
+
+    this.appendDummyInput()
+      .appendField("create game")
+      .appendField(new Blockly.FieldDropdown(options), 'IMG')
     this.appendValueInput("W")
       .setCheck("Number")
       .appendField("width to");
@@ -44,9 +59,14 @@ Blockly.Blocks['create_game'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(195);
+    this.setColour(Blockly.Blocks.game.HUE);
     this.setTooltip("");
     this.setHelpUrl("");
+  },
+
+  getImage: function () {
+    var key = this.getFieldValue('IMG');
+    return { 'key': key, 'url': gameBackgrounds[key] };
   },
 
   runIn: 'create'
@@ -58,6 +78,8 @@ Blockly.Blocks['game_get'] = {
     var options = [
       ["width", "world.width"],
       ["height", "world.height"],
+      ["mouse x", "input.activePointer.x"],
+      ["mouse y", "input.activePointer.y"],
     ];
 
     this.appendDummyInput()
@@ -65,7 +87,7 @@ Blockly.Blocks['game_get'] = {
       .appendField(new Blockly.FieldDropdown(options), "PROPERTY");
     this.setInputsInline(true);
     this.setOutput(true, "Number");
-    this.setColour(195);
+    this.setColour(Blockly.Blocks.game.HUE);
     this.setTooltip("");
     this.setHelpUrl("");
   },
@@ -74,6 +96,7 @@ Blockly.Blocks['game_get'] = {
 
 };
 
+
 Blockly.Blocks['game_debug'] = {
   init: function () {
     this.appendDummyInput()
@@ -81,7 +104,7 @@ Blockly.Blocks['game_debug'] = {
       .appendField(new Blockly.FieldCheckbox("TRUE"), "APPLY");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(195);
+    this.setColour(Blockly.Blocks.game.HUE);
     this.setTooltip("");
     this.setHelpUrl("");
   },
@@ -98,7 +121,7 @@ Blockly.Blocks['camera_follow'] = {
       //.appendField(new Blockly.FieldVariable("actor", null, [Blockly.Block.ACTOR_TYPE], Blockly.Block.ACTOR_TYPE), "VAR");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(195);
+    this.setColour(Blockly.Blocks.game.HUE);
     this.setTooltip("");
     this.setHelpUrl("");
 
@@ -124,7 +147,7 @@ Blockly.Blocks['game_print'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(Blockly.Blocks.texts.HUE);
     this.setTooltip("");
     this.setHelpUrl("");
   }
@@ -138,7 +161,27 @@ Blockly.Blocks['game_always'] = {
     this.appendStatementInput("STMT")
       .setCheck(null)
     this.setInputsInline(false);
-    this.setColour(65);
+    this.setColour(Blockly.Blocks.event.HUE);
+    this.setTooltip("");
+    this.setHelpUrl("");
+  },
+
+  runIn: 'update'
+};
+
+
+Blockly.Blocks['game_every'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("every")
+      .appendField(new Blockly.FieldNumber(0.75, 0, 3600, 0.01), "TIME")
+      .appendField("seconds");
+    this.appendStatementInput("STMT")
+      .setCheck(null)
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(Blockly.Blocks.event.HUE);
     this.setTooltip("");
     this.setHelpUrl("");
   },
@@ -171,7 +214,7 @@ Blockly.Blocks['key_down'] = {
     this.appendStatementInput("STMT")
       .setCheck(null)
     this.setInputsInline(false);
-    this.setColour(65);
+    this.setColour(Blockly.Blocks.event.HUE);
     this.setTooltip("");
     this.setHelpUrl("");
   },
@@ -183,8 +226,11 @@ Blockly.Blocks['mouse_down'] = {
   init: function () {
     var options = [
       ["left", "onMouseLeftDowm"],
+      ["left up", "onMouseLeftUp"],
       ["middle", "onMouseMiddleDowm"],
+      ["middle up", "onMouseMiddleUp"],
       ["right", "onMouseRightDowm"],
+      ["right up", "onMouseRightUp"],
     ];
 
     this.appendDummyInput()
@@ -196,7 +242,7 @@ Blockly.Blocks['mouse_down'] = {
     this.appendStatementInput("STMT")
       .setCheck(null)
     this.setInputsInline(false);
-    this.setColour(65);
+    this.setColour(Blockly.Blocks.event.HUE);
     this.setTooltip("");
     this.setHelpUrl("");
   },
@@ -205,24 +251,19 @@ Blockly.Blocks['mouse_down'] = {
 };
 
 // Actor
-Blockly.images = [];
-for (var key in gameImgs) {
-  Blockly.images.push([{ 'src': gameImgs[key], 'width': 50, 'height': 50 }, key]);
-}
-
 Blockly.Blocks['game_image'] = {
   init: function () {
     this.appendDummyInput()
-      .appendField(new Blockly.FieldDropdown(Blockly.images), 'IMG')
+      .appendField(new Blockly.FieldDropdown(Blockly.gameImages), 'IMG')
     this.setOutput(true, "Image");
-    this.setColour(195);
+    this.setColour(Blockly.Blocks.game.HUE);
     this.setTooltip("");
     this.setHelpUrl("");
   },
 
   getImage: function () {
     var key = this.getFieldValue('IMG');
-    return {'key': key, 'url': gameImgs[key]};
+    return { 'key': key, 'url': gameImages[key] };
   },
 
   runIn: 'create'
@@ -241,7 +282,7 @@ Blockly.Blocks['create_actor'] = {
       .appendField("y to");
     this.setInputsInline(true);
     this.setOutput(true, "Actor");
-    this.setColour(195);
+    this.setColour(Blockly.Blocks.game.HUE);
     this.setTooltip("");
     this.setHelpUrl("");
   },
@@ -254,6 +295,9 @@ Blockly.Block.actorProperties = [
   ["y", "y"],
   ["velocity x", "body.velocity.x"],
   ["velocity y", "body.velocity.y"],
+  ["gravity x", "body.gravity.x"],
+  ["gravity y", "body.gravity.y"],
+  ["angle", "angle"],
 ];
 
 Blockly.Blocks['actor_get'] = {
@@ -265,7 +309,7 @@ Blockly.Blocks['actor_get'] = {
       .appendField(new Blockly.FieldDropdown(Blockly.Block.actorProperties), "PROPERTY");
     this.setInputsInline(true);
     this.setOutput(true, "Number");
-    this.setColour(195);
+    this.setColour(Blockly.Blocks.game.HUE);
     this.setTooltip("");
     this.setHelpUrl("");
 
@@ -290,7 +334,43 @@ Blockly.Blocks['actor_set'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(195);
+    this.setColour(Blockly.Blocks.game.HUE);
+    this.setTooltip("");
+    this.setHelpUrl("");
+
+    this.setOnChange(this.selectNearestVar);
+
+  },
+
+  runIn: 'create'
+
+};
+
+Blockly.Blocks['actor_set1'] = {
+  init: function () {
+    var options = [
+      ["velocity from angle", "VelocityFromAngle"],
+    ];
+    var units = {
+      "scaleTo": "px",
+    }
+    this.appendDummyInput()
+      .appendField("with")
+      .appendField(new Blockly.FieldVariable(Blockly.Block.DEFAULT_VAR), "VAR")
+      .appendField("set")
+      .appendField(new Blockly.FieldDropdown(options, function (value) {
+        this.sourceBlock_.getInput('UNIT').fieldRow[1].setText(units[value]);
+      }), "METHOD");
+    this.appendValueInput("ARG1")
+      .setCheck("Number")
+      .appendField("to");
+    this.appendDummyInput('UNIT')
+      .appendField("in")
+      .appendField(Object.values(units)[0]);
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(Blockly.Blocks.game.HUE);
     this.setTooltip("");
     this.setHelpUrl("");
 
@@ -306,13 +386,11 @@ Blockly.Blocks['actor_setXY'] = {
   init: function () {
     var options = [
       ["scale", "scaleTo"],
-      ["gravity", "setGravity"],
       ["bounce", "setBounce"],
       ["friction", "setFriction"],
     ];
     var units = {
       "scaleTo": "%",
-      "setGravity": "px",
       "setBounce": "%",
       "setFriction": "%",
     }
@@ -335,7 +413,7 @@ Blockly.Blocks['actor_setXY'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(195);
+    this.setColour(Blockly.Blocks.game.HUE);
     this.setTooltip("");
     this.setHelpUrl("");
 
@@ -364,7 +442,7 @@ Blockly.Blocks['actor_action'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(195);
+    this.setColour(Blockly.Blocks.game.HUE);
     this.setTooltip("");
     this.setHelpUrl("");
 
@@ -382,16 +460,18 @@ Blockly.Blocks['actor_collide'] = {
     ];
     this.appendDummyInput()
       .appendField("when")
-      .appendField(new Blockly.FieldDropdown(Blockly.images), 'OBJ1')
+      .appendField(new Blockly.FieldDropdown(Blockly.gameImages), 'OBJ1')
       .appendField(new Blockly.FieldDropdown(options), "EVENT")
       .appendField("with")
-      .appendField(new Blockly.FieldDropdown(Blockly.images), 'OBJ2')
+      .appendField(new Blockly.FieldDropdown(Blockly.gameImages), 'OBJ2')
+      .appendField("once")
+      .appendField(new Blockly.FieldCheckbox("FALSE"), "ONCE");
     this.appendStatementInput("STMT")
       .setCheck(null)
       .appendField(new Blockly.FieldVariable("actor1"), "ID1")
       .appendField(new Blockly.FieldVariable("actor2"), "ID2");
     this.setInputsInline(false);
-    this.setColour(65);
+    this.setColour(Blockly.Blocks.event.HUE);
     this.setTooltip("");
     this.setHelpUrl("");
   },

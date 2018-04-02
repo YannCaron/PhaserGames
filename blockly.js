@@ -340,22 +340,6 @@ Code.init = function() {
       function(m, p1, p2) {return p1 + MSG[p2];});
   var toolboxXml = Blockly.Xml.textToDom(toolboxText);
 
-/*
-  Code.workspace = Blockly.inject('content_blocks',
-      {grid:
-          {spacing: 25,
-           length: 3,
-           colour: '#ccc',
-           snap: true},
-       media: 'js/blockly/media/',
-       rtl: rtl,
-       toolbox: toolboxXml,
-       zoom:
-           {controls: true,
-            wheel: true}
-      });
-*/
-
 // TODO : modify here 
   Code.workspace = Blockly.inject('content_blocks', {
     collapse: true,
@@ -523,26 +507,6 @@ document.write('<script src="js/blockly/msg/js/' + Code.LANG + '.js"></script>\n
 window.addEventListener('load', Code.init);
 
 // CyaNn Code
-/*
-Code.actors = [];
-
-Code.actorCallback = function (workspace) {
-  // Returns an array of hex colours, e.g. ['#4286f4', '#ef0447']
-  var colourList = ['blue', 'red'];
-  var xmlList = [];
-  if (Blockly.Blocks['colour_picker']) {
-    for (var i = 0; i < colourList.length; i++) {
-      var blockText = '<xml>' +
-        '<block type="colour_picker">' +
-        '<field name="COLOUR">' + colourList[i] + '</field>' +
-        '</block>' +
-        '</xml>';
-      var block = Blockly.Xml.textToDom(blockText).firstChild;
-      xmlList.push(block);
-    }
-  }
-  return xmlList;
-};*/
 
 // configuration
 Blockly.BlockSvg.START_HAT = true;
@@ -677,10 +641,8 @@ Code.renderContent = function () {
     pause = false;
   }
 
-  if (Phaser.GAMES.length > 0) {
-    if (pause) Phaser.GAMES[0].pause();
-    else Phaser.GAMES[0].resume();
-  }
+  if (pause) Phaser.Game.pauseCurrentGame();
+  else Phaser.Game.resumeCurrentGame();
 
 };
 
@@ -688,10 +650,7 @@ Code.renderContent = function () {
 Code.runJS = function () {
   Code.tabClick('game');
 
-  if (Phaser.GAMES.length > 0) {
-    Phaser.GAMES[0].destroy();
-    Phaser.GAMES = [];
-  }
+  Phaser.Game.destroyCurrentGame();
 
   Blockly.JavaScript.INFINITE_LOOP_TRAP = '  checkTimeout();\n';
   var timeouts = 0;
@@ -713,3 +672,10 @@ Blockly.Block.prototype.setAndShowWarning = function (block, text) {
   block.setWarningText(text);
   block.warning.setVisible(true);
 }
+
+
+var createActorButtonPressed = function () {
+  console.log('button pressed');
+}
+
+Code.workspace.registerButtonCallback('createActorButtonPressed', function () { });
