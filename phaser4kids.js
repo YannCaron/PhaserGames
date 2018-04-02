@@ -5,6 +5,7 @@ Phaser.Game.prototype.KEY_CAPTURES = [Phaser.Keyboard.LEFT, Phaser.Keyboard.RIGH
     Phaser.Keyboard.PAGE_UP, Phaser.Keyboard.PAGE_DOWN, Phaser.Keyboard.HOME, Phaser.Keyboard.END];
 
 Phaser.Game.prototype.groups = null;
+Phaser.Game.prototype.actorEvents = null;
 Phaser.Game.prototype.previousEventStates = null;
 Phaser.Game.prototype.texts = null;
 Phaser.Game.prototype.timers = null;
@@ -67,6 +68,7 @@ Phaser.Game.prototype.preloadSystem = function () {
 
 Phaser.Game.prototype.createSystem = function () {
     this.groups = {};
+    this.actorEvents = {};
     this.previousEventStates = {};
     this.texts = [];
     this.timers = [];
@@ -80,6 +82,13 @@ Phaser.Game.prototype.createSystem = function () {
 Phaser.Game.prototype.updateSystem = function () {
     for (var i in this.texts) {
         this.texts[i].textObject.text = this.texts[i].valueCallBack();
+    }
+
+    for (var key in this.actorEvents) {
+        var events = this.actorEvents[key];
+        for (var i in events.callbacks) {
+            events.callbacks[i](events.actor);
+        }
     }
 }
 
@@ -293,6 +302,30 @@ Phaser.Sprite.prototype.scaleTo = function (x, y) {
 }
 
 Phaser.Sprite.prototype.VelocityFromAngle = function (speed) {
-    console.log(this);
     this.game.physics.arcade.velocityFromRotation(this.rotation, speed, this.body.velocity);
+}
+Phaser.Sprite.prototype.addEvent = function (callback) {
+    //this.game.actorEvents[this] = { actor: this, callback: callback };
+    var events = this.game.actorEvents[this];
+    if (typeof events === 'undefined') {
+        this.game.actorEvents[this] = { actor: this, callbacks: [callback] };
+    } else {
+        events.callbacks.push(callback);
+    }
+}
+
+Phaser.Sprite.prototype.every = function (lineNumber, delta, callback) {
+    var self = this;
+    this.addEvent( function(actor) {
+        var hash = '' + lineNumber + self;
+        if (typeof self.game.timers[hash] === 'undefined') {
+            self.game.timers[hash] = 0;
+        }
+
+        if (self.game.timers[hash] < self.game.time.now - delta * 1000) {
+            callback(actor);
+            self.game.timers[hash] = self.game.time.now;
+        }
+
+    });
 }

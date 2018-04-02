@@ -169,7 +169,6 @@ Blockly.Blocks['game_always'] = {
   runIn: 'update'
 };
 
-
 Blockly.Blocks['game_every'] = {
   init: function () {
     this.appendDummyInput()
@@ -450,6 +449,29 @@ Blockly.Blocks['actor_action'] = {
   },
 
   runIn: 'create'
+};
+
+Blockly.Blocks['actor_every'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("with")
+      .appendField(new Blockly.FieldVariable("actor"), "VAR")
+      .appendField("every")
+      .appendField(new Blockly.FieldNumber(0.75, 0, 3600, 0.01), "TIME")
+      .appendField("seconds");
+    this.appendStatementInput("STMT")
+      .setCheck(null)
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(Blockly.Blocks.event.HUE);
+    this.setTooltip("");
+    this.setHelpUrl("");
+
+    this.setOnChange(this.selectNearestVar);
+  },
+
+  runIn: 'update'
 };
 
 Blockly.Blocks['actor_collide'] = {

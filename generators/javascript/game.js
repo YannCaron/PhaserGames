@@ -137,6 +137,17 @@ Blockly.JavaScript['actor_action'] = function (block) {
   return code;
 };
 
+Blockly.JavaScript['actor_every'] = function (block) {
+  var varName = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+  var time = block.getFieldValue('TIME');
+  var stmt = Blockly.JavaScript.statementToCode(block, 'STMT');
+
+  var code = varName + '.every(new Error().lineNumber, ' + time + ', function (' + varName + ') {\n';
+  code += stmt;
+  code += '});\n';
+  return code;
+};
+
 Blockly.JavaScript['actor_collide'] = function (block) {
   var obj1 = block.getFieldValue('OBJ1');
   var event = block.getFieldValue('EVENT');
