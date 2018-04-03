@@ -52,27 +52,26 @@
             game.initGame(1024, 768, 'sky');
             game.debugGame();
 
-            player1 = game.createActor('beetle', 100, 100);
+            player1 = game.createActor('gem1', 100, 100);
             player1.anchor.setTo(0.5, 0.5);
             player1.scaleTo(50, 50);
-            player1.every(new Error().lineNumber, 2, function (actor1) {
-                console.log('event');
-                actor1.body.velocity.x = 50 - Math.random() * 100;
-                actor1.body.velocity.y = 50 - Math.random() * 100;
+            player1.every(new Error().lineNumber, 2, function (actor) {
+                actor.body.velocity.x = 50 - Math.random() * 100;
+                actor.body.velocity.y = 50 - Math.random() * 100;
             });
             player1.body.collideWorldBounds = true;
 
-            player2 = game.createActor('beetle');
+            player2 = game.createActor('beetle', 200, 200);
             player2.anchor.setTo(0.5, 0.5);
-            player2.y = 500;
-            player2.body.gravity.y = 1000;
             player2.body.collideWorldBounds = true;
-            player2.body.bounce.x = .3;
-            player2.body.bounce.y = .3;
+            player2.every(new Error().lineNumber, 2, function (actor) {
+                actor.body.velocity.x = 50 - Math.random() * 100;
+                actor.body.velocity.y = 50 - Math.random() * 100;
+            });
             //player2.body.setCircle(16);
 
-            player1.rotateOnCollide();
-            player2.rotateOnCollide();
+            //player1.rotateOnCollide();
+            //player2.rotateOnCollide();
 
             game.addText(50, 50, function () {
                 return 'score: ' + life;
@@ -107,6 +106,7 @@
         function render() {
             game.renderSystem();
             game.debug.text(game.time.fps || '--', 2, 14, "#cccccc");
+
         }
 
 

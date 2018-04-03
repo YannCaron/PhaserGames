@@ -1,4 +1,13 @@
 // -- game --
+// logger
+var oldLog = console.log;
+console.log = function (message) {
+    if (Phaser.Game.debug) {
+        Phaser.Game.logLine(message);
+    }
+    oldLog.apply(console, arguments);
+};
+
 // global
 Phaser.Game.prototype.KEY_CAPTURES = [Phaser.Keyboard.LEFT, Phaser.Keyboard.RIGHT,
     Phaser.Keyboard.SPACEBAR, Phaser.Keyboard.BACKSPACE, Phaser.Keyboard.DELETE, Phaser.Keyboard.ENTER,
@@ -9,6 +18,11 @@ Phaser.Game.prototype.actorEvents = null;
 Phaser.Game.prototype.previousEventStates = null;
 Phaser.Game.prototype.texts = null;
 Phaser.Game.prototype.timers = null;
+
+Phaser.Game.MAX_LOG = 20;
+Phaser.Game.debug = false; // !important init
+Phaser.Game.logLines = []; // !important init
+Phaser.Game.prototype.logVars = null;
 
 Phaser.Game.prototype.MAX_ACTOR = 500;
 Phaser.Game.prototype.actorCount = 0;
@@ -63,6 +77,7 @@ Phaser.Game.destroyCurrentGame = function () {
 
 // game.overrided method
 Phaser.Game.prototype.preloadSystem = function () {
+    this.time.advancedTiming = true;
     this.load.bitmapFont('font', 'assets/bitmapfont/emulogic.png', 'assets/bitmapfont/emulogic.fnt');
 }
 
@@ -73,6 +88,9 @@ Phaser.Game.prototype.createSystem = function () {
     this.texts = [];
     this.timers = [];
     this.timerIndex = 0;
+    Phaser.Game.debug = false;
+    Phaser.Game.logLines = [];
+    this.logVars = {};
 
     this.physics.startSystem(Phaser.Physics.ARCADE);
     this.input.keyboard.addKeyCapture(this.KEY_CAPTURES);
@@ -80,10 +98,12 @@ Phaser.Game.prototype.createSystem = function () {
 }
 
 Phaser.Game.prototype.updateSystem = function () {
+    // print texts
     for (var i in this.texts) {
         this.texts[i].textObject.text = this.texts[i].valueCallBack();
     }
 
+    // actor events
     for (var key in this.actorEvents) {
         var events = this.actorEvents[key];
         for (var i in events.callbacks) {
@@ -93,7 +113,27 @@ Phaser.Game.prototype.updateSystem = function () {
 }
 
 Phaser.Game.prototype.renderSystem = function () {
-}
+    // // debug
+    if (Phaser.Game.debug) {
+        for (var g in this.groups) {
+            this.groups[g].forEachAlive(this.debug.body, this.debug);
+        }
+
+        this.debug.start(250, 20);
+        for (var i in Phaser.Game.logLines) {
+            this.debug.line(Phaser.Game.logLines[i]);
+        }
+        this.debug.stop();
+        this.debug.text('Living actors: ' + this.actorCount + ' / ' + this.MAX_ACTOR, 10, 20, 'grey');
+        this.debug.text('Frame rate: ' + this.time.fps || '--', 10, 40, 'grey');
+
+        var y = 40;
+        for (var k in this.logVars) {
+            y += 20;
+            this.debug.text(k + ': ' + this.logVars[k](), 10, y);
+        }
+    }
+};
 
 // game.method
 Phaser.Game.prototype.initGame = function(w, h, bg) {
@@ -102,7 +142,7 @@ Phaser.Game.prototype.initGame = function(w, h, bg) {
 };
 
 Phaser.Game.prototype.debugGame = function () {
-    this.plugins.add(Phaser.Plugin.DebugArcadePhysics);
+    /*this.plugins.add(Phaser.Plugin.DebugArcadePhysics);
     this.debug.arcade.on()
     this.debug.arcade.configSet({ // default values:
         bodyFilled: false,
@@ -120,21 +160,33 @@ Phaser.Game.prototype.debugGame = function () {
         renderConfig: false,
         renderDrag: true,
         renderFriction: false,
-        renderLegend: true,
+        renderLegend: false,
         renderMaxVelocity: true,
         renderOffset: true,
         renderRotation: true,
         renderSpeed: true,
         renderTouching: true,
         renderVelocity: true,
-    });
+    });*/
+
+    Phaser.Game.debug = true;
+};
+
+
+Phaser.Game.logLine = function (msg) {
+    Phaser.Game.logLines.push(msg);
+    if (Phaser.Game.logLines.length > Phaser.Game.MAX_LOG) Phaser.Game.logLines.shift();
+};
+
+Phaser.Game.prototype.logVar = function (varName, callback) {
+    this.logVars[varName] = callback;
 };
 
 Phaser.Game.prototype.addText = function (x, y, callBack) {
     var text = this.add.bitmapText(x, y, 'font', '', 15);
     text.fixedToCamera = true;
     this.texts.push({ textObject: text, valueCallBack: callBack });
-}
+};
 
 // game.factory
 Phaser.Game.prototype.createActor = function (name, x = 0, y = 0) {
@@ -162,9 +214,9 @@ Phaser.Game.prototype.createActor = function (name, x = 0, y = 0) {
 };
 
 // game.timer
-Phaser.Game.prototype.every = function (lineNumber, delta, callback) {
+Phaser.Game.prototype.every = function (lineNumber, delta, callback, first = true) {
     if (typeof this.timers[lineNumber] === 'undefined') {
-        this.timers[lineNumber] = 0;
+        this.timers[lineNumber] = (first == true) ? 0 : self.game.time.now;
     }
 
     if (this.timers[lineNumber] < this.time.now - delta * 1000) {
@@ -215,7 +267,11 @@ Phaser.Game.prototype.onOverlap = function (actor1, actor2, callback, once = fal
 }
 
 Phaser.Game.prototype.onKeyDown = function (key, callback, once = false) {
-    this.genericEvent(this.input.keyboard.isDown(key), key, once, callback);
+    this.genericEvent(this.input.keyboard.isDown(key), 'down' + key, once, callback);
+}
+
+Phaser.Game.prototype.onKeyUp = function (key, callback, once = false) {
+    this.genericEvent(this.input.keyboard.upDuration(key, 250), 'up' + key, true, callback);
 }
 
 Phaser.Game.prototype.onMouseLeftDowm = function (callback, once = false) {
@@ -244,8 +300,27 @@ Phaser.Game.prototype.onMouseRightUp = function (callback, once = false) {
 
 // -- actor --onMouseLeftDowm
 // TODO get the friction factor
+Phaser.Game.radToDeg = function (rad) {
+    return rad * 180 / Math.PI;
+}
 Phaser.Sprite.prototype.friction = 0.5;
+Phaser.Sprite.idCounter = 0;
 
+// property
+Phaser.Sprite.prototype.getId = function() {
+    if (this.id == undefined) this.id = Phaser.Sprite.idCounter++;
+    return this.id;
+}
+
+Phaser.Sprite.prototype.getAngleWith = function(actor) {
+    return Phaser.Game.radToDeg(this.game.physics.arcade.angleBetween(this, actor));
+}
+
+Phaser.Sprite.prototype.getDistanceWith = function (actor) {
+    return this.game.physics.arcade.distanceBetween(this, actor);
+}
+
+// method
 Phaser.Sprite.prototype.rotateOnCollide = function() {
     var worldCollideCallback = function (sprite, up, down, left, right) {
         if (up) {
@@ -305,26 +380,28 @@ Phaser.Sprite.prototype.VelocityFromAngle = function (speed) {
     this.game.physics.arcade.velocityFromRotation(this.rotation, speed, this.body.velocity);
 }
 Phaser.Sprite.prototype.addEvent = function (callback) {
-    //this.game.actorEvents[this] = { actor: this, callback: callback };
-    var events = this.game.actorEvents[this];
+    var events = this.game.actorEvents[this.getId()];
     if (typeof events === 'undefined') {
-        this.game.actorEvents[this] = { actor: this, callbacks: [callback] };
+        this.game.actorEvents[this.getId()] = { actor: this, callbacks: [callback] };
     } else {
         events.callbacks.push(callback);
     }
+
+    this.events.onKilled.add(function (actor) {
+        delete actor.game.actorEvents[actor.getId()]
+    });
 }
 
-Phaser.Sprite.prototype.every = function (lineNumber, delta, callback) {
+Phaser.Sprite.prototype.every = function (lineNumber, delta, callback, first = true) {
     var self = this;
     this.addEvent( function(actor) {
-        var hash = '' + lineNumber + self;
-        if (typeof self.game.timers[hash] === 'undefined') {
-            self.game.timers[hash] = 0;
+        var id = self.getId() * 1000 + lineNumber;
+        if (typeof self.game.timers[id] === 'undefined') {
+            self.game.timers[id] = (first == true) ? 0 : self.game.time.now;
         }
-
-        if (self.game.timers[hash] < self.game.time.now - delta * 1000) {
+        if (self.game.timers[id] < self.game.time.now - delta * 1000) {
             callback(actor);
-            self.game.timers[hash] = self.game.time.now;
+            self.game.timers[id] = self.game.time.now;
         }
 
     });

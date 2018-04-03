@@ -112,6 +112,21 @@ Blockly.Blocks['game_debug'] = {
   runIn: 'create'
 };
 
+Blockly.Blocks['debug_var'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("debug")
+      .appendField("value of")
+      .appendField(new Blockly.FieldVariable(), "VAR");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(Blockly.Blocks.game.HUE);
+    this.setTooltip("");
+    this.setHelpUrl("");
+  }
+};
+
 Blockly.Blocks['camera_follow'] = {
   init: function () {
     this.appendDummyInput()
@@ -174,7 +189,9 @@ Blockly.Blocks['game_every'] = {
     this.appendDummyInput()
       .appendField("every")
       .appendField(new Blockly.FieldNumber(0.75, 0, 3600, 0.01), "TIME")
-      .appendField("seconds");
+      .appendField("seconds")
+      .appendField("first")
+      .appendField(new Blockly.FieldCheckbox("TRUE"), "FIRST");
     this.appendStatementInput("STMT")
       .setCheck(null)
     this.setInputsInline(false);
@@ -188,9 +205,9 @@ Blockly.Blocks['game_every'] = {
   runIn: 'update'
 };
 
-Blockly.Blocks['key_down'] = {
+Blockly.Blocks['key_event'] = {
   init: function () {
-    var options = [
+    var key = [
       ["← left", "LEFT"], // ↺ ↻ found on https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Caract%C3%A8res_sp%C3%A9ciaux/Fl%C3%A8ches
       ["→ right", "RIGHT"],
       ["↑ up", "UP"],
@@ -201,13 +218,18 @@ Blockly.Blocks['key_down'] = {
 
     var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     for (var i = 0; i < chars.length; i++) {
-      options.push([chars.charAt(i), chars.charAt(i)]);
+      key.push([chars.charAt(i), chars.charAt(i)]);
     }
+
+    var event = [
+      ['pressed', 'onKeyDown'],
+      ['released', 'onKeyUp']
+    ];
 
     this.appendDummyInput()
       .appendField("when key")
-      .appendField(new Blockly.FieldDropdown(options), "EVENT")
-      .appendField("down")
+      .appendField(new Blockly.FieldDropdown(key), "KEY")
+      .appendField(new Blockly.FieldDropdown(event), "EVENT")
       .appendField("once")
       .appendField(new Blockly.FieldCheckbox("FALSE"), "ONCE");
     this.appendStatementInput("STMT")
@@ -221,15 +243,15 @@ Blockly.Blocks['key_down'] = {
   runIn: 'update'
 };
 
-Blockly.Blocks['mouse_down'] = {
+Blockly.Blocks['mouse_event'] = {
   init: function () {
     var options = [
-      ["left", "onMouseLeftDowm"],
-      ["left up", "onMouseLeftUp"],
-      ["middle", "onMouseMiddleDowm"],
-      ["middle up", "onMouseMiddleUp"],
-      ["right", "onMouseRightDowm"],
-      ["right up", "onMouseRightUp"],
+      ["left pressed", "onMouseLeftDowm"],
+      ["middle pressed", "onMouseMiddleDowm"],
+      ["right pressed", "onMouseRightDowm"],
+      ["left released", "onMouseLeftUp"],
+      ["middle released", "onMouseMiddleUp"],
+      ["right released", "onMouseRightUp"],
     ];
 
     this.appendDummyInput()
@@ -345,13 +367,40 @@ Blockly.Blocks['actor_set'] = {
 
 };
 
+Blockly.Blocks['actor_get1'] = {
+  init: function () {
+    var options = [
+      ["angle with", "getAngleWith"],
+      ["distance with", "getDistanceWith"]
+    ];
+    this.appendDummyInput()
+      .appendField("with")
+      .appendField(new Blockly.FieldVariable(Blockly.Block.DEFAULT_VAR), "VAR")
+      .appendField("get")
+      .appendField(new Blockly.FieldDropdown(options), "PROPERTY");
+    this.appendValueInput("ARG1")
+      .setCheck("Actor")
+    this.setInputsInline(true);
+    this.setOutput(true, "Number");
+    this.setColour(Blockly.Blocks.game.HUE);
+    this.setTooltip("");
+    this.setHelpUrl("");
+
+    this.setOnChange(this.selectNearestVar);
+
+  },
+
+  runIn: 'create'
+
+};
+
 Blockly.Blocks['actor_set1'] = {
   init: function () {
     var options = [
       ["velocity from angle", "VelocityFromAngle"],
     ];
     var units = {
-      "scaleTo": "px",
+      "VelocityFromAngle": "px",
     }
     this.appendDummyInput()
       .appendField("with")
@@ -456,12 +505,16 @@ Blockly.Blocks['actor_every'] = {
     this.appendDummyInput()
       .appendField("with")
       .appendField(new Blockly.FieldVariable("actor"), "VAR")
-      .appendField("every")
-      .appendField(new Blockly.FieldNumber(0.75, 0, 3600, 0.01), "TIME")
-      .appendField("seconds");
+    this.appendValueInput("TIME")
+      .setCheck("Number")
+      .appendField("every");
+    this.appendDummyInput()
+      .appendField("seconds")
+      .appendField("first")
+      .appendField(new Blockly.FieldCheckbox("TRUE"), "FIRST");
     this.appendStatementInput("STMT")
       .setCheck(null)
-    this.setInputsInline(false);
+    this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(Blockly.Blocks.event.HUE);
@@ -471,7 +524,7 @@ Blockly.Blocks['actor_every'] = {
     this.setOnChange(this.selectNearestVar);
   },
 
-  runIn: 'update'
+  runIn: 'create'
 };
 
 Blockly.Blocks['actor_collide'] = {
