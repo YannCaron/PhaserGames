@@ -502,16 +502,19 @@ Blockly.Blocks['actor_action'] = {
 
 Blockly.Blocks['actor_every'] = {
   init: function () {
+    var options = [
+      ["in", "Phaser.Sprite.TimeMode.IN"],
+      ["in and every other", "Phaser.Sprite.TimeMode.IN_AND_AFTER"],
+      ["every", "Phaser.Sprite.TimeMode.EVERY"]
+    ];
     this.appendDummyInput()
       .appendField("with")
       .appendField(new Blockly.FieldVariable("actor"), "VAR")
+      .appendField(new Blockly.FieldDropdown(options), "EVENT")
     this.appendValueInput("TIME")
-      .setCheck("Number")
-      .appendField("every");
+      .setCheck("Number");
     this.appendDummyInput()
-      .appendField("seconds")
-      .appendField("first")
-      .appendField(new Blockly.FieldCheckbox("TRUE"), "FIRST");
+      .appendField("seconds");
     this.appendStatementInput("STMT")
       .setCheck(null)
     this.setInputsInline(true);

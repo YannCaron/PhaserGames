@@ -107,7 +107,8 @@ Phaser.Game.prototype.updateSystem = function () {
     for (var key in this.actorEvents) {
         var events = this.actorEvents[key];
         for (var i in events.callbacks) {
-            events.callbacks[i](events.actor);
+            var callback = events.callbacks[i];
+            callback(events.actor);
         }
     }
 }
@@ -216,7 +217,7 @@ Phaser.Game.prototype.createActor = function (name, x = 0, y = 0) {
 // game.timer
 Phaser.Game.prototype.every = function (lineNumber, delta, callback, first = true) {
     if (typeof this.timers[lineNumber] === 'undefined') {
-        this.timers[lineNumber] = (first == true) ? 0 : self.game.time.now;
+        this.timers[lineNumber] = (first == true) ? 0 : this.time.now;
     }
 
     if (this.timers[lineNumber] < this.time.now - delta * 1000) {
@@ -379,30 +380,53 @@ Phaser.Sprite.prototype.scaleTo = function (x, y) {
 Phaser.Sprite.prototype.VelocityFromAngle = function (speed) {
     this.game.physics.arcade.velocityFromRotation(this.rotation, speed, this.body.velocity);
 }
+
 Phaser.Sprite.prototype.addEvent = function (callback) {
     var events = this.game.actorEvents[this.getId()];
     if (typeof events === 'undefined') {
         this.game.actorEvents[this.getId()] = { actor: this, callbacks: [callback] };
+        callback.id = 0;
     } else {
-        events.callbacks.push(callback);
+        var id = events.callbacks.push(callback);
+        callback.id = id - 1;
     }
 
     this.events.onKilled.add(function (actor) {
-        delete actor.game.actorEvents[actor.getId()]
+        actor.removeAllEvents();
     });
 }
 
-Phaser.Sprite.prototype.every = function (lineNumber, delta, callback, first = true) {
+Phaser.Sprite.prototype.removeAllEvents = function () {
+    delete this.game.actorEvents[this.getId()]
+}
+
+Phaser.Sprite.prototype.removeEvent = function (callback) {
+    delete this.game.actorEvents[this.getId()].callbacks[callback.id];
+}
+
+Phaser.Sprite.TimeMode = {
+    IN: 0,
+    IN_AND_AFTER: 1,
+    EVERY: 2
+}
+
+Phaser.Sprite.prototype.onTime = function (lineNumber, delta, callback, mode) {
     var self = this;
-    this.addEvent( function(actor) {
+    var event = function (actor) {
         var id = self.getId() * 1000 + lineNumber;
         if (typeof self.game.timers[id] === 'undefined') {
-            self.game.timers[id] = (first == true) ? 0 : self.game.time.now;
+            self.game.timers[id] = (mode == Phaser.Sprite.TimeMode.EVERY) ? 0 : self.game.time.now;
         }
         if (self.game.timers[id] < self.game.time.now - delta * 1000) {
             callback(actor);
             self.game.timers[id] = self.game.time.now;
+
+            if (mode == Phaser.Sprite.TimeMode.IN) {
+                actor.removeEvent(event);
+            }
         }
 
-    });
+    };
+
+    this.addEvent(event);
 }

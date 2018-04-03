@@ -159,13 +159,13 @@ Blockly.JavaScript['actor_action'] = function (block) {
 
 Blockly.JavaScript['actor_every'] = function (block) {
   var varName = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+  var event = block.getFieldValue('EVENT');
   var time = Blockly.JavaScript.valueToCode(block, 'TIME', Blockly.JavaScript.ORDER_ATOMIC);
   var stmt = Blockly.JavaScript.statementToCode(block, 'STMT');
-  var first = block.getFieldValue('FIRST') == 'TRUE';
 
-  var code = varName + '.every(new Error().lineNumber, ' + time + ', function (' + varName + ') {\n';
+  var code = varName + '.onTime(new Error().lineNumber, ' + time + ', function (' + varName + ') {\n';
   code += stmt;
-  code += '}, ' + first + ');\n';
+  code += '}, ' + event + ');\n';
   return code;
 };
 
