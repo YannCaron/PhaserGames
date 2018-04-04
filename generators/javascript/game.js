@@ -94,6 +94,7 @@ Blockly.JavaScript['mouse_event'] = function (block) {
 // Actor
 Blockly.JavaScript['game_image'] = function (block) {
   var img = block.getFieldValue('IMG');
+
   var code = '\'' + img + '\'';
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
@@ -106,6 +107,16 @@ Blockly.JavaScript['create_actor'] = function (block) {
   var code = 'game.createActor(' + img + ', ' + x + ', ' + y + ')';
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
+/*
+Blockly.JavaScript['create_actor'] = function (block) {
+  var img = Blockly.JavaScript.valueToCode(block, 'IMG', Blockly.JavaScript.ORDER_ATOMIC);
+  var varName = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
+  var x = Blockly.JavaScript.valueToCode(block, 'X', Blockly.JavaScript.ORDER_ATOMIC);
+  var y = Blockly.JavaScript.valueToCode(block, 'Y', Blockly.JavaScript.ORDER_ATOMIC);
+
+  var code = varName + ' = game.createActor(' + img + ', ' + x + ', ' + y + ');\n';
+  return code;
+};*/
 
 Blockly.JavaScript['actor_get'] = function (block) {
   var varName = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);

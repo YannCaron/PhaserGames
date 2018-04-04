@@ -384,11 +384,6 @@
 		<category name="Game" colour="%{BKY_ACTOR_HUE}">
 			<label text="Constructor"></label>
 			<block type="create_game">
-				<value name="IMG">
-					<shadow type="game_image">
-						<field name="IMG"></field>
-					</shadow>
-				</value>
 				<value name="W">
 					<shadow type="math_number">
 						<field name="NUM">1024</field>
@@ -430,14 +425,12 @@
 			<block type="mouse_event"></block>
 		</category>
 		<category name="%{BKY_CATACTOR}" colour="%{BKY_ACTOR_HUE}">
-			<button text="Create actor..." callbackKey="createActorButtonPressed"></button>
+			<!--<button text="Create actor..." callbackKey="createActorButtonPressed"></button>-->
 			<label text="Constructor"></label>
 			<block type="game_image"></block>
 			<block type="create_actor">
 				<value name="IMG">
-					<shadow type="game_image">
-						<field name="IMG"></field>
-					</shadow>
+					<shadow type="game_image"></shadow>
 				</value>
 				<value name="X">
 					<shadow type="math_number">
@@ -497,6 +490,7 @@
 			</block>
 			<block type="actor_collide"></block>
 		</category>
+		<category name="Colours" custom="COLOUR_PALETTE"></category>
 	</xml>
 
 </body>

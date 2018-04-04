@@ -412,10 +412,18 @@ Code.init = function() {
   // Lazy-load the syntax-highlighting.
   window.setTimeout(Code.importPrettify, 1);
 
+
   // CyaNn Code
-  /*Code.workspace.registerToolboxCategoryCallback(
-    'ACTOR', Code.actorCallback);
-    */
+  /*
+  TODO : If issue #1446 fixed (https://github.com/google/blockly/issues/1446)
+
+  Code.workspace.registerButtonCallback('createActorButtonPressed', function () {
+    console.log('callback');
+  });
+  */
+
+  Code.workspace.registerToolboxCategoryCallback(
+    'COLOUR_PALETTE', Code.coloursFlyoutCallback);
 
 };
 
@@ -673,9 +681,45 @@ Blockly.Block.prototype.setAndShowWarning = function (block, text) {
   block.warning.setVisible(true);
 }
 
-
+/*
 var createActorButtonPressed = function () {
   console.log('button pressed');
-}
+}*/
+
 
 //Code.workspace.registerButtonCallback('createActorButtonPressed', function () { });
+
+/**
+ * Construct the blocks required by the flyout for the colours category.
+ * @param {!Blockly.Workspace} workspace The workspace this flyout is for.
+ * @return {!Array.<!Element>} Array of XML block elements.
+ */
+Code.coloursFlyoutCallback = function (workspace) {
+  // Returns an array of hex colours, e.g. ['#4286f4', '#ef0447']
+  var colourList = ['#ff0000', '#00ff00', '#0000ff'];
+  var xmlList = [];
+  if (Blockly.Blocks['colour_picker']) {
+    xmlList.push(Blockly.Xml.textToDom(
+      '<xml>' +
+      '<button text="Create actor..." callbackKey="createActorButtonPressed"></button>' +
+      '</xml>'
+    ).firstChild);
+
+    for (var i = 0; i < colourList.length; i++) {
+      var blockText = '<xml>' +
+        '<block type="colour_picker">' +
+        '<field name="COLOUR">' + colourList[i] + '</field>' +
+        '</block>' +
+        '</xml>';
+      var block = Blockly.Xml.textToDom(blockText).firstChild;
+      xmlList.push(block);
+    }
+  }
+
+  workspace.registerButtonCallback('createActorButtonPressed', function () {
+    console.log('callback');
+  });
+
+  console.log(Blockly.Xml.blockToDom(Blockly.Blocks['create_game']));
+  return xmlList;
+};

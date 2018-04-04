@@ -7,6 +7,7 @@ Blockly.Blocks.game.HUE = Blockly.Msg.ACTOR_HUE;
 Blockly.Blocks.event = {};
 Blockly.Blocks.event.HUE = Blockly.Msg.EVENT_HUE;
 
+
 Blockly.gameImages = [];
 for (var key in gameImages) {
   Blockly.gameImages.push([{ 'src': gameImages[key], 'width': 50, 'height': 50 }, key]);
@@ -310,6 +311,78 @@ Blockly.Blocks['create_actor'] = {
 
   runIn: 'create'
 };
+/*
+Blockly.Blocks['create_actor'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("create actor")
+      .appendField(new Blockly.FieldTextInput(Blockly.Block.DEFAULT_VAR, this.onNameChanged), "NAME");
+    this.appendValueInput("IMG")
+      .setCheck("Image")
+      .appendField("with")
+    this.appendValueInput("X")
+      .setCheck("Number")
+      .appendField(", x to");
+    this.appendValueInput("Y")
+      .setCheck("Number")
+      .appendField(", y to");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(Blockly.Blocks.game.HUE);
+    this.setTooltip("");
+    this.setHelpUrl("");
+
+    this.setOnChange(this.onBlockChanged);
+    console.log('init');
+  },
+
+  onBlockChanged: function(event) {
+    //console.log(event.type);
+    //console.log(event.element);
+    //console.log(event);
+
+    if (event.element == 'selected' && 
+        event.oldValue == this.id && 
+        event.newValue != this.id) {
+      this.onLostFocus(event);
+    }
+  },
+
+  onLostFocus: function (event) {
+    /*var newVariableName = this.getFieldValue('NAME');
+    var varModel = this.workspace.getVariable(newVariableName, Blockly.Block.ACTOR_TYPE);
+
+    if (varModel == null) {
+      if (this.currentVarModel == null) { 
+        // create
+        varModel = this.workspace.createVariable(newVariableName, Blockly.Block.ACTOR_TYPE);
+        this.currentVarModel = varModel;
+        console.log('created: ' + varModel.name);
+      } else {
+        this.workspace.renameVariableById(this.currentVarModel.id_, newVariableName);
+        console.log('renamed: ' + this.currentVarModel.name);
+      }
+    }*/
+/*  },
+
+  variable: null,
+  onNameChanged: function (newName) {
+    console.log(this);
+    if (this.workspace != null) {
+      if (this.variable == null) {
+        this.variable = this.workspace.createVariable(newName, Blockly.Block.ACTOR_TYPE);
+        console.log('variable created ' + newName);
+      } else {
+        this.workspace.renameVariableById(this.variable.id_, newName);
+        console.log('variable renamed ' + newName);
+      }
+    }
+    
+  },
+
+  runIn: 'create'
+};*/
 
 Blockly.Block.actorProperties = [
   ["x", "x"],
@@ -325,7 +398,7 @@ Blockly.Blocks['actor_get'] = {
   init: function () {
     this.appendDummyInput()
       .appendField("with")
-      .appendField(new Blockly.FieldVariable(Blockly.Block.DEFAULT_VAR), "VAR")
+      .appendField(new Blockly.FieldVariable(Blockly.Block.DEFAULT_VAR, Blockly.Block.ACTOR_TYPE), "VAR")
       .appendField("get")
       .appendField(new Blockly.FieldDropdown(Blockly.Block.actorProperties), "PROPERTY");
     this.setInputsInline(true);
