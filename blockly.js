@@ -422,8 +422,7 @@ Code.init = function() {
   });
   */
 
-  Code.workspace.registerToolboxCategoryCallback(
-    'COLOUR_PALETTE', Code.coloursFlyoutCallback);
+  Code.workspace.registerToolboxCategoryCallback('COLOUR_PALETTE', Blockly.actorDynamics.actorFlyoutCallback);
 
 };
 
@@ -707,8 +706,20 @@ Code.coloursFlyoutCallback = function (workspace) {
 
     for (var i = 0; i < colourList.length; i++) {
       var blockText = '<xml>' +
-        '<block type="colour_picker">' +
-        '<field name="COLOUR">' + colourList[i] + '</field>' +
+        '<block type="create_actor">' +
+        '<value name="IMG">' +
+        '<shadow type="game_image"></shadow>' +
+        '</value>' +
+        '<value name="X">' +
+        '<shadow type="math_number">' +
+        '<field name="NUM">100</field>' +
+        '</shadow>' +
+        '</value>' +
+        '<value name="Y">' +
+        '<shadow type="math_number">' +
+        '<field name="NUM">100</field>' +
+        '</shadow>' +
+        '</value>' +
         '</block>' +
         '</xml>';
       var block = Blockly.Xml.textToDom(blockText).firstChild;
@@ -720,6 +731,5 @@ Code.coloursFlyoutCallback = function (workspace) {
     console.log('callback');
   });
 
-  console.log(Blockly.Xml.blockToDom(Blockly.Blocks['create_game']));
   return xmlList;
 };
