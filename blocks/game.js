@@ -1,10 +1,7 @@
 // global
-Blockly.Blocks.event = {};
-Blockly.Blocks.event.HUE = Blockly.Msg.EVENT_HUE;
-
 Blockly.Blocks.game = {};
 Blockly.Blocks.game.HUE = Blockly.Msg.GAME_HUE;
-
+/*
 Blockly.Block.prototype.findParentVariable = function () {
   var parent = this.getParent();
 
@@ -30,7 +27,7 @@ Blockly.Block.prototype.selectNearestVar = function (change) {
       this.getField('VAR').setValue(parentVariable.getId());
     }
   }
-}
+}*/
 
 // Game
 Blockly.Blocks['create_game'] = {

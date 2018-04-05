@@ -27,3 +27,52 @@ var MSG = {
   catGame: "Jeu",
   catActor: "Acteur",
 };
+
+// object
+Blockly.Msg.OBJECT_CONSTRUCTOR = "constructeur";
+Blockly.Msg.OBJECT_PROPERTIES = "propriétés";
+Blockly.Msg.OBJECT_METHODS = "méthodes";
+Blockly.Msg.OBJECT_EVENTS = "événements";
+
+// actor
+Blockly.Msg.BLOCK_CREATE = "créer";
+Blockly.Msg.BLOCK_WITH = "avec";
+Blockly.Msg.BLOCK_X_TO = "x à";
+Blockly.Msg.BLOCK_Y_TO = "y à";
+Blockly.Msg.BLOCK_GET = "obtenir";
+Blockly.Msg.BLOCK_SET = "definir";
+Blockly.Msg.BLOCK_TO = "à";
+Blockly.Msg.BLOCK_IN = "en";
+Blockly.Msg.BLOCK_DO = "faire";
+Blockly.Msg.BLOCK_WHEN = "quand";
+Blockly.Msg.BLOCK_ONCE = "une fois seulement";
+
+Blockly.Msg.BLOCK_SECONDS = "seconds";
+
+Blockly.Msg.BLOCK_VELOCITY = "velocité en";
+Blockly.Msg.BLOCK_GRAVITY = "gravité en";
+Blockly.Msg.BLOCK_ANGLE = "angle";
+Blockly.Msg.BLOCK_DISTANCE = "distance";
+
+Blockly.Msg.BLOCK_VELOCITY_FROM_ANGLE = "la vélocité depuis l'angle";
+Blockly.Msg.BLOCK_SCALE = "agrandissement";
+Blockly.Msg.BLOCK_BOUNCE = "rebond";
+Blockly.Msg.BLOCK_FRICTION = "frottement";
+
+Blockly.Msg.BLOCK_COLLIDE_BOUNDE = "entre en collision avec les bords";
+Blockly.Msg.BLOCK_IMMOVABLE = "immobiliser";
+Blockly.Msg.BLOCK_ROTATE_WHEN_COLLIDE = "tourner quand entre en collision";
+Blockly.Msg.BLOCK_DESTROY = "détruire";
+
+Blockly.Msg.BLOCK_IN = "dans";
+Blockly.Msg.BLOCK_FROM = "à partir de";
+Blockly.Msg.BLOCK_EVERY = "toutes les";
+
+// tool tips
+Blockly.Msg.TOOLTIP_GAME_IMAGE = "selectione une image pour l'acteur dans la catégorie %1.";
+Blockly.Msg.TOOLTIP_ACTOR_CREATE = "crée un nouvel acteur dans le jeu.";
+Blockly.Msg.TOOLTIP_ACTOR_OBJECT = "obtient l'objet acteur.";
+Blockly.Msg.TOOLTIP_ACTOR_GET = "obtient la valeur de la propriété de l'acteur.\nles propriétés sont :\n%1";
+Blockly.Msg.TOOLTIP_ACTOR_SET = "définit la valeur de la propriété de l'acteur.\nles propriétés sont :\n%1";
+Blockly.Msg.TOOLTIP_ACTOR_ACTION = "exécute une action sur l'objet.\nles méthodes sont :\n%1";
+Blockly.Msg.TOOLTIP_ACTOR_EVERY = "exécute une action en fonction du temps.\nles événements sont :\n%1";

@@ -432,58 +432,7 @@
 		</category>
 		<!--<category name="%{BKY_CATACTOR}" colour="%{BKY_ACTOR_HUE}">
 			<button text="Create actor..." callbackKey="createActorButtonPressed"></button>
-			<label text="Constructor"></label>
-			<block type="game_image"></block>
-			<block type="create_actor">
-				<value name="IMG">
-					<shadow type="game_image"></shadow>
-				</value>
-				<value name="X">
-					<shadow type="math_number">
-						<field name="NUM">100</field>
-					</shadow>
-				</value>
-				<value name="Y">
-					<shadow type="math_number">
-						<field name="NUM">100</field>
-					</shadow>
-				</value>
-			</block>
-			<label text="Properties"></label>
-			<block type="actor_get"></block>
-			<block type="actor_get1">
-				<value name="ARG1">
-					<block type="variables_get">
-						<field name="VAR">{listVariable}</field>
-					</block>
-				</value>
-			</block>
-			<block type="actor_set">
-				<value name="VALUE">
-					<shadow type="math_number">
-						<field name="NUM">100</field>
-					</shadow>
-				</value>
-			</block>
-			<block type="actor_set1">
-				<value name="ARG1">
-					<shadow type="math_number">
-						<field name="NUM">100</field>
-					</shadow>
-				</value>
-			</block>
-			<block type="actor_setXY">
-				<value name="X">
-					<shadow type="math_number">
-						<field name="NUM">100</field>
-					</shadow>
-				</value>
-				<value name="Y">
-					<shadow type="math_number">
-						<field name="NUM">100</field>
-					</shadow>
-				</value>
-			</block>
+
 			<label text="Methods"></label>
 			<block type="actor_action"></block>
 			<label text="Events"></label>
