@@ -6,10 +6,10 @@
 	<meta name="google" value="notranslate">
 	<title>Blockly Demo:</title>
 	<!-- phaser -->
-	<script src="http://cdn.jsdelivr.net/phaser/2.6.2/phaser.min.js"></script>
+	<script src="js/phaser/2.6.2/phaser.min.js"></script>
 	<script src="js/phaser-plugins/phaser-plugin-debug-arcade-physics.js"></script>
 	<!-- custom phaser -->
-	<script src="phaser4kids.js"></script>
+	<script src="core/phaser4kids.js"></script>
 	<!-- blocky -->
 	<script src="js/blockly/appengine/storage.js"></script>
 	<script src="js/blockly/blockly_compressed.js"></script>
@@ -18,15 +18,18 @@
 	<!-- custom blockly -->
 	<script src="msg/global.js"></script>
 	<script src="resources.js"></script>
+
+	<script src="core/blockly.js"></script>
+	<script src="blocks/image.js"></script>
 	<script src="blocks/game.js"></script>
-	<script src="generators/javascript/game.js"></script>	
-	<script src="blocks/lists.js"></script>
-	<script src="generators/javascript/lists.js"></script>
-	<script src="actor_dynamic.js"></script>
+	<script src="blocks/actor.js"></script>
+	<script src="generators/javascript/image.js"></script>
+	<script src="generators/javascript/game.js"></script>
+	<script src="generators/javascript/actor.js"></script>
+	<script src="core/image_dynamic.js"></script>
+	<script src="core/actor_dynamic.js"></script>
 	<!-- page -->
 	<script src="blockly.js"></script>
-
-	<!--<script src="game.js"></script>-->
 
 	<link rel="stylesheet" href="style.css">
 </head>
@@ -382,7 +385,9 @@
 		<sep></sep>
 		<category name="%{BKY_CATVARIABLES}" colour="%{BKY_VARIABLES_HUE}" custom="VARIABLE"></category>
 		<category name="%{BKY_CATFUNCTIONS}" colour="%{BKY_PROCEDURES_HUE}" custom="PROCEDURE"></category>
-		<category name="Game" colour="%{BKY_ACTOR_HUE}">
+		<sep></sep>
+		<category name="%{BKY_CATIMAGE}" colour="%{BKY_IMAGE_HUE}" custom="IMAGE"></category>
+		<category name="%{BKY_CATGAME}" colour="%{BKY_GAME_HUE}">
 			<label text="Constructor"></label>
 			<block type="create_game">
 				<value name="W">
@@ -425,8 +430,8 @@
 			<block type="key_event"></block>
 			<block type="mouse_event"></block>
 		</category>
-		<category name="%{BKY_CATACTOR}" colour="%{BKY_ACTOR_HUE}">
-			<!--<button text="Create actor..." callbackKey="createActorButtonPressed"></button>-->
+		<!--<category name="%{BKY_CATACTOR}" colour="%{BKY_ACTOR_HUE}">
+			<button text="Create actor..." callbackKey="createActorButtonPressed"></button>
 			<label text="Constructor"></label>
 			<block type="game_image"></block>
 			<block type="create_actor">
@@ -490,8 +495,8 @@
 				</value>
 			</block>
 			<block type="actor_collide"></block>
-		</category>
-		<category name="Colours" custom="COLOUR_PALETTE"></category>
+		</category>-->
+		<category name="%{BKY_CATACTOR}" colour="%{BKY_ACTOR_HUE}" custom="ACTOR"></category>
 	</xml>
 
 </body>

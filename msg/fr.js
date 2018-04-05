@@ -23,5 +23,7 @@ var MSG = {
   badXml: "Erreur d’analyse du XML :\n%1\n\nSélectionner 'OK' pour abandonner vos modifications ou 'Annuler' pour continuer à modifier le XML.",
 
   // CyaNn Code
+  catImage: "Images",
+  catGame: "Jeu",
   catActor: "Acteur",
 };

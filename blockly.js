@@ -414,15 +414,8 @@ Code.init = function() {
 
 
   // CyaNn Code
-  /*
-  TODO : If issue #1446 fixed (https://github.com/google/blockly/issues/1446)
-
-  Code.workspace.registerButtonCallback('createActorButtonPressed', function () {
-    console.log('callback');
-  });
-  */
-
-  Code.workspace.registerToolboxCategoryCallback('COLOUR_PALETTE', Blockly.actorDynamics.actorFlyoutCallback);
+  Code.workspace.registerToolboxCategoryCallback('IMAGE', Blockly.imageDynamics.imageFlyoutCallback);
+  Code.workspace.registerToolboxCategoryCallback('ACTOR', Blockly.actorDynamics.actorFlyoutCallback);
 
 };
 
@@ -675,61 +668,8 @@ Code.runJS = function () {
   }
 };
 
+// TODO to be use later
 Blockly.Block.prototype.setAndShowWarning = function (block, text) {
   block.setWarningText(text);
   block.warning.setVisible(true);
 }
-
-/*
-var createActorButtonPressed = function () {
-  console.log('button pressed');
-}*/
-
-
-//Code.workspace.registerButtonCallback('createActorButtonPressed', function () { });
-
-/**
- * Construct the blocks required by the flyout for the colours category.
- * @param {!Blockly.Workspace} workspace The workspace this flyout is for.
- * @return {!Array.<!Element>} Array of XML block elements.
- */
-Code.coloursFlyoutCallback = function (workspace) {
-  // Returns an array of hex colours, e.g. ['#4286f4', '#ef0447']
-  var colourList = ['#ff0000', '#00ff00', '#0000ff'];
-  var xmlList = [];
-  if (Blockly.Blocks['colour_picker']) {
-    xmlList.push(Blockly.Xml.textToDom(
-      '<xml>' +
-      '<button text="Create actor..." callbackKey="createActorButtonPressed"></button>' +
-      '</xml>'
-    ).firstChild);
-
-    for (var i = 0; i < colourList.length; i++) {
-      var blockText = '<xml>' +
-        '<block type="create_actor">' +
-        '<value name="IMG">' +
-        '<shadow type="game_image"></shadow>' +
-        '</value>' +
-        '<value name="X">' +
-        '<shadow type="math_number">' +
-        '<field name="NUM">100</field>' +
-        '</shadow>' +
-        '</value>' +
-        '<value name="Y">' +
-        '<shadow type="math_number">' +
-        '<field name="NUM">100</field>' +
-        '</shadow>' +
-        '</value>' +
-        '</block>' +
-        '</xml>';
-      var block = Blockly.Xml.textToDom(blockText).firstChild;
-      xmlList.push(block);
-    }
-  }
-
-  workspace.registerButtonCallback('createActorButtonPressed', function () {
-    console.log('callback');
-  });
-
-  return xmlList;
-};

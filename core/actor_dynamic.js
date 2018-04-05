@@ -10,7 +10,7 @@ Blockly.actorDynamics.buildLabel = function (name) {
 
 Blockly.actorDynamics.buildShadowImage = function (name) {
     return '<value name="' + name + '">' +
-    '<shadow type="game_image"></shadow>' +
+    '<shadow type="game_image_PlanetCute"></shadow>' +
     '</value>';
 }
 
@@ -22,32 +22,31 @@ Blockly.actorDynamics.buildShadowNumber = function (name, defaultValue) {
         '</value>';
 };
 
-Blockly.actorDynamics.CREATE_BUTTON =
+Blockly.actorDynamics.CREATE_ACTOR =
     '<block type="create_actor">' +
     Blockly.actorDynamics.buildShadowImage('IMG') +
     Blockly.actorDynamics.buildShadowNumber('X', 100) +
     Blockly.actorDynamics.buildShadowNumber('Y', 100) +
     '</block>';
 
-Blockly.actorDynamics.buildXml = function (xml) {
-    return Blockly.Xml.textToDom('<xml>' + xml + '</xml>').firstChild;
-}
-
 Blockly.actorDynamics.actorFlyoutCallback = function (workspace) {
 
     var xmlList = [];
 
-    if (true) {
-        xmlList.push(Blockly.actorDynamics.buildXml(Blockly.actorDynamics.BUTTON_CREATE));
-        xmlList.push(Blockly.actorDynamics.buildXml(Blockly.actorDynamics.buildLabel('constructor')));
-        xmlList.push(Blockly.actorDynamics.buildXml(Blockly.actorDynamics.CREATE_BUTTON));
+    xmlList.push(Blockly.Xml.xmlToDom(Blockly.actorDynamics.BUTTON_CREATE));
+    workspace.registerButtonCallback('createActorButtonPressed', Blockly.actorDynamics.createActorCallback);
+
+    var actorVariables = workspace.getVariablesOfType(Blockly.Block.ACTOR_TYPE);
+
+    if (actorVariables.length > 0) {
+        xmlList.push(Blockly.Xml.xmlToDom(Blockly.actorDynamics.buildLabel('constructor')));
+        xmlList.push(Blockly.Xml.xmlToDom(Blockly.actorDynamics.CREATE_ACTOR));
     }
 
-    workspace.registerButtonCallback('createActorButtonPressed', Blockly.actorDynamics.createActorCallback);
 
     return xmlList;
 };
 
-Blockly.actorDynamics.createActorCallback = function () {
-    alert('create actor');
+Blockly.actorDynamics.createActorCallback = function (button) {
+    Blockly.Variables.createVariableButtonHandler(button.getTargetWorkspace(), null, Blockly.Block.ACTOR_TYPE);
 };

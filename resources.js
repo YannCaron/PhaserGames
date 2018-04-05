@@ -1,81 +1,308 @@
+// package
+var Blockly4kids = Blockly4kids || {};
+
+// game images for background creation
+Blockly4kids.gameBackgrounds = {};
+Blockly4kids.gameBackgrounds['dirt'] = 'assets/bg/dirt.png';
+Blockly4kids.gameBackgrounds['grass'] = 'assets/bg/grass.png';
+Blockly4kids.gameBackgrounds['ground-01'] = 'assets/bg/ground_01.png';
+Blockly4kids.gameBackgrounds['ground-05'] = 'assets/bg/ground_05.png';
+Blockly4kids.gameBackgrounds['ground-06'] = 'assets/bg/ground_06.png';
+Blockly4kids.gameBackgrounds['platformIndustrial-005'] = 'assets/bg/platformIndustrial_005.png';
+Blockly4kids.gameBackgrounds['sand'] = 'assets/bg/sand.png';
+Blockly4kids.gameBackgrounds['scape-no-star'] = 'assets/bg/scape-no-star.png';
+Blockly4kids.gameBackgrounds['sky'] = 'assets/bg/sky.png';
+Blockly4kids.gameBackgrounds['space'] = 'assets/bg/space.png';
+
 // game images for actor creation
-var gameImages = {};
-gameImages['SpaceArt-enemyShip'] = 'assets/img/SpaceArt/enemyShip.png';
-gameImages['SpaceArt-enemyUFO'] = 'assets/img/SpaceArt/enemyUFO.png';
-gameImages['SpaceArt-laserGreen'] = 'assets/img/SpaceArt/laserGreen.png';
-gameImages['SpaceArt-laserGreenShot'] = 'assets/img/SpaceArt/laserGreenShot.png';
-gameImages['SpaceArt-laserGreen-h'] = 'assets/img/SpaceArt/laserGreen_h.png';
-gameImages['SpaceArt-laserRed'] = 'assets/img/SpaceArt/laserRed.png';
-gameImages['SpaceArt-laserRedShot'] = 'assets/img/SpaceArt/laserRedShot.png';
-gameImages['SpaceArt-laserRed-h'] = 'assets/img/SpaceArt/laserRed_h.png';
-gameImages['SpaceArt-meteorBig'] = 'assets/img/SpaceArt/meteorBig.png';
-gameImages['SpaceArt-meteorSmall'] = 'assets/img/SpaceArt/meteorSmall.png';
-gameImages['SpaceArt-nebula'] = 'assets/img/SpaceArt/nebula.png';
-gameImages['SpaceArt-playerLife1-blue'] = 'assets/img/SpaceArt/playerLife1_blue.png';
-gameImages['SpaceArt-playerLife1-green'] = 'assets/img/SpaceArt/playerLife1_green.png';
-gameImages['SpaceArt-playerLife1-red'] = 'assets/img/SpaceArt/playerLife1_red.png';
-gameImages['SpaceArt-playerShip1-blue'] = 'assets/img/SpaceArt/playerShip1_blue.png';
-gameImages['SpaceArt-playerShip1-green'] = 'assets/img/SpaceArt/playerShip1_green.png';
-gameImages['SpaceArt-playerShip1-orange'] = 'assets/img/SpaceArt/playerShip1_orange.png';
-gameImages['SpaceArt-playerShip1-red'] = 'assets/img/SpaceArt/playerShip1_red.png';
-gameImages['SpaceArt-playerShip2-blue'] = 'assets/img/SpaceArt/playerShip2_blue.png';
-gameImages['SpaceArt-playerShip2-green'] = 'assets/img/SpaceArt/playerShip2_green.png';
-gameImages['SpaceArt-playerShip2-orange'] = 'assets/img/SpaceArt/playerShip2_orange.png';
-gameImages['SpaceArt-playerShip2-red'] = 'assets/img/SpaceArt/playerShip2_red.png';
-gameImages['SpaceArt-playerShip3-blue'] = 'assets/img/SpaceArt/playerShip3_blue.png';
-gameImages['SpaceArt-playerShip3-green'] = 'assets/img/SpaceArt/playerShip3_green.png';
-gameImages['SpaceArt-playerShip3-orange'] = 'assets/img/SpaceArt/playerShip3_orange.png';
-gameImages['SpaceArt-playerShip3-red'] = 'assets/img/SpaceArt/playerShip3_red.png';
-gameImages['SpaceArt-shield'] = 'assets/img/SpaceArt/shield.png';
-gameImages['SpaceArt-spaceAstronauts-001'] = 'assets/img/SpaceArt/spaceAstronauts_001.png';
-gameImages['SpaceArt-spaceAstronauts-002'] = 'assets/img/SpaceArt/spaceAstronauts_002.png';
-gameImages['SpaceArt-spaceAstronauts-003'] = 'assets/img/SpaceArt/spaceAstronauts_003.png';
-gameImages['SpaceArt-spaceAstronauts-004'] = 'assets/img/SpaceArt/spaceAstronauts_004.png';
-gameImages['SpaceArt-spaceAstronauts-005'] = 'assets/img/SpaceArt/spaceAstronauts_005.png';
-gameImages['SpaceArt-spaceAstronauts-006'] = 'assets/img/SpaceArt/spaceAstronauts_006.png';
-gameImages['SpaceArt-spaceAstronauts-007'] = 'assets/img/SpaceArt/spaceAstronauts_007.png';
-gameImages['SpaceArt-spaceAstronauts-008'] = 'assets/img/SpaceArt/spaceAstronauts_008.png';
-gameImages['SpaceArt-spaceAstronauts-009'] = 'assets/img/SpaceArt/spaceAstronauts_009.png';
-gameImages['SpaceArt-spaceEffects-014'] = 'assets/img/SpaceArt/spaceEffects_014.png';
-gameImages['SpaceArt-spaceEffects-016'] = 'assets/img/SpaceArt/spaceEffects_016.png';
-gameImages['SpaceArt-spaceMeteors-003'] = 'assets/img/SpaceArt/spaceMeteors_003.png';
-gameImages['SpaceArt-spaceMissiles-003'] = 'assets/img/SpaceArt/spaceMissiles_003.png';
-gameImages['SpaceArt-spaceMissiles-008'] = 'assets/img/SpaceArt/spaceMissiles_008.png';
-gameImages['SpaceArt-spaceMissiles-013'] = 'assets/img/SpaceArt/spaceMissiles_013.png';
-gameImages['SpaceArt-spaceMissiles-023'] = 'assets/img/SpaceArt/spaceMissiles_023.png';
-gameImages['SpaceArt-spaceMissiles-025'] = 'assets/img/SpaceArt/spaceMissiles_025.png';
-gameImages['SpaceArt-spaceMissiles-037'] = 'assets/img/SpaceArt/spaceMissiles_037.png';
-gameImages['SpaceArt-spaceRocketParts-023'] = 'assets/img/SpaceArt/spaceRocketParts_023.png';
-gameImages['SpaceArt-spaceRockets-001'] = 'assets/img/SpaceArt/spaceRockets_001.png';
-gameImages['SpaceArt-spaceRockets-002'] = 'assets/img/SpaceArt/spaceRockets_002.png';
-gameImages['SpaceArt-spaceRockets-003'] = 'assets/img/SpaceArt/spaceRockets_003.png';
-gameImages['SpaceArt-spaceRockets-004'] = 'assets/img/SpaceArt/spaceRockets_004.png';
-gameImages['SpaceArt-spaceShips-001'] = 'assets/img/SpaceArt/spaceShips_001.png';
-gameImages['SpaceArt-spaceShips-002'] = 'assets/img/SpaceArt/spaceShips_002.png';
-gameImages['SpaceArt-spaceShips-003'] = 'assets/img/SpaceArt/spaceShips_003.png';
-gameImages['SpaceArt-spaceShips-004'] = 'assets/img/SpaceArt/spaceShips_004.png';
-gameImages['SpaceArt-spaceShips-005'] = 'assets/img/SpaceArt/spaceShips_005.png';
-gameImages['SpaceArt-spaceShips-006'] = 'assets/img/SpaceArt/spaceShips_006.png';
-gameImages['SpaceArt-spaceShips-007'] = 'assets/img/SpaceArt/spaceShips_007.png';
-gameImages['SpaceArt-spaceShips-008'] = 'assets/img/SpaceArt/spaceShips_008.png';
-gameImages['SpaceArt-spaceShips-009'] = 'assets/img/SpaceArt/spaceShips_009.png';
-gameImages['SpaceArt-speedLine'] = 'assets/img/SpaceArt/speedLine.png';
-gameImages['SpaceArt-starBig'] = 'assets/img/SpaceArt/starBig.png';
-gameImages['SpaceArt-starSmall'] = 'assets/img/SpaceArt/starSmall.png';
-gameImages['SpaceArt-ufoBlue'] = 'assets/img/SpaceArt/ufoBlue.png';
-gameImages['SpaceArt-ufoGreen'] = 'assets/img/SpaceArt/ufoGreen.png';
-gameImages['SpaceArt-ufoRed'] = 'assets/img/SpaceArt/ufoRed.png';
-gameImages['SpaceArt-ufoYellow'] = 'assets/img/SpaceArt/ufoYellow.png';
-
-var gameBackgrounds = {};
-gameBackgrounds['dirt'] = 'assets/bg/dirt.png';
-gameBackgrounds['grass'] = 'assets/bg/grass.png';
-gameBackgrounds['ground-01'] = 'assets/bg/ground_01.png';
-gameBackgrounds['ground-05'] = 'assets/bg/ground_05.png';
-gameBackgrounds['ground-06'] = 'assets/bg/ground_06.png';
-gameBackgrounds['platformIndustrial-005'] = 'assets/bg/platformIndustrial_005.png';
-gameBackgrounds['sand'] = 'assets/bg/sand.png';
-gameBackgrounds['scape-no-star'] = 'assets/bg/scape-no-star.png';
-gameBackgrounds['sky'] = 'assets/bg/sky.png';
-gameBackgrounds['space'] = 'assets/bg/space.png';
-
+Blockly4kids.gameImages = {};
+Blockly4kids.gameImages['Animals'] = [
+	[{ src: 'assets/img/Animals/bear-sq.png', width: 50, height: 50 }, 'Animals-bear-sq#assets/img/Animals/bear-sq.png'],
+	[{ src: 'assets/img/Animals/bear.png', width: 50, height: 50 }, 'Animals-bear#assets/img/Animals/bear.png'],
+	[{ src: 'assets/img/Animals/buffalo-sq.png', width: 50, height: 50 }, 'Animals-buffalo-sq#assets/img/Animals/buffalo-sq.png'],
+	[{ src: 'assets/img/Animals/buffalo.png', width: 50, height: 50 }, 'Animals-buffalo#assets/img/Animals/buffalo.png'],
+	[{ src: 'assets/img/Animals/chick-sq.png', width: 50, height: 50 }, 'Animals-chick-sq#assets/img/Animals/chick-sq.png'],
+	[{ src: 'assets/img/Animals/chick.png', width: 50, height: 50 }, 'Animals-chick#assets/img/Animals/chick.png'],
+	[{ src: 'assets/img/Animals/chicken-sq.png', width: 50, height: 50 }, 'Animals-chicken-sq#assets/img/Animals/chicken-sq.png'],
+	[{ src: 'assets/img/Animals/chicken.png', width: 50, height: 50 }, 'Animals-chicken#assets/img/Animals/chicken.png'],
+	[{ src: 'assets/img/Animals/cow-sq.png', width: 50, height: 50 }, 'Animals-cow-sq#assets/img/Animals/cow-sq.png'],
+	[{ src: 'assets/img/Animals/cow.png', width: 50, height: 50 }, 'Animals-cow#assets/img/Animals/cow.png'],
+	[{ src: 'assets/img/Animals/crocodile-sq.png', width: 50, height: 50 }, 'Animals-crocodile-sq#assets/img/Animals/crocodile-sq.png'],
+	[{ src: 'assets/img/Animals/crocodile.png', width: 50, height: 50 }, 'Animals-crocodile#assets/img/Animals/crocodile.png'],
+	[{ src: 'assets/img/Animals/dog-sq.png', width: 50, height: 50 }, 'Animals-dog-sq#assets/img/Animals/dog-sq.png'],
+	[{ src: 'assets/img/Animals/dog.png', width: 50, height: 50 }, 'Animals-dog#assets/img/Animals/dog.png'],
+	[{ src: 'assets/img/Animals/duck-sq.png', width: 50, height: 50 }, 'Animals-duck-sq#assets/img/Animals/duck-sq.png'],
+	[{ src: 'assets/img/Animals/duck.png', width: 50, height: 50 }, 'Animals-duck#assets/img/Animals/duck.png'],
+	[{ src: 'assets/img/Animals/elephant-sq.png', width: 50, height: 50 }, 'Animals-elephant-sq#assets/img/Animals/elephant-sq.png'],
+	[{ src: 'assets/img/Animals/elephant.png', width: 50, height: 50 }, 'Animals-elephant#assets/img/Animals/elephant.png'],
+	[{ src: 'assets/img/Animals/frog-sq.png', width: 50, height: 50 }, 'Animals-frog-sq#assets/img/Animals/frog-sq.png'],
+	[{ src: 'assets/img/Animals/frog.png', width: 50, height: 50 }, 'Animals-frog#assets/img/Animals/frog.png'],
+	[{ src: 'assets/img/Animals/giraffe-sq.png', width: 50, height: 50 }, 'Animals-giraffe-sq#assets/img/Animals/giraffe-sq.png'],
+	[{ src: 'assets/img/Animals/giraffe.png', width: 50, height: 50 }, 'Animals-giraffe#assets/img/Animals/giraffe.png'],
+	[{ src: 'assets/img/Animals/goat-sq.png', width: 50, height: 50 }, 'Animals-goat-sq#assets/img/Animals/goat-sq.png'],
+	[{ src: 'assets/img/Animals/goat.png', width: 50, height: 50 }, 'Animals-goat#assets/img/Animals/goat.png'],
+	[{ src: 'assets/img/Animals/gorilla-sq.png', width: 50, height: 50 }, 'Animals-gorilla-sq#assets/img/Animals/gorilla-sq.png'],
+	[{ src: 'assets/img/Animals/gorilla.png', width: 50, height: 50 }, 'Animals-gorilla#assets/img/Animals/gorilla.png'],
+	[{ src: 'assets/img/Animals/hippo-sq.png', width: 50, height: 50 }, 'Animals-hippo-sq#assets/img/Animals/hippo-sq.png'],
+	[{ src: 'assets/img/Animals/hippo.png', width: 50, height: 50 }, 'Animals-hippo#assets/img/Animals/hippo.png'],
+	[{ src: 'assets/img/Animals/horse-sq.png', width: 50, height: 50 }, 'Animals-horse-sq#assets/img/Animals/horse-sq.png'],
+	[{ src: 'assets/img/Animals/horse.png', width: 50, height: 50 }, 'Animals-horse#assets/img/Animals/horse.png'],
+	[{ src: 'assets/img/Animals/monkey-sq.png', width: 50, height: 50 }, 'Animals-monkey-sq#assets/img/Animals/monkey-sq.png'],
+	[{ src: 'assets/img/Animals/monkey.png', width: 50, height: 50 }, 'Animals-monkey#assets/img/Animals/monkey.png'],
+	[{ src: 'assets/img/Animals/moose-sq.png', width: 50, height: 50 }, 'Animals-moose-sq#assets/img/Animals/moose-sq.png'],
+	[{ src: 'assets/img/Animals/moose.png', width: 50, height: 50 }, 'Animals-moose#assets/img/Animals/moose.png'],
+	[{ src: 'assets/img/Animals/narwhal-sq.png', width: 50, height: 50 }, 'Animals-narwhal-sq#assets/img/Animals/narwhal-sq.png'],
+	[{ src: 'assets/img/Animals/narwhal.png', width: 50, height: 50 }, 'Animals-narwhal#assets/img/Animals/narwhal.png'],
+	[{ src: 'assets/img/Animals/owl-sq.png', width: 50, height: 50 }, 'Animals-owl-sq#assets/img/Animals/owl-sq.png'],
+	[{ src: 'assets/img/Animals/owl.png', width: 50, height: 50 }, 'Animals-owl#assets/img/Animals/owl.png'],
+	[{ src: 'assets/img/Animals/panda-sq.png', width: 50, height: 50 }, 'Animals-panda-sq#assets/img/Animals/panda-sq.png'],
+	[{ src: 'assets/img/Animals/panda.png', width: 50, height: 50 }, 'Animals-panda#assets/img/Animals/panda.png'],
+	[{ src: 'assets/img/Animals/parrot-sq.png', width: 50, height: 50 }, 'Animals-parrot-sq#assets/img/Animals/parrot-sq.png'],
+	[{ src: 'assets/img/Animals/parrot.png', width: 50, height: 50 }, 'Animals-parrot#assets/img/Animals/parrot.png'],
+	[{ src: 'assets/img/Animals/penguin-sq.png', width: 50, height: 50 }, 'Animals-penguin-sq#assets/img/Animals/penguin-sq.png'],
+	[{ src: 'assets/img/Animals/penguin.png', width: 50, height: 50 }, 'Animals-penguin#assets/img/Animals/penguin.png'],
+	[{ src: 'assets/img/Animals/pig-sq.png', width: 50, height: 50 }, 'Animals-pig-sq#assets/img/Animals/pig-sq.png'],
+	[{ src: 'assets/img/Animals/pig.png', width: 50, height: 50 }, 'Animals-pig#assets/img/Animals/pig.png'],
+	[{ src: 'assets/img/Animals/rabbit-sq.png', width: 50, height: 50 }, 'Animals-rabbit-sq#assets/img/Animals/rabbit-sq.png'],
+	[{ src: 'assets/img/Animals/rabbit.png', width: 50, height: 50 }, 'Animals-rabbit#assets/img/Animals/rabbit.png'],
+	[{ src: 'assets/img/Animals/rhino-sq.png', width: 50, height: 50 }, 'Animals-rhino-sq#assets/img/Animals/rhino-sq.png'],
+	[{ src: 'assets/img/Animals/rhino.png', width: 50, height: 50 }, 'Animals-rhino#assets/img/Animals/rhino.png'],
+	[{ src: 'assets/img/Animals/sloth-sq.png', width: 50, height: 50 }, 'Animals-sloth-sq#assets/img/Animals/sloth-sq.png'],
+	[{ src: 'assets/img/Animals/sloth.png', width: 50, height: 50 }, 'Animals-sloth#assets/img/Animals/sloth.png'],
+	[{ src: 'assets/img/Animals/snake-sq.png', width: 50, height: 50 }, 'Animals-snake-sq#assets/img/Animals/snake-sq.png'],
+	[{ src: 'assets/img/Animals/snake.png', width: 50, height: 50 }, 'Animals-snake#assets/img/Animals/snake.png'],
+	[{ src: 'assets/img/Animals/walrus-sq.png', width: 50, height: 50 }, 'Animals-walrus-sq#assets/img/Animals/walrus-sq.png'],
+	[{ src: 'assets/img/Animals/walrus.png', width: 50, height: 50 }, 'Animals-walrus#assets/img/Animals/walrus.png'],
+	[{ src: 'assets/img/Animals/whale-sq.png', width: 50, height: 50 }, 'Animals-whale-sq#assets/img/Animals/whale-sq.png'],
+	[{ src: 'assets/img/Animals/whale.png', width: 50, height: 50 }, 'Animals-whale#assets/img/Animals/whale.png'],
+	[{ src: 'assets/img/Animals/zebra-sq.png', width: 50, height: 50 }, 'Animals-zebra-sq#assets/img/Animals/zebra-sq.png'],
+	[{ src: 'assets/img/Animals/zebra.png', width: 50, height: 50 }, 'Animals-zebra#assets/img/Animals/zebra.png']
+];
+Blockly4kids.gameImages['Board'] = [
+	[{ src: 'assets/img/Board/dieRed1.png', width: 50, height: 50 }, 'Board-dieRed1#assets/img/Board/dieRed1.png'],
+	[{ src: 'assets/img/Board/dieRed2.png', width: 50, height: 50 }, 'Board-dieRed2#assets/img/Board/dieRed2.png'],
+	[{ src: 'assets/img/Board/dieRed3.png', width: 50, height: 50 }, 'Board-dieRed3#assets/img/Board/dieRed3.png'],
+	[{ src: 'assets/img/Board/dieRed4.png', width: 50, height: 50 }, 'Board-dieRed4#assets/img/Board/dieRed4.png'],
+	[{ src: 'assets/img/Board/dieRed5.png', width: 50, height: 50 }, 'Board-dieRed5#assets/img/Board/dieRed5.png'],
+	[{ src: 'assets/img/Board/dieRed6.png', width: 50, height: 50 }, 'Board-dieRed6#assets/img/Board/dieRed6.png'],
+	[{ src: 'assets/img/Board/dieRed_border1.png', width: 50, height: 50 }, 'Board-dieRed-border1#assets/img/Board/dieRed_border1.png'],
+	[{ src: 'assets/img/Board/dieRed_border2.png', width: 50, height: 50 }, 'Board-dieRed-border2#assets/img/Board/dieRed_border2.png'],
+	[{ src: 'assets/img/Board/dieRed_border3.png', width: 50, height: 50 }, 'Board-dieRed-border3#assets/img/Board/dieRed_border3.png'],
+	[{ src: 'assets/img/Board/dieRed_border4.png', width: 50, height: 50 }, 'Board-dieRed-border4#assets/img/Board/dieRed_border4.png'],
+	[{ src: 'assets/img/Board/dieRed_border5.png', width: 50, height: 50 }, 'Board-dieRed-border5#assets/img/Board/dieRed_border5.png'],
+	[{ src: 'assets/img/Board/dieRed_border6.png', width: 50, height: 50 }, 'Board-dieRed-border6#assets/img/Board/dieRed_border6.png'],
+	[{ src: 'assets/img/Board/pieceBlack_border02.png', width: 50, height: 50 }, 'Board-pieceBlack-border02#assets/img/Board/pieceBlack_border02.png'],
+	[{ src: 'assets/img/Board/pieceBlack_border11.png', width: 50, height: 50 }, 'Board-pieceBlack-border11#assets/img/Board/pieceBlack_border11.png'],
+	[{ src: 'assets/img/Board/pieceWhite_border02.png', width: 50, height: 50 }, 'Board-pieceWhite-border02#assets/img/Board/pieceWhite_border02.png'],
+	[{ src: 'assets/img/Board/pieceWhite_border11.png', width: 50, height: 50 }, 'Board-pieceWhite-border11#assets/img/Board/pieceWhite_border11.png']
+];
+Blockly4kids.gameImages['Brick'] = [
+	[{ src: 'assets/img/Brick/ballBlue.png', width: 50, height: 50 }, 'Brick-ballBlue#assets/img/Brick/ballBlue.png'],
+	[{ src: 'assets/img/Brick/ballGrey.png', width: 50, height: 50 }, 'Brick-ballGrey#assets/img/Brick/ballGrey.png'],
+	[{ src: 'assets/img/Brick/element_blue_diamond.png', width: 50, height: 50 }, 'Brick-element-blue-diamond#assets/img/Brick/element_blue_diamond.png'],
+	[{ src: 'assets/img/Brick/element_blue_diamond_glossy.png', width: 50, height: 50 }, 'Brick-element-blue-diamond-glossy#assets/img/Brick/element_blue_diamond_glossy.png'],
+	[{ src: 'assets/img/Brick/element_blue_polygon.png', width: 50, height: 50 }, 'Brick-element-blue-polygon#assets/img/Brick/element_blue_polygon.png'],
+	[{ src: 'assets/img/Brick/element_blue_polygon_glossy.png', width: 50, height: 50 }, 'Brick-element-blue-polygon-glossy#assets/img/Brick/element_blue_polygon_glossy.png'],
+	[{ src: 'assets/img/Brick/element_blue_rectangle.png', width: 50, height: 50 }, 'Brick-element-blue-rectangle#assets/img/Brick/element_blue_rectangle.png'],
+	[{ src: 'assets/img/Brick/element_blue_rectangle_glossy.png', width: 50, height: 50 }, 'Brick-element-blue-rectangle-glossy#assets/img/Brick/element_blue_rectangle_glossy.png'],
+	[{ src: 'assets/img/Brick/element_blue_square.png', width: 50, height: 50 }, 'Brick-element-blue-square#assets/img/Brick/element_blue_square.png'],
+	[{ src: 'assets/img/Brick/element_blue_square_glossy.png', width: 50, height: 50 }, 'Brick-element-blue-square-glossy#assets/img/Brick/element_blue_square_glossy.png'],
+	[{ src: 'assets/img/Brick/element_green_diamond.png', width: 50, height: 50 }, 'Brick-element-green-diamond#assets/img/Brick/element_green_diamond.png'],
+	[{ src: 'assets/img/Brick/element_green_diamond_glossy.png', width: 50, height: 50 }, 'Brick-element-green-diamond-glossy#assets/img/Brick/element_green_diamond_glossy.png'],
+	[{ src: 'assets/img/Brick/element_green_polygon.png', width: 50, height: 50 }, 'Brick-element-green-polygon#assets/img/Brick/element_green_polygon.png'],
+	[{ src: 'assets/img/Brick/element_green_polygon_glossy.png', width: 50, height: 50 }, 'Brick-element-green-polygon-glossy#assets/img/Brick/element_green_polygon_glossy.png'],
+	[{ src: 'assets/img/Brick/element_green_rectangle.png', width: 50, height: 50 }, 'Brick-element-green-rectangle#assets/img/Brick/element_green_rectangle.png'],
+	[{ src: 'assets/img/Brick/element_green_rectangle_glossy.png', width: 50, height: 50 }, 'Brick-element-green-rectangle-glossy#assets/img/Brick/element_green_rectangle_glossy.png'],
+	[{ src: 'assets/img/Brick/element_green_square.png', width: 50, height: 50 }, 'Brick-element-green-square#assets/img/Brick/element_green_square.png'],
+	[{ src: 'assets/img/Brick/element_green_square_glossy.png', width: 50, height: 50 }, 'Brick-element-green-square-glossy#assets/img/Brick/element_green_square_glossy.png'],
+	[{ src: 'assets/img/Brick/element_grey_diamond.png', width: 50, height: 50 }, 'Brick-element-grey-diamond#assets/img/Brick/element_grey_diamond.png'],
+	[{ src: 'assets/img/Brick/element_grey_diamond_glossy.png', width: 50, height: 50 }, 'Brick-element-grey-diamond-glossy#assets/img/Brick/element_grey_diamond_glossy.png'],
+	[{ src: 'assets/img/Brick/element_grey_polygon.png', width: 50, height: 50 }, 'Brick-element-grey-polygon#assets/img/Brick/element_grey_polygon.png'],
+	[{ src: 'assets/img/Brick/element_grey_polygon_glossy.png', width: 50, height: 50 }, 'Brick-element-grey-polygon-glossy#assets/img/Brick/element_grey_polygon_glossy.png'],
+	[{ src: 'assets/img/Brick/element_grey_rectangle.png', width: 50, height: 50 }, 'Brick-element-grey-rectangle#assets/img/Brick/element_grey_rectangle.png'],
+	[{ src: 'assets/img/Brick/element_grey_rectangle_glossy.png', width: 50, height: 50 }, 'Brick-element-grey-rectangle-glossy#assets/img/Brick/element_grey_rectangle_glossy.png'],
+	[{ src: 'assets/img/Brick/element_grey_square.png', width: 50, height: 50 }, 'Brick-element-grey-square#assets/img/Brick/element_grey_square.png'],
+	[{ src: 'assets/img/Brick/element_grey_square_glossy.png', width: 50, height: 50 }, 'Brick-element-grey-square-glossy#assets/img/Brick/element_grey_square_glossy.png'],
+	[{ src: 'assets/img/Brick/element_purple_cube_glossy.png', width: 50, height: 50 }, 'Brick-element-purple-cube-glossy#assets/img/Brick/element_purple_cube_glossy.png'],
+	[{ src: 'assets/img/Brick/element_purple_diamond.png', width: 50, height: 50 }, 'Brick-element-purple-diamond#assets/img/Brick/element_purple_diamond.png'],
+	[{ src: 'assets/img/Brick/element_purple_diamond_glossy.png', width: 50, height: 50 }, 'Brick-element-purple-diamond-glossy#assets/img/Brick/element_purple_diamond_glossy.png'],
+	[{ src: 'assets/img/Brick/element_purple_polygon.png', width: 50, height: 50 }, 'Brick-element-purple-polygon#assets/img/Brick/element_purple_polygon.png'],
+	[{ src: 'assets/img/Brick/element_purple_polygon_glossy.png', width: 50, height: 50 }, 'Brick-element-purple-polygon-glossy#assets/img/Brick/element_purple_polygon_glossy.png'],
+	[{ src: 'assets/img/Brick/element_purple_rectangle.png', width: 50, height: 50 }, 'Brick-element-purple-rectangle#assets/img/Brick/element_purple_rectangle.png'],
+	[{ src: 'assets/img/Brick/element_purple_rectangle_glossy.png', width: 50, height: 50 }, 'Brick-element-purple-rectangle-glossy#assets/img/Brick/element_purple_rectangle_glossy.png'],
+	[{ src: 'assets/img/Brick/element_purple_square.png', width: 50, height: 50 }, 'Brick-element-purple-square#assets/img/Brick/element_purple_square.png'],
+	[{ src: 'assets/img/Brick/element_red_diamond.png', width: 50, height: 50 }, 'Brick-element-red-diamond#assets/img/Brick/element_red_diamond.png'],
+	[{ src: 'assets/img/Brick/element_red_diamond_glossy.png', width: 50, height: 50 }, 'Brick-element-red-diamond-glossy#assets/img/Brick/element_red_diamond_glossy.png'],
+	[{ src: 'assets/img/Brick/element_red_polygon.png', width: 50, height: 50 }, 'Brick-element-red-polygon#assets/img/Brick/element_red_polygon.png'],
+	[{ src: 'assets/img/Brick/element_red_polygon_glossy.png', width: 50, height: 50 }, 'Brick-element-red-polygon-glossy#assets/img/Brick/element_red_polygon_glossy.png'],
+	[{ src: 'assets/img/Brick/element_red_rectangle.png', width: 50, height: 50 }, 'Brick-element-red-rectangle#assets/img/Brick/element_red_rectangle.png'],
+	[{ src: 'assets/img/Brick/element_red_rectangle_glossy.png', width: 50, height: 50 }, 'Brick-element-red-rectangle-glossy#assets/img/Brick/element_red_rectangle_glossy.png'],
+	[{ src: 'assets/img/Brick/element_red_square.png', width: 50, height: 50 }, 'Brick-element-red-square#assets/img/Brick/element_red_square.png'],
+	[{ src: 'assets/img/Brick/element_red_square_glossy.png', width: 50, height: 50 }, 'Brick-element-red-square-glossy#assets/img/Brick/element_red_square_glossy.png'],
+	[{ src: 'assets/img/Brick/element_yellow_diamond.png', width: 50, height: 50 }, 'Brick-element-yellow-diamond#assets/img/Brick/element_yellow_diamond.png'],
+	[{ src: 'assets/img/Brick/element_yellow_diamond_glossy.png', width: 50, height: 50 }, 'Brick-element-yellow-diamond-glossy#assets/img/Brick/element_yellow_diamond_glossy.png'],
+	[{ src: 'assets/img/Brick/element_yellow_polygon.png', width: 50, height: 50 }, 'Brick-element-yellow-polygon#assets/img/Brick/element_yellow_polygon.png'],
+	[{ src: 'assets/img/Brick/element_yellow_polygon_glossy.png', width: 50, height: 50 }, 'Brick-element-yellow-polygon-glossy#assets/img/Brick/element_yellow_polygon_glossy.png'],
+	[{ src: 'assets/img/Brick/element_yellow_rectangle.png', width: 50, height: 50 }, 'Brick-element-yellow-rectangle#assets/img/Brick/element_yellow_rectangle.png'],
+	[{ src: 'assets/img/Brick/element_yellow_rectangle_glossy.png', width: 50, height: 50 }, 'Brick-element-yellow-rectangle-glossy#assets/img/Brick/element_yellow_rectangle_glossy.png'],
+	[{ src: 'assets/img/Brick/element_yellow_square.png', width: 50, height: 50 }, 'Brick-element-yellow-square#assets/img/Brick/element_yellow_square.png'],
+	[{ src: 'assets/img/Brick/element_yellow_square_glossy.png', width: 50, height: 50 }, 'Brick-element-yellow-square-glossy#assets/img/Brick/element_yellow_square_glossy.png'],
+	[{ src: 'assets/img/Brick/paddleBlu.png', width: 50, height: 50 }, 'Brick-paddleBlu#assets/img/Brick/paddleBlu.png'],
+	[{ src: 'assets/img/Brick/paddleRed.png', width: 50, height: 50 }, 'Brick-paddleRed#assets/img/Brick/paddleRed.png'],
+	[{ src: 'assets/img/Brick/particleCartoonStar.png', width: 50, height: 50 }, 'Brick-particleCartoonStar#assets/img/Brick/particleCartoonStar.png'],
+	[{ src: 'assets/img/Brick/particleSmallStar.png', width: 50, height: 50 }, 'Brick-particleSmallStar#assets/img/Brick/particleSmallStar.png'],
+	[{ src: 'assets/img/Brick/particleStar.png', width: 50, height: 50 }, 'Brick-particleStar#assets/img/Brick/particleStar.png'],
+	[{ src: 'assets/img/Brick/selectorA.png', width: 50, height: 50 }, 'Brick-selectorA#assets/img/Brick/selectorA.png'],
+	[{ src: 'assets/img/Brick/selectorB.png', width: 50, height: 50 }, 'Brick-selectorB#assets/img/Brick/selectorB.png'],
+	[{ src: 'assets/img/Brick/selectorC.png', width: 50, height: 50 }, 'Brick-selectorC#assets/img/Brick/selectorC.png']
+];
+Blockly4kids.gameImages['PlanetCute'] = [
+	[{ src: 'assets/img/PlanetCute/Beetleship.png', width: 50, height: 50 }, 'PlanetCute-Beetleship#assets/img/PlanetCute/Beetleship.png'],
+	[{ src: 'assets/img/PlanetCute/Brown Block.png', width: 50, height: 50 }, 'PlanetCute-Brown-Block#assets/img/PlanetCute/Brown Block.png'],
+	[{ src: 'assets/img/PlanetCute/Character Boy.png', width: 50, height: 50 }, 'PlanetCute-Character-Boy#assets/img/PlanetCute/Character Boy.png'],
+	[{ src: 'assets/img/PlanetCute/Character Cat Girl.png', width: 50, height: 50 }, 'PlanetCute-Character-Cat-Girl#assets/img/PlanetCute/Character Cat Girl.png'],
+	[{ src: 'assets/img/PlanetCute/Character Horn Girl.png', width: 50, height: 50 }, 'PlanetCute-Character-Horn-Girl#assets/img/PlanetCute/Character Horn Girl.png'],
+	[{ src: 'assets/img/PlanetCute/Character Pink Girl.png', width: 50, height: 50 }, 'PlanetCute-Character-Pink-Girl#assets/img/PlanetCute/Character Pink Girl.png'],
+	[{ src: 'assets/img/PlanetCute/Character Princess Girl.png', width: 50, height: 50 }, 'PlanetCute-Character-Princess-Girl#assets/img/PlanetCute/Character Princess Girl.png'],
+	[{ src: 'assets/img/PlanetCute/Chest Closed.png', width: 50, height: 50 }, 'PlanetCute-Chest-Closed#assets/img/PlanetCute/Chest Closed.png'],
+	[{ src: 'assets/img/PlanetCute/Chest Lid.png', width: 50, height: 50 }, 'PlanetCute-Chest-Lid#assets/img/PlanetCute/Chest Lid.png'],
+	[{ src: 'assets/img/PlanetCute/Chest Open.png', width: 50, height: 50 }, 'PlanetCute-Chest-Open#assets/img/PlanetCute/Chest Open.png'],
+	[{ src: 'assets/img/PlanetCute/Dirt Block.png', width: 50, height: 50 }, 'PlanetCute-Dirt-Block#assets/img/PlanetCute/Dirt Block.png'],
+	[{ src: 'assets/img/PlanetCute/Door Tall Closed.png', width: 50, height: 50 }, 'PlanetCute-Door-Tall-Closed#assets/img/PlanetCute/Door Tall Closed.png'],
+	[{ src: 'assets/img/PlanetCute/Door Tall Open.png', width: 50, height: 50 }, 'PlanetCute-Door-Tall-Open#assets/img/PlanetCute/Door Tall Open.png'],
+	[{ src: 'assets/img/PlanetCute/Enemy Bug.png', width: 50, height: 50 }, 'PlanetCute-Enemy-Bug#assets/img/PlanetCute/Enemy Bug.png'],
+	[{ src: 'assets/img/PlanetCute/Gem Blue.png', width: 50, height: 50 }, 'PlanetCute-Gem-Blue#assets/img/PlanetCute/Gem Blue.png'],
+	[{ src: 'assets/img/PlanetCute/Gem Green.png', width: 50, height: 50 }, 'PlanetCute-Gem-Green#assets/img/PlanetCute/Gem Green.png'],
+	[{ src: 'assets/img/PlanetCute/Gem Orange.png', width: 50, height: 50 }, 'PlanetCute-Gem-Orange#assets/img/PlanetCute/Gem Orange.png'],
+	[{ src: 'assets/img/PlanetCute/Grass Block.png', width: 50, height: 50 }, 'PlanetCute-Grass-Block#assets/img/PlanetCute/Grass Block.png'],
+	[{ src: 'assets/img/PlanetCute/Heart.png', width: 50, height: 50 }, 'PlanetCute-Heart#assets/img/PlanetCute/Heart.png'],
+	[{ src: 'assets/img/PlanetCute/Key.png', width: 50, height: 50 }, 'PlanetCute-Key#assets/img/PlanetCute/Key.png'],
+	[{ src: 'assets/img/PlanetCute/Plain Block.png', width: 50, height: 50 }, 'PlanetCute-Plain-Block#assets/img/PlanetCute/Plain Block.png'],
+	[{ src: 'assets/img/PlanetCute/Ramp East.png', width: 50, height: 50 }, 'PlanetCute-Ramp-East#assets/img/PlanetCute/Ramp East.png'],
+	[{ src: 'assets/img/PlanetCute/Ramp North.png', width: 50, height: 50 }, 'PlanetCute-Ramp-North#assets/img/PlanetCute/Ramp North.png'],
+	[{ src: 'assets/img/PlanetCute/Ramp South.png', width: 50, height: 50 }, 'PlanetCute-Ramp-South#assets/img/PlanetCute/Ramp South.png'],
+	[{ src: 'assets/img/PlanetCute/Ramp West.png', width: 50, height: 50 }, 'PlanetCute-Ramp-West#assets/img/PlanetCute/Ramp West.png'],
+	[{ src: 'assets/img/PlanetCute/Rock.png', width: 50, height: 50 }, 'PlanetCute-Rock#assets/img/PlanetCute/Rock.png'],
+	[{ src: 'assets/img/PlanetCute/Roof East.png', width: 50, height: 50 }, 'PlanetCute-Roof-East#assets/img/PlanetCute/Roof East.png'],
+	[{ src: 'assets/img/PlanetCute/Roof North East.png', width: 50, height: 50 }, 'PlanetCute-Roof-North-East#assets/img/PlanetCute/Roof North East.png'],
+	[{ src: 'assets/img/PlanetCute/Roof North West.png', width: 50, height: 50 }, 'PlanetCute-Roof-North-West#assets/img/PlanetCute/Roof North West.png'],
+	[{ src: 'assets/img/PlanetCute/Roof North.png', width: 50, height: 50 }, 'PlanetCute-Roof-North#assets/img/PlanetCute/Roof North.png'],
+	[{ src: 'assets/img/PlanetCute/Roof South East.png', width: 50, height: 50 }, 'PlanetCute-Roof-South-East#assets/img/PlanetCute/Roof South East.png'],
+	[{ src: 'assets/img/PlanetCute/Roof South West.png', width: 50, height: 50 }, 'PlanetCute-Roof-South-West#assets/img/PlanetCute/Roof South West.png'],
+	[{ src: 'assets/img/PlanetCute/Roof South.png', width: 50, height: 50 }, 'PlanetCute-Roof-South#assets/img/PlanetCute/Roof South.png'],
+	[{ src: 'assets/img/PlanetCute/Roof West.png', width: 50, height: 50 }, 'PlanetCute-Roof-West#assets/img/PlanetCute/Roof West.png'],
+	[{ src: 'assets/img/PlanetCute/Selector.png', width: 50, height: 50 }, 'PlanetCute-Selector#assets/img/PlanetCute/Selector.png'],
+	[{ src: 'assets/img/PlanetCute/Star.png', width: 50, height: 50 }, 'PlanetCute-Star#assets/img/PlanetCute/Star.png'],
+	[{ src: 'assets/img/PlanetCute/Stone Block Tall.png', width: 50, height: 50 }, 'PlanetCute-Stone-Block-Tall#assets/img/PlanetCute/Stone Block Tall.png'],
+	[{ src: 'assets/img/PlanetCute/Stone Block.png', width: 50, height: 50 }, 'PlanetCute-Stone-Block#assets/img/PlanetCute/Stone Block.png'],
+	[{ src: 'assets/img/PlanetCute/Tree Short.png', width: 50, height: 50 }, 'PlanetCute-Tree-Short#assets/img/PlanetCute/Tree Short.png'],
+	[{ src: 'assets/img/PlanetCute/Tree Tall.png', width: 50, height: 50 }, 'PlanetCute-Tree-Tall#assets/img/PlanetCute/Tree Tall.png'],
+	[{ src: 'assets/img/PlanetCute/Tree Ugly.png', width: 50, height: 50 }, 'PlanetCute-Tree-Ugly#assets/img/PlanetCute/Tree Ugly.png'],
+	[{ src: 'assets/img/PlanetCute/Wall Block Tall.png', width: 50, height: 50 }, 'PlanetCute-Wall-Block-Tall#assets/img/PlanetCute/Wall Block Tall.png'],
+	[{ src: 'assets/img/PlanetCute/Wall Block.png', width: 50, height: 50 }, 'PlanetCute-Wall-Block#assets/img/PlanetCute/Wall Block.png'],
+	[{ src: 'assets/img/PlanetCute/Water Block.png', width: 50, height: 50 }, 'PlanetCute-Water-Block#assets/img/PlanetCute/Water Block.png'],
+	[{ src: 'assets/img/PlanetCute/Window Tall.png', width: 50, height: 50 }, 'PlanetCute-Window-Tall#assets/img/PlanetCute/Window Tall.png'],
+	[{ src: 'assets/img/PlanetCute/Wood Block.png', width: 50, height: 50 }, 'PlanetCute-Wood-Block#assets/img/PlanetCute/Wood Block.png'],
+	[{ src: 'assets/img/PlanetCute/octopus.png', width: 50, height: 50 }, 'PlanetCute-octopus#assets/img/PlanetCute/octopus.png'],
+	[{ src: 'assets/img/PlanetCute/planet.png', width: 50, height: 50 }, 'PlanetCute-planet#assets/img/PlanetCute/planet.png'],
+	[{ src: 'assets/img/PlanetCute/rocketship.png', width: 50, height: 50 }, 'PlanetCute-rocketship#assets/img/PlanetCute/rocketship.png']
+];
+Blockly4kids.gameImages['Platformer'] = [
+	[{ src: 'assets/img/Platformer/Cloud1.png', width: 50, height: 50 }, 'Platformer-Cloud1#assets/img/Platformer/Cloud1.png'],
+	[{ src: 'assets/img/Platformer/Cloud2.png', width: 50, height: 50 }, 'Platformer-Cloud2#assets/img/Platformer/Cloud2.png'],
+	[{ src: 'assets/img/Platformer/Cloud3.png', width: 50, height: 50 }, 'Platformer-Cloud3#assets/img/Platformer/Cloud3.png'],
+	[{ src: 'assets/img/Platformer/block.png', width: 50, height: 50 }, 'Platformer-block#assets/img/Platformer/block.png'],
+	[{ src: 'assets/img/Platformer/bonus.png', width: 50, height: 50 }, 'Platformer-bonus#assets/img/Platformer/bonus.png'],
+	[{ src: 'assets/img/Platformer/bonus_used.png', width: 50, height: 50 }, 'Platformer-bonus-used#assets/img/Platformer/bonus_used.png'],
+	[{ src: 'assets/img/Platformer/bush.png', width: 50, height: 50 }, 'Platformer-bush#assets/img/Platformer/bush.png'],
+	[{ src: 'assets/img/Platformer/coin.png', width: 50, height: 50 }, 'Platformer-coin#assets/img/Platformer/coin.png'],
+	[{ src: 'assets/img/Platformer/crate.png', width: 50, height: 50 }, 'Platformer-crate#assets/img/Platformer/crate.png'],
+	[{ src: 'assets/img/Platformer/fence.png', width: 50, height: 50 }, 'Platformer-fence#assets/img/Platformer/fence.png'],
+	[{ src: 'assets/img/Platformer/fence_broken.png', width: 50, height: 50 }, 'Platformer-fence-broken#assets/img/Platformer/fence_broken.png'],
+	[{ src: 'assets/img/Platformer/fly_dead.png', width: 50, height: 50 }, 'Platformer-fly-dead#assets/img/Platformer/fly_dead.png'],
+	[{ src: 'assets/img/Platformer/fly_fly.png', width: 50, height: 50 }, 'Platformer-fly-fly#assets/img/Platformer/fly_fly.png'],
+	[{ src: 'assets/img/Platformer/fly_normal.png', width: 50, height: 50 }, 'Platformer-fly-normal#assets/img/Platformer/fly_normal.png'],
+	[{ src: 'assets/img/Platformer/front.png', width: 50, height: 50 }, 'Platformer-front#assets/img/Platformer/front.png'],
+	[{ src: 'assets/img/Platformer/grass.png', width: 50, height: 50 }, 'Platformer-grass#assets/img/Platformer/grass.png'],
+	[{ src: 'assets/img/Platformer/ground.png', width: 50, height: 50 }, 'Platformer-ground#assets/img/Platformer/ground.png'],
+	[{ src: 'assets/img/Platformer/ground_cave.png', width: 50, height: 50 }, 'Platformer-ground-cave#assets/img/Platformer/ground_cave.png'],
+	[{ src: 'assets/img/Platformer/hill_long.png', width: 50, height: 50 }, 'Platformer-hill-long#assets/img/Platformer/hill_long.png'],
+	[{ src: 'assets/img/Platformer/hill_short.png', width: 50, height: 50 }, 'Platformer-hill-short#assets/img/Platformer/hill_short.png'],
+	[{ src: 'assets/img/Platformer/jump.png', width: 50, height: 50 }, 'Platformer-jump#assets/img/Platformer/jump.png'],
+	[{ src: 'assets/img/Platformer/shroom.png', width: 50, height: 50 }, 'Platformer-shroom#assets/img/Platformer/shroom.png'],
+	[{ src: 'assets/img/Platformer/side.png', width: 50, height: 50 }, 'Platformer-side#assets/img/Platformer/side.png'],
+	[{ src: 'assets/img/Platformer/slime_dead.png', width: 50, height: 50 }, 'Platformer-slime-dead#assets/img/Platformer/slime_dead.png'],
+	[{ src: 'assets/img/Platformer/slime_normal.png', width: 50, height: 50 }, 'Platformer-slime-normal#assets/img/Platformer/slime_normal.png'],
+	[{ src: 'assets/img/Platformer/slime_walk.png', width: 50, height: 50 }, 'Platformer-slime-walk#assets/img/Platformer/slime_walk.png'],
+	[{ src: 'assets/img/Platformer/spikes.png', width: 50, height: 50 }, 'Platformer-spikes#assets/img/Platformer/spikes.png'],
+	[{ src: 'assets/img/Platformer/walk_sheet.png', width: 50, height: 50 }, 'Platformer-walk-sheet#assets/img/Platformer/walk_sheet.png'],
+	[{ src: 'assets/img/Platformer/water.png', width: 50, height: 50 }, 'Platformer-water#assets/img/Platformer/water.png']
+];
+Blockly4kids.gameImages['SpaceArt'] = [
+	[{ src: 'assets/img/SpaceArt/enemyShip.png', width: 50, height: 50 }, 'SpaceArt-enemyShip#assets/img/SpaceArt/enemyShip.png'],
+	[{ src: 'assets/img/SpaceArt/enemyUFO.png', width: 50, height: 50 }, 'SpaceArt-enemyUFO#assets/img/SpaceArt/enemyUFO.png'],
+	[{ src: 'assets/img/SpaceArt/laserGreen.png', width: 50, height: 50 }, 'SpaceArt-laserGreen#assets/img/SpaceArt/laserGreen.png'],
+	[{ src: 'assets/img/SpaceArt/laserGreenShot.png', width: 50, height: 50 }, 'SpaceArt-laserGreenShot#assets/img/SpaceArt/laserGreenShot.png'],
+	[{ src: 'assets/img/SpaceArt/laserGreen_h.png', width: 50, height: 50 }, 'SpaceArt-laserGreen-h#assets/img/SpaceArt/laserGreen_h.png'],
+	[{ src: 'assets/img/SpaceArt/laserRed.png', width: 50, height: 50 }, 'SpaceArt-laserRed#assets/img/SpaceArt/laserRed.png'],
+	[{ src: 'assets/img/SpaceArt/laserRedShot.png', width: 50, height: 50 }, 'SpaceArt-laserRedShot#assets/img/SpaceArt/laserRedShot.png'],
+	[{ src: 'assets/img/SpaceArt/laserRed_h.png', width: 50, height: 50 }, 'SpaceArt-laserRed-h#assets/img/SpaceArt/laserRed_h.png'],
+	[{ src: 'assets/img/SpaceArt/meteorBig.png', width: 50, height: 50 }, 'SpaceArt-meteorBig#assets/img/SpaceArt/meteorBig.png'],
+	[{ src: 'assets/img/SpaceArt/meteorSmall.png', width: 50, height: 50 }, 'SpaceArt-meteorSmall#assets/img/SpaceArt/meteorSmall.png'],
+	[{ src: 'assets/img/SpaceArt/nebula.png', width: 50, height: 50 }, 'SpaceArt-nebula#assets/img/SpaceArt/nebula.png'],
+	[{ src: 'assets/img/SpaceArt/playerLife1_blue.png', width: 50, height: 50 }, 'SpaceArt-playerLife1-blue#assets/img/SpaceArt/playerLife1_blue.png'],
+	[{ src: 'assets/img/SpaceArt/playerLife1_green.png', width: 50, height: 50 }, 'SpaceArt-playerLife1-green#assets/img/SpaceArt/playerLife1_green.png'],
+	[{ src: 'assets/img/SpaceArt/playerLife1_red.png', width: 50, height: 50 }, 'SpaceArt-playerLife1-red#assets/img/SpaceArt/playerLife1_red.png'],
+	[{ src: 'assets/img/SpaceArt/playerShip1_blue.png', width: 50, height: 50 }, 'SpaceArt-playerShip1-blue#assets/img/SpaceArt/playerShip1_blue.png'],
+	[{ src: 'assets/img/SpaceArt/playerShip1_green.png', width: 50, height: 50 }, 'SpaceArt-playerShip1-green#assets/img/SpaceArt/playerShip1_green.png'],
+	[{ src: 'assets/img/SpaceArt/playerShip1_orange.png', width: 50, height: 50 }, 'SpaceArt-playerShip1-orange#assets/img/SpaceArt/playerShip1_orange.png'],
+	[{ src: 'assets/img/SpaceArt/playerShip1_red.png', width: 50, height: 50 }, 'SpaceArt-playerShip1-red#assets/img/SpaceArt/playerShip1_red.png'],
+	[{ src: 'assets/img/SpaceArt/playerShip2_blue.png', width: 50, height: 50 }, 'SpaceArt-playerShip2-blue#assets/img/SpaceArt/playerShip2_blue.png'],
+	[{ src: 'assets/img/SpaceArt/playerShip2_green.png', width: 50, height: 50 }, 'SpaceArt-playerShip2-green#assets/img/SpaceArt/playerShip2_green.png'],
+	[{ src: 'assets/img/SpaceArt/playerShip2_orange.png', width: 50, height: 50 }, 'SpaceArt-playerShip2-orange#assets/img/SpaceArt/playerShip2_orange.png'],
+	[{ src: 'assets/img/SpaceArt/playerShip2_red.png', width: 50, height: 50 }, 'SpaceArt-playerShip2-red#assets/img/SpaceArt/playerShip2_red.png'],
+	[{ src: 'assets/img/SpaceArt/playerShip3_blue.png', width: 50, height: 50 }, 'SpaceArt-playerShip3-blue#assets/img/SpaceArt/playerShip3_blue.png'],
+	[{ src: 'assets/img/SpaceArt/playerShip3_green.png', width: 50, height: 50 }, 'SpaceArt-playerShip3-green#assets/img/SpaceArt/playerShip3_green.png'],
+	[{ src: 'assets/img/SpaceArt/playerShip3_orange.png', width: 50, height: 50 }, 'SpaceArt-playerShip3-orange#assets/img/SpaceArt/playerShip3_orange.png'],
+	[{ src: 'assets/img/SpaceArt/playerShip3_red.png', width: 50, height: 50 }, 'SpaceArt-playerShip3-red#assets/img/SpaceArt/playerShip3_red.png'],
+	[{ src: 'assets/img/SpaceArt/shield.png', width: 50, height: 50 }, 'SpaceArt-shield#assets/img/SpaceArt/shield.png'],
+	[{ src: 'assets/img/SpaceArt/spaceAstronauts_001.png', width: 50, height: 50 }, 'SpaceArt-spaceAstronauts-001#assets/img/SpaceArt/spaceAstronauts_001.png'],
+	[{ src: 'assets/img/SpaceArt/spaceAstronauts_002.png', width: 50, height: 50 }, 'SpaceArt-spaceAstronauts-002#assets/img/SpaceArt/spaceAstronauts_002.png'],
+	[{ src: 'assets/img/SpaceArt/spaceAstronauts_003.png', width: 50, height: 50 }, 'SpaceArt-spaceAstronauts-003#assets/img/SpaceArt/spaceAstronauts_003.png'],
+	[{ src: 'assets/img/SpaceArt/spaceAstronauts_004.png', width: 50, height: 50 }, 'SpaceArt-spaceAstronauts-004#assets/img/SpaceArt/spaceAstronauts_004.png'],
+	[{ src: 'assets/img/SpaceArt/spaceAstronauts_005.png', width: 50, height: 50 }, 'SpaceArt-spaceAstronauts-005#assets/img/SpaceArt/spaceAstronauts_005.png'],
+	[{ src: 'assets/img/SpaceArt/spaceAstronauts_006.png', width: 50, height: 50 }, 'SpaceArt-spaceAstronauts-006#assets/img/SpaceArt/spaceAstronauts_006.png'],
+	[{ src: 'assets/img/SpaceArt/spaceAstronauts_007.png', width: 50, height: 50 }, 'SpaceArt-spaceAstronauts-007#assets/img/SpaceArt/spaceAstronauts_007.png'],
+	[{ src: 'assets/img/SpaceArt/spaceAstronauts_008.png', width: 50, height: 50 }, 'SpaceArt-spaceAstronauts-008#assets/img/SpaceArt/spaceAstronauts_008.png'],
+	[{ src: 'assets/img/SpaceArt/spaceAstronauts_009.png', width: 50, height: 50 }, 'SpaceArt-spaceAstronauts-009#assets/img/SpaceArt/spaceAstronauts_009.png'],
+	[{ src: 'assets/img/SpaceArt/spaceEffects_014.png', width: 50, height: 50 }, 'SpaceArt-spaceEffects-014#assets/img/SpaceArt/spaceEffects_014.png'],
+	[{ src: 'assets/img/SpaceArt/spaceEffects_016.png', width: 50, height: 50 }, 'SpaceArt-spaceEffects-016#assets/img/SpaceArt/spaceEffects_016.png'],
+	[{ src: 'assets/img/SpaceArt/spaceMeteors_003.png', width: 50, height: 50 }, 'SpaceArt-spaceMeteors-003#assets/img/SpaceArt/spaceMeteors_003.png'],
+	[{ src: 'assets/img/SpaceArt/spaceMissiles_003.png', width: 50, height: 50 }, 'SpaceArt-spaceMissiles-003#assets/img/SpaceArt/spaceMissiles_003.png'],
+	[{ src: 'assets/img/SpaceArt/spaceMissiles_008.png', width: 50, height: 50 }, 'SpaceArt-spaceMissiles-008#assets/img/SpaceArt/spaceMissiles_008.png'],
+	[{ src: 'assets/img/SpaceArt/spaceMissiles_013.png', width: 50, height: 50 }, 'SpaceArt-spaceMissiles-013#assets/img/SpaceArt/spaceMissiles_013.png'],
+	[{ src: 'assets/img/SpaceArt/spaceMissiles_023.png', width: 50, height: 50 }, 'SpaceArt-spaceMissiles-023#assets/img/SpaceArt/spaceMissiles_023.png'],
+	[{ src: 'assets/img/SpaceArt/spaceMissiles_025.png', width: 50, height: 50 }, 'SpaceArt-spaceMissiles-025#assets/img/SpaceArt/spaceMissiles_025.png'],
+	[{ src: 'assets/img/SpaceArt/spaceMissiles_037.png', width: 50, height: 50 }, 'SpaceArt-spaceMissiles-037#assets/img/SpaceArt/spaceMissiles_037.png'],
+	[{ src: 'assets/img/SpaceArt/spaceRocketParts_023.png', width: 50, height: 50 }, 'SpaceArt-spaceRocketParts-023#assets/img/SpaceArt/spaceRocketParts_023.png'],
+	[{ src: 'assets/img/SpaceArt/spaceRockets_001.png', width: 50, height: 50 }, 'SpaceArt-spaceRockets-001#assets/img/SpaceArt/spaceRockets_001.png'],
+	[{ src: 'assets/img/SpaceArt/spaceRockets_002.png', width: 50, height: 50 }, 'SpaceArt-spaceRockets-002#assets/img/SpaceArt/spaceRockets_002.png'],
+	[{ src: 'assets/img/SpaceArt/spaceRockets_003.png', width: 50, height: 50 }, 'SpaceArt-spaceRockets-003#assets/img/SpaceArt/spaceRockets_003.png'],
+	[{ src: 'assets/img/SpaceArt/spaceRockets_004.png', width: 50, height: 50 }, 'SpaceArt-spaceRockets-004#assets/img/SpaceArt/spaceRockets_004.png'],
+	[{ src: 'assets/img/SpaceArt/spaceShips_001.png', width: 50, height: 50 }, 'SpaceArt-spaceShips-001#assets/img/SpaceArt/spaceShips_001.png'],
+	[{ src: 'assets/img/SpaceArt/spaceShips_002.png', width: 50, height: 50 }, 'SpaceArt-spaceShips-002#assets/img/SpaceArt/spaceShips_002.png'],
+	[{ src: 'assets/img/SpaceArt/spaceShips_003.png', width: 50, height: 50 }, 'SpaceArt-spaceShips-003#assets/img/SpaceArt/spaceShips_003.png'],
+	[{ src: 'assets/img/SpaceArt/spaceShips_004.png', width: 50, height: 50 }, 'SpaceArt-spaceShips-004#assets/img/SpaceArt/spaceShips_004.png'],
+	[{ src: 'assets/img/SpaceArt/spaceShips_005.png', width: 50, height: 50 }, 'SpaceArt-spaceShips-005#assets/img/SpaceArt/spaceShips_005.png'],
+	[{ src: 'assets/img/SpaceArt/spaceShips_006.png', width: 50, height: 50 }, 'SpaceArt-spaceShips-006#assets/img/SpaceArt/spaceShips_006.png'],
+	[{ src: 'assets/img/SpaceArt/spaceShips_007.png', width: 50, height: 50 }, 'SpaceArt-spaceShips-007#assets/img/SpaceArt/spaceShips_007.png'],
+	[{ src: 'assets/img/SpaceArt/spaceShips_008.png', width: 50, height: 50 }, 'SpaceArt-spaceShips-008#assets/img/SpaceArt/spaceShips_008.png'],
+	[{ src: 'assets/img/SpaceArt/spaceShips_009.png', width: 50, height: 50 }, 'SpaceArt-spaceShips-009#assets/img/SpaceArt/spaceShips_009.png'],
+	[{ src: 'assets/img/SpaceArt/speedLine.png', width: 50, height: 50 }, 'SpaceArt-speedLine#assets/img/SpaceArt/speedLine.png'],
+	[{ src: 'assets/img/SpaceArt/starBig.png', width: 50, height: 50 }, 'SpaceArt-starBig#assets/img/SpaceArt/starBig.png'],
+	[{ src: 'assets/img/SpaceArt/starSmall.png', width: 50, height: 50 }, 'SpaceArt-starSmall#assets/img/SpaceArt/starSmall.png'],
+	[{ src: 'assets/img/SpaceArt/ufoBlue.png', width: 50, height: 50 }, 'SpaceArt-ufoBlue#assets/img/SpaceArt/ufoBlue.png'],
+	[{ src: 'assets/img/SpaceArt/ufoGreen.png', width: 50, height: 50 }, 'SpaceArt-ufoGreen#assets/img/SpaceArt/ufoGreen.png'],
+	[{ src: 'assets/img/SpaceArt/ufoRed.png', width: 50, height: 50 }, 'SpaceArt-ufoRed#assets/img/SpaceArt/ufoRed.png'],
+	[{ src: 'assets/img/SpaceArt/ufoYellow.png', width: 50, height: 50 }, 'SpaceArt-ufoYellow#assets/img/SpaceArt/ufoYellow.png']
+];

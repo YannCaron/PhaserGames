@@ -7,5 +7,7 @@ goog.require('Blockly.Msg');
 // CyaNn Code
 
 /// {{Notranslate}} Hue value for all logic blocks.
-Blockly.Msg.ACTOR_HUE = '195';
-Blockly.Msg.EVENT_HUE = '65';
+Blockly.Msg.IMAGE_HUE = '215';
+Blockly.Msg.GAME_HUE = '215';
+Blockly.Msg.ACTOR_HUE = '185';
+Blockly.Msg.EVENT_HUE = '45';
