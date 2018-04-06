@@ -18,22 +18,23 @@ Blockly.gameDynamic.CAMERA_FOLLOW =
 
 Blockly.gameDynamic.buildGamePrint = function (value) {
     return '<block type="game_print">' +
-    Blockly.dynamic.buildShadowNumber('X', 30) +
-    Blockly.dynamic.buildShadowNumber('Y', 30) +
-    '<value name="TEXT"><block type="text_join" inline="true">' +
-    '<value name="ADD0"><shadow type="text"><field name="TEXT">' + value + ': </field></shadow></value>' +
-    Blockly.dynamic.buildShadowVariable('ADD1', value) +
-    '</block></value>' +
-    '</block>';
+        Blockly.dynamic.buildShadowNumber('X', 30) +
+        Blockly.dynamic.buildShadowNumber('Y', 30) +
+        '<value name="TEXT"><block type="text_join" inline="true">' +
+        '<value name="ADD0"><shadow type="text"><field name="TEXT">' + value + ': </field></shadow></value>' +
+        Blockly.dynamic.buildShadowVariable('ADD1', value) +
+        '</block></value>' +
+        '</block>';
 }
 
 Blockly.gameDynamic.GAME_DEBUG =
     '<block type="game_debug"></block>';
 
-Blockly.gameDynamic.DEBUG_VAR =
-    '<block type="debug_var">' +
-    Blockly.dynamic.buildShadowObject('VAR') +
-    '</block>';
+Blockly.gameDynamic.buildDebugVar = function (value) {
+    return '<block type="debug_var">' +
+        Blockly.dynamic.buildShadowVariable('VAR', value) +
+        '</block>';
+}
 
 Blockly.gameDynamic.gameFlyoutCallback = function (workspace) {
     var xmlList = [];
@@ -69,26 +70,15 @@ Blockly.gameDynamic.gameFlyoutCallback = function (workspace) {
     // debug
     xmlList.push(Blockly.Xml.xmlToDom(Blockly.dynamic.buildLabel(Blockly.Msg.BLOCK_DEBUG)));
     xmlList.push(Blockly.Xml.xmlToDom(Blockly.gameDynamic.GAME_DEBUG));
-
-    xmlList.push(Blockly.Xml.xmlToDom(Blockly.gameDynamic.DEBUG_VAR));
+    
+    if (variables.length > 0) {
+        xmlList.push(Blockly.Xml.xmlToDom(Blockly.gameDynamic.buildDebugVar(variables[0].name)));
+    }
 
     return xmlList;
 };
 
 /*
-			<block type="game_print">
-				<value name="X">
-					<shadow type="math_number">
-						<field name="NUM">30</field>
-					</shadow>
-				</value>
-				<value name="Y">
-					<shadow type="math_number">
-						<field name="NUM">30</field>
-					</shadow>
-				</value>
-				<value name="TEXT"><shadow type="text"><field name="TEXT">Hi Code4Kids !</field>/shadow></value>
-			</block>
 			<label text="Events"></label>
 			<block type="game_always"></block>
 			<block type="game_every"></block>
