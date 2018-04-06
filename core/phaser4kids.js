@@ -100,7 +100,7 @@ Phaser.Game.prototype.createSystem = function () {
 Phaser.Game.prototype.updateSystem = function () {
     // print texts
     for (var i in this.texts) {
-        this.texts[i].textObject.text = this.texts[i].valueCallBack();
+        this.texts[i].textObject.text = this.texts[i].valueCallback();
     }
 
     // actor events
@@ -183,10 +183,10 @@ Phaser.Game.prototype.logVar = function (varName, callback) {
     this.logVars[varName] = callback;
 };
 
-Phaser.Game.prototype.addText = function (x, y, callBack) {
+Phaser.Game.prototype.addText = function (x, y, callback) {
     var text = this.add.bitmapText(x, y, 'font', '', 15);
     text.fixedToCamera = true;
-    this.texts.push({ textObject: text, valueCallBack: callBack });
+    this.texts.push({ textObject: text, valueCallback: callback });
 };
 
 // game.factory
@@ -312,6 +312,10 @@ Phaser.Sprite.prototype.getId = function() {
     if (this.id == undefined) this.id = Phaser.Sprite.idCounter++;
     return this.id;
 }
+
+Phaser.Sprite.prototype.toString = function() {
+    return 'myString';
+};
 
 Phaser.Sprite.prototype.getAngleWith = function(actor) {
     return Phaser.Game.radToDeg(this.game.physics.arcade.angleBetween(this, actor));

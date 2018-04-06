@@ -1,19 +1,6 @@
 // package
 var Blockly4kids = Blockly4kids || {};
 
-// game images for background creation
-Blockly4kids.gameBackgrounds = {};
-Blockly4kids.gameBackgrounds['dirt'] = 'assets/bg/dirt.png';
-Blockly4kids.gameBackgrounds['grass'] = 'assets/bg/grass.png';
-Blockly4kids.gameBackgrounds['ground-01'] = 'assets/bg/ground_01.png';
-Blockly4kids.gameBackgrounds['ground-05'] = 'assets/bg/ground_05.png';
-Blockly4kids.gameBackgrounds['ground-06'] = 'assets/bg/ground_06.png';
-Blockly4kids.gameBackgrounds['platformIndustrial-005'] = 'assets/bg/platformIndustrial_005.png';
-Blockly4kids.gameBackgrounds['sand'] = 'assets/bg/sand.png';
-Blockly4kids.gameBackgrounds['scape-no-star'] = 'assets/bg/scape-no-star.png';
-Blockly4kids.gameBackgrounds['sky'] = 'assets/bg/sky.png';
-Blockly4kids.gameBackgrounds['space'] = 'assets/bg/space.png';
-
 // game images for actor creation
 Blockly4kids.gameImages = {};
 Blockly4kids.gameImages['Animals'] = [
@@ -77,6 +64,18 @@ Blockly4kids.gameImages['Animals'] = [
 	[{ src: 'assets/img/Animals/whale.png', width: 50, height: 50 }, 'Animals-whale#assets/img/Animals/whale.png'],
 	[{ src: 'assets/img/Animals/zebra-sq.png', width: 50, height: 50 }, 'Animals-zebra-sq#assets/img/Animals/zebra-sq.png'],
 	[{ src: 'assets/img/Animals/zebra.png', width: 50, height: 50 }, 'Animals-zebra#assets/img/Animals/zebra.png']
+];
+Blockly4kids.gameImages['Background'] = [
+	[{ src: 'assets/img/Background/dirt.png', width: 50, height: 50 }, 'Background-dirt#assets/img/Background/dirt.png'],
+	[{ src: 'assets/img/Background/grass.png', width: 50, height: 50 }, 'Background-grass#assets/img/Background/grass.png'],
+	[{ src: 'assets/img/Background/ground_01.png', width: 50, height: 50 }, 'Background-ground-01#assets/img/Background/ground_01.png'],
+	[{ src: 'assets/img/Background/ground_05.png', width: 50, height: 50 }, 'Background-ground-05#assets/img/Background/ground_05.png'],
+	[{ src: 'assets/img/Background/ground_06.png', width: 50, height: 50 }, 'Background-ground-06#assets/img/Background/ground_06.png'],
+	[{ src: 'assets/img/Background/platformIndustrial_005.png', width: 50, height: 50 }, 'Background-platformIndustrial-005#assets/img/Background/platformIndustrial_005.png'],
+	[{ src: 'assets/img/Background/sand.png', width: 50, height: 50 }, 'Background-sand#assets/img/Background/sand.png'],
+	[{ src: 'assets/img/Background/scape-no-star.png', width: 50, height: 50 }, 'Background-scape-no-star#assets/img/Background/scape-no-star.png'],
+	[{ src: 'assets/img/Background/sky.png', width: 50, height: 50 }, 'Background-sky#assets/img/Background/sky.png'],
+	[{ src: 'assets/img/Background/space.png', width: 50, height: 50 }, 'Background-space#assets/img/Background/space.png']
 ];
 Blockly4kids.gameImages['Board'] = [
 	[{ src: 'assets/img/Board/dieRed1.png', width: 50, height: 50 }, 'Board-dieRed1#assets/img/Board/dieRed1.png'],

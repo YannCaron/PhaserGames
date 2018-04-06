@@ -27,6 +27,7 @@
 	<script src="generators/javascript/game.js"></script>
 	<script src="generators/javascript/actor.js"></script>
 	<script src="core/image_dynamic.js"></script>
+	<script src="core/game_dynamic.js"></script>
 	<script src="core/actor_dynamic.js"></script>
 	<!-- page -->
 	<script src="blockly.js"></script>
@@ -211,7 +212,7 @@
 		</category>
 		<category name="%{BKY_CATTEXT}" colour="%{BKY_TEXTS_HUE}">
 			<block type="text"></block>
-			<block type="text_join"></block>
+			<block type="text_join" inline="true"></block>
 			<block type="text_append">
 				<value name="TEXT">
 					<shadow type="text"></shadow>
@@ -290,7 +291,7 @@
 			<block type="lists_create_with">
 				<mutation items="0"></mutation>
 			</block>
-			<block type="lists_create_with"></block>
+			<block type="lists_create_with" inline="true"></block>
 			<block type="lists_repeat">
 				<value name="NUM">
 					<shadow type="math_number">
@@ -387,64 +388,7 @@
 		<category name="%{BKY_CATFUNCTIONS}" colour="%{BKY_PROCEDURES_HUE}" custom="PROCEDURE"></category>
 		<sep></sep>
 		<category name="%{BKY_CATIMAGE}" colour="%{BKY_IMAGE_HUE}" custom="IMAGE"></category>
-		<category name="%{BKY_CATGAME}" colour="%{BKY_GAME_HUE}">
-			<label text="Constructor"></label>
-			<block type="create_game">
-				<value name="W">
-					<shadow type="math_number">
-						<field name="NUM">1024</field>
-					</shadow>
-				</value>
-				<value name="H">
-					<shadow type="math_number">
-						<field name="NUM">768</field>
-					</shadow>
-				</value>
-			</block>
-			<label text="Properties"></label>
-			<block type="game_get"></block>
-			<label text="Methods"></label>
-			<block type="game_debug"></block>
-			<block type="debug_var"></block>
-			<block type="camera_follow"></block>
-			<block type="game_print">
-				<value name="X">
-					<shadow type="math_number">
-						<field name="NUM">30</field>
-					</shadow>
-				</value>
-				<value name="Y">
-					<shadow type="math_number">
-						<field name="NUM">30</field>
-					</shadow>
-				</value>
-				<value name="TEXT">
-					<shadow type="text">
-						<field name="TEXT">Hi Code4Kids !</field>
-					</shadow>
-				</value>
-			</block>
-			<label text="Events"></label>
-			<block type="game_always"></block>
-			<block type="game_every"></block>
-			<block type="key_event"></block>
-			<block type="mouse_event"></block>
-		</category>
-		<!--<category name="%{BKY_CATACTOR}" colour="%{BKY_ACTOR_HUE}">
-			<button text="Create actor..." callbackKey="createActorButtonPressed"></button>
-
-			<label text="Methods"></label>
-			<block type="actor_action"></block>
-			<label text="Events"></label>
-			<block type="actor_every">
-				<value name="TIME">
-					<shadow type="math_number">
-						<field name="NUM">0.75</field>
-					</shadow>
-				</value>
-			</block>
-			<block type="actor_collide"></block>
-		</category>-->
+		<category name="%{BKY_CATGAME}" colour="%{BKY_GAME_HUE}" custom="GAME"></category>
 		<category name="%{BKY_CATACTOR}" colour="%{BKY_ACTOR_HUE}" custom="ACTOR"></category>
 	</xml>
 

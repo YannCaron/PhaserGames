@@ -1,10 +1,10 @@
 // Game
 Blockly.JavaScript['create_game'] = function (block) {
-  var img = block.getFieldValue('IMG');
+  var img = Blockly.JavaScript.valueToCode(block, 'IMG', Blockly.JavaScript.ORDER_ATOMIC);
   var w = Blockly.JavaScript.valueToCode(block, 'W', Blockly.JavaScript.ORDER_ATOMIC);
   var h = Blockly.JavaScript.valueToCode(block, 'H', Blockly.JavaScript.ORDER_ATOMIC);
 
-  var code = 'game.initGame(' + w + ', ' + h + ', \'' + img + '\');\n';
+  var code = 'game.initGame(' + w + ', ' + h + ', ' + img + ');\n';
   return code;
 };
 
@@ -26,7 +26,7 @@ Blockly.JavaScript['game_debug'] = function (block) {
 };
 
 Blockly.JavaScript['debug_var'] = function (block) {
-  var varName = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+  var varName = Blockly.JavaScript.valueToCode(block, 'VAR', Blockly.JavaScript.ORDER_ATOMIC);
 
   var code = 'game.logVar(\'' + varName + '\', function () {\n';
   code += 'return ' + varName + ';\n';
@@ -35,7 +35,7 @@ Blockly.JavaScript['debug_var'] = function (block) {
 };
 
 Blockly.JavaScript['camera_follow'] = function (block) {
-  var varName = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+  var varName = Blockly.JavaScript.valueToCode(block, 'VAR', Blockly.JavaScript.ORDER_ATOMIC);
   var code = 'game.camera.follow(' + varName + ', Phaser.Camera.FOLLOW_LOCKON, 1, 0.1);\n';
   return code;
 };

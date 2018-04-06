@@ -1,62 +1,26 @@
 // global
 Blockly.Blocks.game = {};
 Blockly.Blocks.game.HUE = Blockly.Msg.GAME_HUE;
-/*
-Blockly.Block.prototype.findParentVariable = function () {
-  var parent = this.getParent();
-
-  while (parent != undefined) {
-    if (parent.type === 'variables_set') {
-      parentVariable = parent.getField('VAR').getVariable();
-      return parentVariable;
-    }
-
-    parent = parent.getParent();
-  }
-
-  return null;
-}
-
-Blockly.Block.prototype.selectNearestVar = function (change) {
-  this.findParentVariable();
-  var variable = this.getField('VAR').getVariable();
-  if (change.newParentId != undefined && variable.name == Blockly.Block.DEFAULT_VAR) {
-    var parentVariable = this.findParentVariable();
-
-    if (parentVariable != null) {
-      this.getField('VAR').setValue(parentVariable.getId());
-    }
-  }
-}*/
 
 // Game
 Blockly.Blocks['create_game'] = {
   init: function () {
-    var options = [];
-    for (var key in Blockly4kids.gameBackgrounds) {
-      options.push([{ 'src': Blockly4kids.gameBackgrounds[key], 'width': 50, 'height': 50 }, key]);
-    }
-
     this.appendDummyInput()
-      .appendField("create game")
-      .appendField(new Blockly.FieldDropdown(options), 'IMG')
+      .appendField('%1 %2 %3'.format(Blockly.Msg.BLOCK_WITH, Blockly.Msg.BLOCK_GAME, Blockly.Msg.BLOCK_SET))
+    this.appendValueInput("IMG")
+      .setCheck(Blockly.Block.IMAGE_TYPE)
     this.appendValueInput("W")
       .setCheck("Number")
-      .appendField("width to");
+      .appendField(Blockly.Msg.BLOCK_W_TO);
     this.appendValueInput("H")
       .setCheck("Number")
-      .appendField("height to");
+      .appendField(Blockly.Msg.BLOCK_H_TO);
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(Blockly.Blocks.game.HUE);
-    this.setTooltip("");
+    this.setTooltip(Blockly.Msg.TOOLTIP_GAME_CREATE);
     this.setHelpUrl("");
-  },
-
-  getImage: function () {
-    var key = this.getFieldValue('IMG');
-    return { 'key': key, 'url': Blockly4kids.gameBackgrounds[key] };
   },
 
   runIn: 'create'
@@ -65,20 +29,20 @@ Blockly.Blocks['create_game'] = {
 Blockly.Blocks['game_get'] = {
 
   init: function () {
-    var options = [
-      ["width", "world.width"],
-      ["height", "world.height"],
-      ["mouse x", "input.activePointer.x"],
-      ["mouse y", "input.activePointer.y"],
+    this.OPTIONS = [
+      [Blockly.Msg.BLOCK_WIDTH, "world.width"],
+      [Blockly.Msg.BLOCK_HEIGHT, "world.height"],
+      ["%1 x".format(Blockly.Msg.BLOCK_MOUSE_IN), "input.activePointer.x"],
+      ["%1 y".format(Blockly.Msg.BLOCK_MOUSE_IN), "input.activePointer.y"],
     ];
 
     this.appendDummyInput()
-      .appendField("with game get")
-      .appendField(new Blockly.FieldDropdown(options), "PROPERTY");
+      .appendField('%1 %2 %3'.format(Blockly.Msg.BLOCK_WITH, Blockly.Msg.BLOCK_GAME, Blockly.Msg.BLOCK_GET))
+      .appendField(new Blockly.FieldDropdown(this.OPTIONS), "PROPERTY");
     this.setInputsInline(true);
     this.setOutput(true, "Number");
     this.setColour(Blockly.Blocks.game.HUE);
-    this.setTooltip("");
+    this.setTooltip(Blockly.Msg.TOOLTIP_GAME_GET.format(Blockly.Block.optionList(this.OPTIONS)));
     this.setHelpUrl("");
   },
 
@@ -90,12 +54,12 @@ Blockly.Blocks['game_get'] = {
 Blockly.Blocks['game_debug'] = {
   init: function () {
     this.appendDummyInput()
-      .appendField("debug")
+      .appendField(Blockly.Msg.BLOCK_DEBUG)
       .appendField(new Blockly.FieldCheckbox("TRUE"), "APPLY");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(Blockly.Blocks.game.HUE);
-    this.setTooltip("");
+    this.setTooltip(Blockly.Msg.TOOLTIP_GAME_DEBUG);
     this.setHelpUrl("");
   },
 
@@ -105,25 +69,27 @@ Blockly.Blocks['game_debug'] = {
 Blockly.Blocks['debug_var'] = {
   init: function () {
     this.appendDummyInput()
-      .appendField("debug")
-      .appendField("value of")
-      .appendField(new Blockly.FieldVariable(), "VAR");
+      .appendField("%1 %2".format(Blockly.Msg.BLOCK_DEBUG, Blockly.Msg.BLOCK_VALUE_OF))
+    this.appendValueInput("VAR")
+      .setCheck(null)
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(Blockly.Blocks.game.HUE);
-    this.setTooltip("");
+    this.setTooltip(Blockly.Msg.TOOLTIP_GAME_DEBUG_VAR);
     this.setHelpUrl("");
   }
 };
 
+// TODO here
+
 Blockly.Blocks['camera_follow'] = {
   init: function () {
     this.appendDummyInput()
-      .appendField("camera follow")
-      .appendField(new Blockly.FieldVariable("actor"), "VAR");
-      // TODO check types and create variables
-      //.appendField(new Blockly.FieldVariable("actor", null, [Blockly.Block.ACTOR_TYPE], Blockly.Block.ACTOR_TYPE), "VAR");
+      .appendField("camera follow");
+    this.appendValueInput("VAR")
+      .setCheck(Blockly.Block.ACTOR_TYPE);
+    this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(Blockly.Blocks.game.HUE);

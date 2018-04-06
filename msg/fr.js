@@ -36,9 +36,14 @@ Blockly.Msg.OBJECT_EVENTS = "événements";
 
 // actor
 Blockly.Msg.BLOCK_CREATE = "créer";
+Blockly.Msg.BLOCK_GAME = "le jeu";
 Blockly.Msg.BLOCK_WITH = "avec";
 Blockly.Msg.BLOCK_X_TO = "x à";
 Blockly.Msg.BLOCK_Y_TO = "y à";
+Blockly.Msg.BLOCK_W_TO = "la largeur à";
+Blockly.Msg.BLOCK_H_TO = "la hauteur à";
+Blockly.Msg.BLOCK_WIDTH = "la largeur";
+Blockly.Msg.BLOCK_HEIGHT = "la longueur";
 Blockly.Msg.BLOCK_GET = "obtenir";
 Blockly.Msg.BLOCK_SET = "definir";
 Blockly.Msg.BLOCK_TO = "à";
@@ -46,6 +51,9 @@ Blockly.Msg.BLOCK_IN = "en";
 Blockly.Msg.BLOCK_DO = "faire";
 Blockly.Msg.BLOCK_WHEN = "quand";
 Blockly.Msg.BLOCK_ONCE = "une fois seulement";
+Blockly.Msg.BLOCK_MOUSE_IN = "la sourie en";
+Blockly.Msg.BLOCK_DEBUG = "débogue";
+Blockly.Msg.BLOCK_VALUE_OF = "la valeur de";
 
 Blockly.Msg.BLOCK_SECONDS = "seconds";
 
@@ -70,9 +78,16 @@ Blockly.Msg.BLOCK_EVERY = "toutes les";
 
 // tool tips
 Blockly.Msg.TOOLTIP_GAME_IMAGE = "selectione une image pour l'acteur dans la catégorie %1.";
+
 Blockly.Msg.TOOLTIP_ACTOR_CREATE = "crée un nouvel acteur dans le jeu.";
 Blockly.Msg.TOOLTIP_ACTOR_OBJECT = "obtient l'objet acteur.";
 Blockly.Msg.TOOLTIP_ACTOR_GET = "obtient la valeur de la propriété de l'acteur.\nles propriétés sont :\n%1";
 Blockly.Msg.TOOLTIP_ACTOR_SET = "définit la valeur de la propriété de l'acteur.\nles propriétés sont :\n%1";
 Blockly.Msg.TOOLTIP_ACTOR_ACTION = "exécute une action sur l'objet.\nles méthodes sont :\n%1";
 Blockly.Msg.TOOLTIP_ACTOR_EVERY = "exécute une action en fonction du temps.\nles événements sont :\n%1";
+Blockly.Msg.TOOLTIP_ACTOR_COLLIDE = "exécute une action quand les acteurs entrent en collision ensemble.";
+
+Blockly.Msg.TOOLTIP_GAME_CREATE = "crée le jeu.";
+Blockly.Msg.TOOLTIP_GAME_GET = "obtient la valeure de la propriété du jeu.\nles propriétés sont :\n%1";
+Blockly.Msg.TOOLTIP_GAME_DEBUG = "affiche les indications de déboguage du jeu.";
+Blockly.Msg.TOOLTIP_GAME_DEBUG_VAR = "affiche les indications de déboguage d'une variable en particulier.";

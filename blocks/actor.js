@@ -2,12 +2,6 @@
 Blockly.Blocks.actor = {};
 Blockly.Blocks.actor.HUE = Blockly.Msg.ACTOR_HUE;
 
-Blockly.Block.prototype.fieldActorFactory = function () {
-    return new Blockly.FieldVariable(
-        this.getLastCreatedActor(),
-        null, [Blockly.Block.ACTOR_TYPE], Blockly.Block.ACTOR_TYPE);
-}
-
 // constructor
 Blockly.Blocks['create_actor'] = {
     init: function () {
@@ -52,16 +46,16 @@ Blockly.Blocks['actor_get'] = {
         this.OPTIONS = [
             ["x", "x"],
             ["y", "y"],
-            [Blockly.Msg.BLOCK_VELOCITY + " x", "body.velocity.x"],
-            [Blockly.Msg.BLOCK_VELOCITY + " y", "body.velocity.y"],
-            [Blockly.Msg.BLOCK_GRAVITY + " x", "body.gravity.x"],
-            [Blockly.Msg.BLOCK_GRAVITY + " y", "body.gravity.y"],
+            ["%1 x".format(Blockly.Msg.BLOCK_VELOCITY), "body.velocity.x"],
+            ["%1 y".format(Blockly.Msg.BLOCK_VELOCITY), "body.velocity.y"],
+            ["%1 x".format(Blockly.Msg.BLOCK_GRAVITY), "body.gravity.x"],
+            ["%1 y".format(Blockly.Msg.BLOCK_GRAVITY), "body.gravity.y"],
             [Blockly.Msg.BLOCK_ANGLE, "angle"],
         ];
 
         this.appendValueInput("VAR")
             .appendField(Blockly.Msg.BLOCK_WITH)
-            .setCheck("Actor")
+            .setCheck(Blockly.Block.ACTOR_TYPE)
         this.appendDummyInput()
             .appendField(Blockly.Msg.BLOCK_GET)
             .appendField(new Blockly.FieldDropdown(this.OPTIONS), "PROPERTY");
@@ -81,16 +75,16 @@ Blockly.Blocks['actor_set'] = {
         this.OPTIONS = [
             ["x", "x"],
             ["y", "y"],
-            [Blockly.Msg.BLOCK_VELOCITY + " x", "body.velocity.x"],
-            [Blockly.Msg.BLOCK_VELOCITY + " y", "body.velocity.y"],
-            [Blockly.Msg.BLOCK_GRAVITY + " x", "body.gravity.x"],
-            [Blockly.Msg.BLOCK_GRAVITY + " y", "body.gravity.y"],
+            ["%1 x".format(Blockly.Msg.BLOCK_VELOCITY), "body.velocity.x"],
+            ["%1 y".format(Blockly.Msg.BLOCK_VELOCITY), "body.velocity.y"],
+            ["%1 x".format(Blockly.Msg.BLOCK_GRAVITY), "body.gravity.x"],
+            ["%1 y".format(Blockly.Msg.BLOCK_GRAVITY), "body.gravity.y"],
             [Blockly.Msg.BLOCK_ANGLE, "angle"],
         ];
 
         this.appendValueInput("VAR")
             .appendField(Blockly.Msg.BLOCK_WITH)
-            .setCheck("Actor");
+            .setCheck(Blockly.Block.ACTOR_TYPE);
         this.appendDummyInput()
             .appendField(Blockly.Msg.BLOCK_SET)
             .appendField(new Blockly.FieldDropdown(this.OPTIONS), "PROPERTY");
@@ -112,18 +106,18 @@ Blockly.Blocks['actor_set'] = {
 Blockly.Blocks['actor_get1'] = {
     init: function () {
         this.OPTIONS = [
-            [Blockly.Msg.BLOCK_ANGLE + ' ' + Blockly.Msg.BLOCK_WITH, "getAngleWith"],
-            [Blockly.Msg.BLOCK_DISTANCE + ' ' + Blockly.Msg.BLOCK_WITH, "getDistanceWith"]
+            ["%1 %2".format(Blockly.Msg.BLOCK_ANGLE, Blockly.Msg.BLOCK_WITH), "getAngleWith"],
+            ["%1 %2".format(Blockly.Msg.BLOCK_DISTANCE, Blockly.Msg.BLOCK_WITH), "getDistanceWith"]
         ];
 
         this.appendValueInput("VAR")
             .appendField(Blockly.Msg.BLOCK_WITH)
-            .setCheck("Actor")
+            .setCheck(Blockly.Block.ACTOR_TYPE)
         this.appendDummyInput()
             .appendField(Blockly.Msg.BLOCK_GET)
             .appendField(new Blockly.FieldDropdown(this.OPTIONS), "PROPERTY");
         this.appendValueInput("ARG1")
-            .setCheck("Actor")
+            .setCheck(Blockly.Block.ACTOR_TYPE)
         this.setInputsInline(true);
         this.setOutput(true, "Number");
         this.setColour(Blockly.Blocks.actor.HUE);
@@ -142,7 +136,7 @@ Blockly.Blocks['actor_set1'] = {
         ];
         this.appendValueInput("VAR")
             .appendField(Blockly.Msg.BLOCK_WITH)
-            .setCheck("Actor")
+            .setCheck(Blockly.Block.ACTOR_TYPE)
         this.appendDummyInput()
             .appendField(Blockly.Msg.BLOCK_SET)
             .appendField(new Blockly.FieldDropdown(this.OPTIONS), "PROPERTY");
@@ -170,7 +164,7 @@ Blockly.Blocks['actor_setXY'] = {
         ];
         this.appendValueInput("VAR")
             .appendField(Blockly.Msg.BLOCK_WITH)
-            .setCheck("Actor")
+            .setCheck(Blockly.Block.ACTOR_TYPE)
         this.appendDummyInput()
             .appendField(Blockly.Msg.BLOCK_SET)
             .appendField(new Blockly.FieldDropdown(this.OPTIONS), "PROPERTY");
@@ -203,7 +197,7 @@ Blockly.Blocks['actor_action'] = {
         ];
         this.appendValueInput("VAR")
             .appendField(Blockly.Msg.BLOCK_WITH)
-            .setCheck("Actor")
+            .setCheck(Blockly.Block.ACTOR_TYPE)
         this.appendDummyInput()
             .appendField(new Blockly.FieldDropdown(this.OPTIONS), "METHOD")
         this.setInputsInline(true);
@@ -227,7 +221,7 @@ Blockly.Blocks['actor_every'] = {
         ];
         this.appendValueInput("VAR")
             .appendField(Blockly.Msg.BLOCK_WITH)
-            .setCheck("Actor")
+            .setCheck(Blockly.Block.ACTOR_TYPE)
         this.appendDummyInput()
             .appendField(new Blockly.FieldDropdown(this.OPTIONS), "EVENT")
         this.appendValueInput("TIME")
@@ -246,9 +240,6 @@ Blockly.Blocks['actor_every'] = {
 
     runIn: 'create'
 };
-
-// ------------------------- old part
-// Actor
 
 Blockly.Blocks['actor_collide'] = {
     init: function () {
@@ -273,7 +264,7 @@ Blockly.Blocks['actor_collide'] = {
             .appendField(new Blockly.FieldVariable("actor2", null, [Blockly.Block.ACTOR_TYPE], Blockly.Block.ACTOR_TYPE), "ID2")
         this.setInputsInline(true);
         this.setColour(Blockly.Blocks.event.HUE);
-        this.setTooltip("");
+        this.setTooltip(Blockly.Msg.TOOLTIP_ACTOR_COLLIDE);
         this.setHelpUrl("");
     },
 

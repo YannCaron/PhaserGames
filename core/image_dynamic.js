@@ -1,21 +1,24 @@
 // create namespace
-Blockly.imageDynamics = Blockly.imageDynamics || {};
+Blockly.imageDynamic = Blockly.imageDynamic || {};
+Blockly.imageDynamic.BACKGROUND_CATEGORY = 'Background'
 
-Blockly.imageDynamics.buildLabel = function (name) {
+Blockly.imageDynamic.buildLabel = function (name) {
     return '<label text="' + name + '"></label>';
 }
 
-Blockly.imageDynamics.buildImage = function (category) {
+Blockly.imageDynamic.buildImage = function (category) {
     return '<block type="game_image_' + category + '"></block>';
 }
 
-Blockly.imageDynamics.imageFlyoutCallback = function (workspace) {
+Blockly.imageDynamic.imageFlyoutCallback = function (workspace) {
     var xmlList = [];
 
     for (var category in Blockly4kids.gameImages) {
 
-        xmlList.push(Blockly.Xml.xmlToDom(Blockly.imageDynamics.buildLabel(category)));
-        xmlList.push(Blockly.Xml.xmlToDom(Blockly.imageDynamics.buildImage(category)));
+        if (category != Blockly.imageDynamic.BACKGROUND_CATEGORY) {
+            xmlList.push(Blockly.Xml.xmlToDom(Blockly.imageDynamic.buildLabel(category)));
+            xmlList.push(Blockly.Xml.xmlToDom(Blockly.imageDynamic.buildImage(category)));
+        }
     }
 
     return xmlList;

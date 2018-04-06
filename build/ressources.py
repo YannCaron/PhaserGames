@@ -17,13 +17,6 @@ file.write('// package\n');
 file.write('var Blockly4kids = Blockly4kids || {};\n');
 file.write('\n')
 
-# background images
-file.write('// game images for background creation\n');
-file.write('Blockly4kids.gameBackgrounds = {};\n');
-for filename in sorted(glob.iglob(ASSETS + 'bg/*.png')):
-	file.write('Blockly4kids.gameBackgrounds[\'{0}\'] = \'{1}\';\n'.format(toCodeName(filename, ASSETS + 'bg/'), toRootPath(filename)))
-file.write('\n')
-
 # images
 file.write('// game images for actor creation\n');
 file.write('Blockly4kids.gameImages = {};\n');
