@@ -95,6 +95,8 @@ Phaser.Game.prototype.createSystem = function () {
     this.physics.startSystem(Phaser.Physics.ARCADE);
     this.input.keyboard.addKeyCapture(this.KEY_CAPTURES);
     this.input.mouse.capture = true;
+    this.time.advancedTiming = true;
+
 }
 
 Phaser.Game.prototype.updateSystem = function () {

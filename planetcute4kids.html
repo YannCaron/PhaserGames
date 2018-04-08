@@ -4,7 +4,14 @@
 	<meta charset="utf-8">
     <!--<script src="http://cdn.jsdelivr.net/phaser/2.6.2/phaser.min.js"></script>-->
     <script src="js/phaser/2.6.2/phaser.min.js"></script>
-    <script src="js/phaser-plugins/phaser-plugin-debug-arcade-physics.js"></script>
+
+    <!-- phaser libs -->
+    <script src="msg.en.js"></script>
+    <script src="core/global.js"></script>
+    <script src="core/phaser_debug.js"></script>
+    <script src="core/phaser_pause.js"></script>
+    <script src="core/phaser_game.js"></script>
+    <script src="core/phaser_actor.js"></script>
     <script src="core/phaser.js"></script>
 </head>
 <body>
@@ -15,21 +22,10 @@
 
         var game = new Phaser.Game(1024, 768, Phaser.AUTO, 'content_game', { preload: preload, create: create, update: update, render: render });
 
-        var scoreText;
-        var liveText;
-        var player1, player2;
-        var groundGroup, gemGroup, enemyGroup, bulletGroup;
-        var score = 0;
-        var life = 5;
-
-        function rnd(max) {
-            return 1 + Math.floor(Math.random() * Math.floor(max));
-        }
-
         function preload() {
             game.preloadSystem();
 
-            game.load.image('sky', 'assets/bg/PlanetCute.png');
+            game.load.image('sky', 'assets/img/Background/sky.png');
             game.load.image('floor1', 'assets/img/PlanetCute/Grass Block.png');
             game.load.image('floor2', 'assets/img/PlanetCute/Dirt Block.png');
             game.load.image('floor3', 'assets/img/PlanetCute/Brown Block.png');
@@ -43,44 +39,29 @@
             game.load.image('star', 'assets/img/PlanetCute/Star.png');
             game.load.image('enemy', 'assets/img/PlanetCute/Enemy Bug.png');
 
-            game.time.advancedTiming = true;
         }
 
         function create() {
-
             game.createSystem();
-            game.initGame(1024, 768, 'sky');
-            game.debugGame();
 
-            player1 = game.createActor('gem1', 100, 100);
-            player1.anchor.setTo(0.5, 0.5);
-            player1.scaleTo(50, 50);
-            player1.every(new Error().lineNumber, 2, function (actor) {
-                actor.body.velocity.x = 50 - Math.random() * 100;
-                actor.body.velocity.y = 50 - Math.random() * 100;
-            });
-            player1.body.collideWorldBounds = true;
+            game.initGame(10240, 768, 'sky');
+            game.debugMode = true;
 
-            player2 = game.createActor('beetle', 200, 200);
-            player2.anchor.setTo(0.5, 0.5);
-            player2.body.collideWorldBounds = true;
-            player2.every(new Error().lineNumber, 2, function (actor) {
-                actor.body.velocity.x = 50 - Math.random() * 100;
-                actor.body.velocity.y = 50 - Math.random() * 100;
-            });
-            //player2.body.setCircle(16);
+            player = game.createActor('player', 'beetle', 100, 100);
+            player.body.gravity.y = 1000;
+            player.body.collideWorldBounds = true;
+            player.body.velocity.x = 500;
+            //player.setBounce(100);
+            player.setRotationFriction(80);
+            player.cameraFollow();
 
-            //player1.rotateOnCollide();
-            //player2.rotateOnCollide();
+            game.log('my log');
+            game.addInfo('player', function() { return player; });
 
         }
 
-        var previousEventDown = {};
-
         function update() {
             game.updateSystem();
-            //player1.body.angularVelocity = 200;
-
         }
 
         function render() {

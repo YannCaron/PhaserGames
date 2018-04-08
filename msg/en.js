@@ -100,3 +100,5 @@ Blockly.Msg.TOOLTIP_GAME_DEBUG_VAR = "show a specific variable debug information
 
 Blockly.Msg.TOOLTIP_CAMERA_FOLLOW = "camera follow the actor.";
 Blockly.Msg.TOOLTIP_PRINT = "print a text on the screen.";
+
+Blockly.Msg.ALERT_MAX_ACTOR = "maximum actor [%1] reached !\nyou cannot create another one.";

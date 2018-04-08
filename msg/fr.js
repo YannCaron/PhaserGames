@@ -99,3 +99,5 @@ Blockly.Msg.TOOLTIP_GAME_DEBUG_VAR = "affiche les indications de déboguage d'un
 
 Blockly.Msg.TOOLTIP_CAMERA_FOLLOW = "la caméra suit l'acteur.";
 Blockly.Msg.TOOLTIP_PRINT = "écrit un texte à l'écran.";
+
+Blockly.Msg.ALERT_MAX_ACTOR = "le nombre maximum d'acteur [%1] à été ateint.\nvous ne pouvez plus en créer d'autre.";
