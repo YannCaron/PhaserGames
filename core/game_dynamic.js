@@ -36,6 +36,18 @@ Blockly.gameDynamic.buildDebugVar = function (value) {
         '</block>';
 }
 
+Blockly.gameDynamic.GAME_ALWAYS =
+    '<block type="game_always"></block>';
+
+Blockly.gameDynamic.GAME_EVERY =
+    '<block type="game_every"></block>';
+
+Blockly.gameDynamic.KEY_EVENT =
+    '<block type="key_event"></block>';
+
+Blockly.gameDynamic.MOUSE_EVENT =
+    '<block type="mouse_event"></block>';
+
 Blockly.gameDynamic.gameFlyoutCallback = function (workspace) {
     var xmlList = [];
 
@@ -45,8 +57,15 @@ Blockly.gameDynamic.gameFlyoutCallback = function (workspace) {
         else if (b.type) -1;
         else 0;
     });
-    console.log(variables);
     var actorVariables = workspace.getVariablesOfType(Blockly.Block.ACTOR_TYPE);
+
+    // debug
+    xmlList.push(Blockly.Xml.xmlToDom(Blockly.dynamic.buildLabel(Blockly.Msg.BLOCK_DEBUG)));
+    xmlList.push(Blockly.Xml.xmlToDom(Blockly.gameDynamic.GAME_DEBUG));
+
+    if (variables.length > 0) {
+        xmlList.push(Blockly.Xml.xmlToDom(Blockly.gameDynamic.buildDebugVar(variables[0].name)));
+    }
 
     // properties
     xmlList.push(Blockly.Xml.xmlToDom(Blockly.dynamic.buildLabel(Blockly.Msg.OBJECT_PROPERTIES)));
@@ -66,22 +85,11 @@ Blockly.gameDynamic.gameFlyoutCallback = function (workspace) {
 
     // events
     xmlList.push(Blockly.Xml.xmlToDom(Blockly.dynamic.buildLabel(Blockly.Msg.OBJECT_EVENTS)));
+    xmlList.push(Blockly.Xml.xmlToDom(Blockly.gameDynamic.GAME_ALWAYS));
+    xmlList.push(Blockly.Xml.xmlToDom(Blockly.gameDynamic.GAME_EVERY));
+    xmlList.push(Blockly.Xml.xmlToDom(Blockly.gameDynamic.KEY_EVENT));
+    xmlList.push(Blockly.Xml.xmlToDom(Blockly.gameDynamic.MOUSE_EVENT));
 
-    // debug
-    xmlList.push(Blockly.Xml.xmlToDom(Blockly.dynamic.buildLabel(Blockly.Msg.BLOCK_DEBUG)));
-    xmlList.push(Blockly.Xml.xmlToDom(Blockly.gameDynamic.GAME_DEBUG));
-    
-    if (variables.length > 0) {
-        xmlList.push(Blockly.Xml.xmlToDom(Blockly.gameDynamic.buildDebugVar(variables[0].name)));
-    }
 
     return xmlList;
 };
-
-/*
-			<label text="Events"></label>
-			<block type="game_always"></block>
-			<block type="game_every"></block>
-			<block type="key_event"></block>
-			<block type="mouse_event"></block>
-*/

@@ -81,19 +81,17 @@ Blockly.Blocks['debug_var'] = {
   }
 };
 
-// TODO here
-
 Blockly.Blocks['camera_follow'] = {
   init: function () {
     this.appendDummyInput()
-      .appendField("camera follow");
+      .appendField(Blockly.Msg.CAMERA_FOLLOW);
     this.appendValueInput("VAR")
       .setCheck(Blockly.Block.ACTOR_TYPE);
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(Blockly.Blocks.game.HUE);
-    this.setTooltip("");
+    this.setTooltip(Blockly.Msg.TOOLTIP_CAMERA_FOLLOW);
     this.setHelpUrl("");
 
     this.setOnChange(this.selectNearestVar);
@@ -105,7 +103,7 @@ Blockly.Blocks['camera_follow'] = {
 Blockly.Blocks['game_print'] = {
   init: function () {
     this.appendDummyInput()
-      .appendField("print at");
+      .appendField('%1 %2'.format(Blockly.Msg.PRINT, Blockly.Msg.AT));
     this.appendValueInput("X")
       .setCheck("Number")
       .appendField("x");
@@ -114,15 +112,18 @@ Blockly.Blocks['game_print'] = {
       .appendField("y");
     this.appendValueInput("TEXT")
       .setCheck("String")
-      .appendField("the text");
+      .appendField(Blockly.Msg.TEXT);
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(Blockly.Blocks.texts.HUE);
-    this.setTooltip("");
+    this.setTooltip(Blockly.Msg.TOOLTIP_PRINT);
     this.setHelpUrl("");
   }
 };
+
+
+// TODO here
 
 // Game::event
 Blockly.Blocks['game_always'] = {

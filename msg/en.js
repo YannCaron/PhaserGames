@@ -54,6 +54,9 @@ Blockly.Msg.BLOCK_ONCE = "once";
 Blockly.Msg.BLOCK_MOUSE_IN = "mouse in";
 Blockly.Msg.BLOCK_DEBUG = "debug";
 Blockly.Msg.BLOCK_VALUE_OF = "value of";
+Blockly.Msg.PRINT = "print";
+Blockly.Msg.AT = "at";
+Blockly.Msg.TEXT = "the text";
 
 Blockly.Msg.BLOCK_SECONDS = "seconds";
 
@@ -76,6 +79,8 @@ Blockly.Msg.BLOCK_IN = "in";
 Blockly.Msg.BLOCK_FROM = "from";
 Blockly.Msg.BLOCK_EVERY = "every";
 
+Blockly.Msg.CAMERA_FOLLOW = "camera follow";
+
 
 // tool tips
 Blockly.Msg.TOOLTIP_GAME_IMAGE = "select the actor image in set %1.";
@@ -92,3 +97,6 @@ Blockly.Msg.TOOLTIP_GAME_CREATE = "create the game.";
 Blockly.Msg.TOOLTIP_GAME_GET = "get the game property value.\nproperties are:\n%1";
 Blockly.Msg.TOOLTIP_GAME_DEBUG = "show the game debug information.";
 Blockly.Msg.TOOLTIP_GAME_DEBUG_VAR = "show a specific variable debug information.";
+
+Blockly.Msg.TOOLTIP_CAMERA_FOLLOW = "camera follow the actor.";
+Blockly.Msg.TOOLTIP_PRINT = "print a text on the screen.";

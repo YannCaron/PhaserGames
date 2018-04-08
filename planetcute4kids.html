@@ -5,7 +5,7 @@
     <!--<script src="http://cdn.jsdelivr.net/phaser/2.6.2/phaser.min.js"></script>-->
     <script src="js/phaser/2.6.2/phaser.min.js"></script>
     <script src="js/phaser-plugins/phaser-plugin-debug-arcade-physics.js"></script>
-    <script src="phaser4kids.js"></script>
+    <script src="core/phaser.js"></script>
 </head>
 <body>
 
@@ -73,12 +73,6 @@
             //player1.rotateOnCollide();
             //player2.rotateOnCollide();
 
-            game.addText(50, 50, function () {
-                return 'score: ' + life;
-            });
-
-
-
         }
 
         var previousEventDown = {};
@@ -86,27 +80,11 @@
         function update() {
             game.updateSystem();
             //player1.body.angularVelocity = 200;
-            game.onCollide('beetle', 'beetle', function(obj1, obj2) {
-                life -= 1;
-            }, true);
 
-            game.onKeyDown(Phaser.Keyboard.LEFT, function() {
-                player2.body.velocity.y = -500;
-            }, true);
-
-            game.onMouseLeftDowm(function () {
-                player2.body.velocity.y = -500;
-            }, true);
-
-            game.every(new Error().lineNumber, 1, function () {
-                life += 1;
-            });
         }
 
         function render() {
             game.renderSystem();
-            game.debug.text(game.time.fps || '--', 2, 14, "#cccccc");
-
         }
 
 
