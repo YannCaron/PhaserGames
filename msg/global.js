@@ -10,4 +10,4 @@ goog.require('Blockly.Msg');
 Blockly.Msg.IMAGE_HUE = '215';
 Blockly.Msg.GAME_HUE = '215';
 Blockly.Msg.ACTOR_HUE = '185';
-Blockly.Msg.EVENT_HUE = '45';
+Blockly.Msg.EVENT_HUE = '75';

@@ -1,6 +1,6 @@
 // create namespace
 Blockly.imageDynamic = Blockly.imageDynamic || {};
-Blockly.imageDynamic.BACKGROUND_CATEGORY = 'Background'
+//Blockly.imageDynamic.BACKGROUND_CATEGORY = 'Background'
 
 Blockly.imageDynamic.buildLabel = function (name) {
     return '<label text="' + name + '"></label>';
@@ -15,10 +15,10 @@ Blockly.imageDynamic.imageFlyoutCallback = function (workspace) {
 
     for (var category in Blockly4kids.gameImages) {
 
-        if (category != Blockly.imageDynamic.BACKGROUND_CATEGORY) {
+        //if (category != Blockly.imageDynamic.BACKGROUND_CATEGORY) {
             xmlList.push(Blockly.Xml.xmlToDom(Blockly.imageDynamic.buildLabel(category)));
             xmlList.push(Blockly.Xml.xmlToDom(Blockly.imageDynamic.buildImage(category)));
-        }
+        //}
     }
 
     return xmlList;

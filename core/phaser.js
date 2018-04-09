@@ -1,5 +1,9 @@
-// attributes
-
+// static
+Phaser.Game.getCurrentGame = function () {
+    if (Phaser.GAMES.length > 0) {
+        return Phaser.GAMES[0];
+    }
+}
 // overrided methods
 Phaser.Game.prototype.preloadSystem = function () {
     // initialize
@@ -15,9 +19,11 @@ Phaser.Game.prototype.createSystem = function () {
     this.initDebug();
     this.initActor();
     this.initPause();
+    this.initEvent();
 }
 
 Phaser.Game.prototype.updateSystem = function () {
+    this.updateEvent();
 }
 
 Phaser.Game.prototype.renderSystem = function () {

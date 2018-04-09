@@ -27,20 +27,20 @@ Phaser.Game.prototype.resume = function () {
 
 // static methods
 Phaser.Game.pauseCurrentGame = function () {
-    if (Phaser.GAMES.length > 0) {
-        Phaser.GAMES[0].pause();
+    if (Phaser.Game.getCurrentGame) {
+        Phaser.Game.getCurrentGame.pause();
     }
 }
 
 Phaser.Game.resumeCurrentGame = function () {
-    if (Phaser.GAMES.length > 0) {
-        Phaser.GAMES[0].resume();
+    if (Phaser.Game.getCurrentGame) {
+        Phaser.Game.getCurrentGame.resume();
     }
 }
 
 Phaser.Game.destroyCurrentGame = function () {
-    if (Phaser.GAMES.length > 0) {
-        Phaser.GAMES[0].destroy();
+    if (Phaser.Game.getCurrentGame) {
+        Phaser.Game.getCurrentGame.destroy();
         Phaser.GAMES = [];
     }
 }
