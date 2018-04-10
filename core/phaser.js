@@ -11,17 +11,17 @@ Phaser.Game.prototype.preloadSystem = function () {
 }
 Phaser.Game.prototype.createSystem = function () {
     this.physics.startSystem(Phaser.Physics.ARCADE);
-    this.input.keyboard.addKeyCapture(this.KEY_CAPTURES);
-    this.input.mouse.capture = true;
 
     this.initDebug();
     this.initActor();
     this.initPause();
     this.initEvent();
+    this.initTimer();
 }
 
 Phaser.Game.prototype.updateSystem = function () {
     this.updateEvent();
+    this.updateTimer();
 }
 
 Phaser.Game.prototype.renderSystem = function () {

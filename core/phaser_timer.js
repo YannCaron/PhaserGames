@@ -36,11 +36,11 @@ Phaser.Time.Timer.prototype.setInterval = function (interval) {
 Phaser.Game.prototype.timers = null;
 
 // override
-Phaser.Game.prototype.initEvent = function () {
+Phaser.Game.prototype.initTimer = function () {
     this.timers = [];
 }
 
-Phaser.Game.prototype.updateEvent = function () {
+Phaser.Game.prototype.updateTimer = function () {
     // loop on timers
     for (var i in this.timers) {
         this.timers[i].run();

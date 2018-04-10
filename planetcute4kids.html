@@ -52,7 +52,7 @@
             game.debugMode = true;
 
             var player = game.createActor('player', 'beetle', 100, 100);
-            player.body.velocity.x = -100;
+            //player.body.velocity.x = -100;
             //player.body.gravity.y = 1000;
             //player.body.collideWorldBounds = true;
             //player.setBounce(100);
@@ -62,9 +62,23 @@
             game.log('my log');
             game.addInfo('player', function() { return player; });
 
+            /*
             player.createTimer(500, function (timer, player) {
                 console.log(timer.count);
                 //timer.setInterval(2000);
+            });*/
+
+            game.onMouseLeftEnter(function () {
+                console.log('mouse left down');
+            });
+
+            game.onMouseLeft(function (event) {
+                console.log('mouse left is down');
+                event.setInterval(1000);
+            });
+
+            game.onMouseLeftExit(function () {
+                console.log('mouse left up');
             });
         }
 

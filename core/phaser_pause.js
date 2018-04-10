@@ -9,6 +9,7 @@ Phaser.Game.prototype.pause = null;
 // constructor
 Phaser.Game.prototype.initPause = function () {
     this.pause = false;
+    this.input.keyboard.addKeyCapture(this.KEY_CAPTURES);
 }
 
 // methods
