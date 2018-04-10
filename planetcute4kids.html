@@ -14,6 +14,7 @@
     <script src="core/phaser_debug.js"></script>
     <script src="core/phaser_pause.js"></script>
     <script src="core/phaser_actor.js"></script>
+    <script src="core/phaser_timer.js"></script>
     <script src="core/phaser_event.js"></script>
     <script src="core/phaser.js"></script>
 </head>
@@ -51,17 +52,19 @@
             game.debugMode = true;
 
             var player = game.createActor('player', 'beetle', 100, 100);
-            player.body.gravity.y = 1000;
-            player.body.collideWorldBounds = true;
-            player.setBounce(100);
-            player.setRotationFriction(100);
-            player.cameraFollow();
+            player.body.velocity.x = -100;
+            //player.body.gravity.y = 1000;
+            //player.body.collideWorldBounds = true;
+            //player.setBounce(100);
+            //player.setRotationFriction(100);
+            //player.cameraFollow();
 
             game.log('my log');
             game.addInfo('player', function() { return player; });
 
-            player.addTimer(new Error().lineNumber, Phaser.Time.Mode.IN, 1, function (player) {
-                console.log(player.game.time.now);
+            player.createTimer(500, function (timer, player) {
+                console.log(timer.count);
+                //timer.setInterval(2000);
             });
         }
 

@@ -20,4 +20,3 @@ Number.prototype.radToDeg = function (rad) {
     return rad * 180 / Math.PI;
 }
 
-var hash = objectHash.sha1;

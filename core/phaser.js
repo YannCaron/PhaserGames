@@ -1,12 +1,10 @@
 // static
-Phaser.Game.getCurrentGame = function () {
-    if (Phaser.GAMES.length > 0) {
-        return Phaser.GAMES[0];
-    }
-}
+Phaser.Game.current = null;
+
 // overrided methods
 Phaser.Game.prototype.preloadSystem = function () {
     // initialize
+    Phaser.Game.current = this;
     this.time.advancedTiming = true;
 
     //this.load.bitmapFont('font', 'assets/bitmapfont/emulogic.png', 'assets/bitmapfont/emulogic.fnt');
